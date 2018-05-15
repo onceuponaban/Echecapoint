@@ -49,7 +49,37 @@ class BoardCoordinates
      */
     public function toString():String
     {
+        $StringBoardCoordinates = new String();
         
+        switch($this->file)
+        {
+            case 0:
+                $StringBoardCoordinates = 'a';
+                break;
+            case 1:
+                $StringBoardCoordinates = 'b';
+                break;
+            case 2:
+                $StringBoardCoordinates = 'c';
+                break;
+            case 3:
+                $StringBoardCoordinates = 'd';
+                break;
+            case 4:
+                $StringBoardCoordinates = 'e';
+                break;
+            case 5:
+                $StringBoardCoordinates = 'f';
+                break;
+            case 6:
+                $StringBoardCoordinates = 'g';
+                break;
+            case 7:
+                $StringBoardCoordinates = 'h';
+                break;
+        }
+        
+        return $StringBoardCoordinates . strval($this->rank);
     }
     
     /**
