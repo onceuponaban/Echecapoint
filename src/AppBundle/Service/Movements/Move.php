@@ -1,8 +1,8 @@
 <?php
-namespace Service\Movements;
+namespace AppBundle\Service\Movements;
 
-use Service\Board\BoardCoordinates;
-use Service\Pieces\Piece;
+use AppBundle\Service\Board\BoardCoordinates;
+use AppBundle\Service\Pieces\Piece;
 
 /**
  * @name Move

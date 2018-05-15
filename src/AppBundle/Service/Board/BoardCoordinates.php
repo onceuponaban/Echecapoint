@@ -1,5 +1,5 @@
 <?php
-namespace Service\Board;
+namespace AppBundle\Service\Board;
 
 /**
  * @name BoardCoordinates

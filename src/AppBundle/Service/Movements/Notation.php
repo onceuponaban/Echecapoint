@@ -1,5 +1,5 @@
 <?php
-namespace Service\Movements;
+namespace AppBundle\Service\Movements;
 
 abstract class Notation
 {

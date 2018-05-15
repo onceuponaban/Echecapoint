@@ -1,7 +1,7 @@
 <?php
-namespace Service\Pieces;
+namespace AppBundle\Service\Pieces;
 
-use Service\Board\BoardCoordinates;
+use AppBundle\Service\Board\BoardCoordinates;
 
 /**
  * @name Piece

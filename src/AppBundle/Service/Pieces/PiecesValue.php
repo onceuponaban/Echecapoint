@@ -1,5 +1,5 @@
 <?php
-namespace Service\Pieces;
+namespace AppBundle\Service\Pieces;
 
 /**
  * @name PiecesValue
