@@ -79,7 +79,7 @@ class BoardCoordinates
                 break;
         }
         
-        return $StringBoardCoordinates . strval($this->rank);
+        return $StringBoardCoordinates . strval($this->rank - 1);
     }
     
     /**
