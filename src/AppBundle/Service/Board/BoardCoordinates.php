@@ -4,7 +4,7 @@ namespace Service\Board;
 /**
  * @name BoardCoordinates
  *
- * @desc Représente les coordonnées d'une case de l'échiquier
+ * @desc ReprÃ©sente les coordonnÃ©es d'une case de l'Ã©chiquier
  *
  * @author Luca Mayer-Dalverny
  */
@@ -26,14 +26,14 @@ class BoardCoordinates
     
     /**
      * @name isOnTheBoard
-     * @desc Si les coordonnées sont sur le plateau
-     * @var boolean : true, les coordonnées sont sur le plateau | false, les coordonnées ne sont pas sur le plateau
+     * @desc Si les coordonnÃ©es sont sur le plateau
+     * @var boolean : true, les coordonnÃ©es sont sur le plateau | false, les coordonnÃ©es ne sont pas sur le plateau
      */
     private $isOnTheBoard;
     
     /**
      * @method construct
-     * @desc Instancie l'objet à partir de la ligne et de la colonne de la case
+     * @desc Instancie l'objet Ã  partir de la ligne et de la colonne de la case
      * @param int $file : La colonne de la case
      * @param int $rank : La ligne de la case
      */
@@ -44,7 +44,7 @@ class BoardCoordinates
     
     /**
      * @method toString
-     * @desc Représente la coordonnées de la case sous forme d'une chaine de caractère
+     * @desc ReprÃ©sente la coordonnÃ©es de la case sous forme d'une chaine de caractÃ¨re
      * @return String
      */
     public function toString():String
@@ -54,7 +54,7 @@ class BoardCoordinates
     
     /**
      * @method setFile
-     * @desc Change la valeur de la colonne des coordonnées de la case
+     * @desc Change la valeur de la colonne des coordonnÃ©es de la case
      * @param int $newFile
      */
     public function setFile(int $newFile)
@@ -69,7 +69,7 @@ class BoardCoordinates
     
     /**
      * @method setRank
-     * @desc Change la valeur de la ligne des coordonnées de la case
+     * @desc Change la valeur de la ligne des coordonnÃ©es de la case
      * @param int $newRank
      */
     public function setRank(int $newRank)
