@@ -3,6 +3,8 @@ namespace Service\Movements;
 
 abstract class Notation
 {
+    const MOVE = '-';
+    
     const CAPTURE = 'x';
     
     const CHECK = '+';
