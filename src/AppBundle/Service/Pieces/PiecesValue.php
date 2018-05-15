@@ -4,7 +4,7 @@ namespace Service\Pieces;
 /**
  * @name PiecesValue
  *
- * @desc Définie les valeurs des pièces et des coups lors d'une partie d'échecs à points
+ * @desc DÃ©finie les valeurs des piÃ¨ces et des coups lors d'une partie d'Ã©checs Ã  points
  *
  * @author Luca Mayer-Dalverny
  */
@@ -19,7 +19,7 @@ abstract class PiecesValue
     
     /**
      * @name CHECK
-     * @desc La valeur d'une mise en échec du roi adverse
+     * @desc La valeur d'une mise en Ã©chec du roi adverse
      * @var integer
      */
     const CHECK = 2;
@@ -54,7 +54,7 @@ abstract class PiecesValue
     
     /**
      * @name MATE
-     * @desc La valeur de la mise en échec et mat du roi adverse
+     * @desc La valeur de la mise en Ã©chec et mat du roi adverse
      * @var integer
      */
     const MATE = 20;
