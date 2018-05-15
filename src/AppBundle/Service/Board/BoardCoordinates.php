@@ -49,7 +49,7 @@ class BoardCoordinates
      */
     public function toString():String
     {
-        $StringBoardCoordinates = new String();
+        $StringBoardCoordinates;
         
         switch($this->file)
         {
