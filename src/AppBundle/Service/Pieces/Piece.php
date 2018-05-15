@@ -6,7 +6,7 @@ use Service\Board\BoardCoordinates;
 /**
  * @name Piece
  *
- * @desc Représente une piece du jeu d'échec
+ * @desc ReprÃ©sente une piece du jeu d'Ã©chec
  *
  * @author Luca Mayer-Dalverny
  */
@@ -14,21 +14,21 @@ abstract class Piece
 {
     /**
      * @name coordinates
-     * @desc Les coordonnées de la case où se trouve la pièce
+     * @desc Les coordonnÃ©es de la case oÃ¹ se trouve la piÃ¨ce
      * @var BoardCoordinates
      */
     private $coordinates;
     
     /**
      * @name isWhite
-     * @desc La couleur de la pièce. true, blanche / false, noire
+     * @desc La couleur de la piÃ¨ce. true, blanche / false, noire
      * @var bool
      */
     private $isWhite;
     
     /**
      * @name value
-     * @desc La valeur de la pièce en points
+     * @desc La valeur de la piÃ¨ce en points
      * @var PiecesValue
      */
     private $value;
@@ -43,14 +43,14 @@ abstract class Piece
     
     /**
      * @method getPossibleMovesCoordinates
-     * @desc Renvoie les coordonnées des cases où la pièce peut se déplacer, sans tenir compte des autres pièces de l'échiquier
+     * @desc Renvoie les coordonnÃ©es des cases oÃ¹ la piÃ¨ce peut se dÃ©placer, sans tenir compte des autres piÃ¨ces de l'Ã©chiquier
      * @return array : Un tableau de BoardCoordinates
      */
     public abstract function getPossibleMovesCoordinates():array;
     
     /**
      * @method ToString
-     * @desc Renvoie la chaine de caractère contenant la lettre de la pièce suivi de ses coordonnées sur le plateau
+     * @desc Renvoie la chaine de caractÃ¨re contenant la lettre de la piÃ¨ce suivi de ses coordonnÃ©es sur le plateau
      * @return String
      */
     public abstract function toString():String;
