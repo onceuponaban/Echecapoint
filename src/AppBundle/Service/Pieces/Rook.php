@@ -1,8 +1,8 @@
 <?php
-namespace Service\Pieces;
+namespace AppBundle\Service\Pieces;
 
-use Service\Board\BoardCoordinates;
-use Service\Movements\Notation;
+use AppBundle\Service\Board\BoardCoordinates;
+use AppBundle\Service\Movements\Notation;
 
 /**
  * @name Rook
