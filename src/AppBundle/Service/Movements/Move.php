@@ -7,7 +7,7 @@ use Service\Pieces\Piece;
 /**
  * @name Move
  *
- * @desc Représente un déplacement aux échecs
+ * @desc ReprÃ©sente un dÃ©placement aux Ã©checs
  *
  * @author Luca Mayer-Dalverny
  */
@@ -15,14 +15,14 @@ class Move
 {
     /**
      * @name piece
-     * @desc La piece qui se déplace
+     * @desc La piece qui se dÃ©place
      * @var Piece
      */
     private $piece;
     
     /**
      * @name coordinates
-     * @desc Les coordonnées où l'on veut déplacer la pièce
+     * @desc Les coordonnÃ©es oÃ¹ l'on veut dÃ©placer la piÃ¨ce
      * @var BoardCoordinates
      */
     private $coordinates;
