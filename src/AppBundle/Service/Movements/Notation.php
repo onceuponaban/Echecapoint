@@ -7,6 +7,8 @@ abstract class Notation
     
     const CAPTURE = 'x';
     
+    const PROMOTION = '=';
+    
     const CHECK = '+';
     
     const MATE = '#';
