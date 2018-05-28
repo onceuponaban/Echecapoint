@@ -72,15 +72,15 @@ class BoardCoordinatesTest extends \PHPUnit_Framework_TestCase
     {
         $coordinatesMin = new BoardCoordinates(-1,1);
         
-        self::assertTrue($coordinatesMin->isOnTheBoard(),"");
+        self::assertFalse($coordinatesMin->isOnTheBoard(),"");
         
         $coordinatesMax = new BoardCoordinates(8,8);
         
-        self::assertTrue($coordinatesMax->isOnTheBoard(),"");
+        self::assertFalse($coordinatesMax->isOnTheBoard(),"");
         
         $randomCoordinates = new BoardCoordinates(-4,6);
         
-        self::assertTrue($randomCoordinates->isOnTheBoard(),"");
+        self::assertFalse($randomCoordinates->isOnTheBoard(),"");
     }
 }
 
