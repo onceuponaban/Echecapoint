@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\DBAL\Types\JsonArrayType;
 
 /**
  * User
@@ -11,7 +13,7 @@ use Symfony\Component\Validator\Constraints\Collection;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -25,9 +27,9 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="pseudo", type="string", length=255, unique=true)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
-    private $pseudo;
+    private $username;
 
     /**
      * @var int
@@ -56,6 +58,29 @@ class User
      * @ORM\Column(name="nbPtsLaisses", type="integer")
      */
     private $nbPtsLaisses;
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="password",type="string")
+     */
+    private $password;
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="salt",type="string")
+     */
+    
+    private $salt;
+    
+    /**
+     * @var JsonArrayType
+     * 
+     * @ORM\Column(name="roles",type="json_array")
+     * 
+     */
+    private $roles;
 
     
     /**
@@ -85,9 +110,9 @@ class User
      *
      * @return User
      */
-    public function setPseudo($pseudo)
+    public function setUsername($pseudo)
     {
-        $this->pseudo = $pseudo;
+        $this->username = $pseudo;
 
         return $this;
     }
@@ -97,9 +122,9 @@ class User
      *
      * @return string
      */
-    public function getPseudo()
+    public function getUsername()
     {
-        return $this->pseudo;
+        return $this->username;
     }
 
     /**
@@ -238,4 +263,36 @@ class User
     {
         return $this->play;
     }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Symfony\Component\Security\Core\User\UserInterface::eraseCredentials()
+     */
+    public function eraseCredentials()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+    public function getPassword()
+    {
+        
+        return $this->password;
+    }
+
+    public function getSalt()
+    {
+        return $this->salt;
+        
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
+        
+    }
+
+
+
+    
+    
 }
