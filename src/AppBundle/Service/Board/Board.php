@@ -119,7 +119,7 @@ class Board
                     }
                 }
             }
-            //On r�cup�re la liste des déplacements possibles du roi en question
+            //On récupère la liste des déplacements possibles du roi en question
             $KingMoves = $King->getPossibleMovesCoordinates();
             
             //Pour tous les mouvements possibles de la liste
