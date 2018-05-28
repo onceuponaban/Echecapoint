@@ -43,7 +43,9 @@ class Move
      */
     public function __construct(Piece $pieceToMove, BoardCoordinates $coordinatesToGo, bool $isACapture)
     {
-        
+        $this->piece = $pieceToMove;
+        $this->coordinates = $coordinatesToGo;
+        $this->isACapture = $isACapture;
     }
     
     function toString():String
