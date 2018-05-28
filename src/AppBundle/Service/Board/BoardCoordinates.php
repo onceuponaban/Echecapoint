@@ -82,7 +82,7 @@ class BoardCoordinates
                     break;
             }
             
-            return $StringBoardCoordinates . strval($this->rank - 1);
+            return $StringBoardCoordinates . strval($this->rank + 1);
         }
         return "";
     }
