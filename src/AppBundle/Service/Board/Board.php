@@ -4,6 +4,11 @@ namespace Service\Board;
 use AppBundle\Service\Movements\Move;
 use AppBundle\Service\Pieces\King;
 use AppBundle\Service\Pieces\Piece;
+use AppBundle\Service\Pieces\Pawn;
+use AppBundle\Service\Pieces\Bishop;
+use AppBundle\Service\Pieces\Knight;
+use AppBundle\Service\Pieces\Rook;
+use AppBundle\Service\Pieces\Queen;
 
 /**
  * @name Board
@@ -38,9 +43,33 @@ class Board
     const WHITE = 1;
     const BLACK = 0;
     
+    public function getPossibleMovesOf(Piece $pieceToGetMoves):array
+    {
+        switch ($pieceToGetMoves)
+        {
+            case Pawn::class:
+                break;
+                
+            case Bishop::class:
+                break;
+                
+            case Knight::class:
+                break;
+                
+            case Rook::class:
+                break;
+                
+            case Queen::class:
+                break;
+                
+            case King::class:
+                break;
+                
+        }
+    }
     
-    
-    public function checkOf(int $color):bool{
+    public function checkOf(int $color):bool
+    {
         
         //Recherche des coordonnées du roi de la couleur spécifiée
         foreach ($this->pieceList  as $piece){
@@ -70,7 +99,8 @@ class Board
         }
     }
     
-    public function checkmateOf(int $color):bool{
+    public function checkmateOf(int $color):bool
+    {
         //Le roi de la couleur est-il en echec
         if($this->checkOf($color)){
             //On sauvegarde la liste de pièce actuelle
@@ -118,7 +148,8 @@ class Board
         
     }
     
-    public function stalemateOf(int $color){
+    public function stalemateOf(int $color)
+    {
         //S'il y a echec
         if($this->checkOf($color)){
             //alors il n'y a pas de pat
