@@ -45,5 +45,22 @@ class Move
     {
         
     }
+    
+    function toString():String
+    {
+        $moveType;
+        if($this->isACapture)
+        {
+            $moveType = Notation::CAPTURE;
+        }
+        else
+        {
+            $moveType = Notation::MOVE;
+        }
+        
+        //Ajouter ici le cas de la promotion
+        
+        return $this->piece->toString().$moveType.$this->coordinates->toString();
+    }
 }
 
