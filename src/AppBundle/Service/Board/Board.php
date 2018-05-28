@@ -1,6 +1,7 @@
 <?php
 namespace Service\Board;
 
+use AppBundle\Service\Movements\Move;
 use AppBundle\Service\Pieces\King;
 use AppBundle\Service\Pieces\Piece;
 
@@ -152,6 +153,15 @@ class Board
         }
     }
     
+    public function updateFromString(string $gameNotation)
+    {
+        
+    }
+    
+    public function updateFromMove(Move $moveToAdd)
+    {
+        
+    }
     
 }
 
