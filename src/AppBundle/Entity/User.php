@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\Collection;
 
 /**
- * Joueur
+ * User
  *
- * @ORM\Table(name="joueur")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\JoueurRepository")
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class Joueur
+class User
 {
     /**
      * @var int
@@ -62,7 +62,7 @@ class Joueur
      * 
      * @var Collection
      * 
-     * @ORM\OneToMany(targetEntity="Play",mappedBy="joueur")
+     * @ORM\OneToMany(targetEntity="Play",mappedBy="user")
      *  
      */
     
@@ -83,7 +83,7 @@ class Joueur
      *
      * @param string $pseudo
      *
-     * @return Joueur
+     * @return User
      */
     public function setPseudo($pseudo)
     {
@@ -107,7 +107,7 @@ class Joueur
      *
      * @param integer $nbPartiesJouees
      *
-     * @return Joueur
+     * @return User
      */
     public function setNbPartiesJouees($nbPartiesJouees)
     {
@@ -131,7 +131,7 @@ class Joueur
      *
      * @param integer $nbPartiesGagnees
      *
-     * @return Joueur
+     * @return User
      */
     public function setNbPartiesGagnees($nbPartiesGagnees)
     {
@@ -155,7 +155,7 @@ class Joueur
      *
      * @param integer $nbPtsTotal
      *
-     * @return Joueur
+     * @return User
      */
     public function setNbPtsTotal($nbPtsTotal)
     {
@@ -179,7 +179,7 @@ class Joueur
      *
      * @param integer $nbPtsLaisses
      *
-     * @return Joueur
+     * @return User
      */
     public function setNbPtsLaisses($nbPtsLaisses)
     {
@@ -210,7 +210,7 @@ class Joueur
      *
      * @param \AppBundle\Entity\Play $play
      *
-     * @return Joueur
+     * @return User
      */
     public function addPlay(\AppBundle\Entity\Play $play)
     {

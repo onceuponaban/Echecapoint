@@ -32,14 +32,14 @@ class Play
     
     /**
      * 
-     * @var Joueur
+     * @var User
      * 
-     * @ORM\ManyToOne(targetEntity="Joueur", inversedBy="play")
-     * @ORM\JoinColumn(name="joueur_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="play")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * 
      */
     
-    private $joueur;
+    private $user;
     
     
     /**
@@ -88,27 +88,27 @@ class Play
     }
 
     /**
-     * Set joueur
+     * Set user
      *
-     * @param \AppBundle\Entity\Joueur $joueur
+     * @param \AppBundle\Entity\User $user
      *
      * @return Play
      */
-    public function setJoueur(\AppBundle\Entity\Joueur $joueur = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
-        $this->joueur = $joueur;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get joueur
+     * Get user
      *
-     * @return \AppBundle\Entity\Joueur
+     * @return \AppBundle\Entity\User
      */
-    public function getJoueur()
+    public function getUser()
     {
-        return $this->joueur;
+        return $this->user;
     }
 
     /**
