@@ -1,6 +1,7 @@
 <?php
 namespace Service\Board;
 
+use AppBundle\Service\Pieces\King;
 use AppBundle\Service\Pieces\Piece;
 
 /**
@@ -88,18 +89,18 @@ class Board
             //Pour tous les mouvements possibles de la liste
             foreach ($KingMoves as $move){
                 //On déplace le roi
-                $King->coordinates->setFileAndRank($move->getFile(),$move->getRank());
+                $King->moveTo($move);
                 //Si le roi n('est plus en echec
                 if(!self::echecToKingOf($color)){
                     //On replace le roi
-                    $King->coordinates->setFileAndRank($KingCoordinates->getFile(),$KingCoordinates->getRank());
+                    $King->moveTo($KingCoordinates);
                     //Il n'y a pas echec et mat
                     return false;  
                 }
             }
             //Pour tous les déplacements possibles du roi, ce dernier est toujours en echec
             //On replace le roi a sa position initiale
-            $King->coordinates->setFileAndRank($KingCoordinates->getFile(),$KingCoordinates->getRank());
+            $King->moveTo($KingCoordinates);
             //On est en echec et mat
             return true;
             
@@ -130,7 +131,7 @@ class Board
                     //On teste chacun des mouvements
                     foreach ($MovePossible as $move){
                         //On bouge la pièce
-                        $piece->coordinates->setFileAndRank($move->getFile(),$move->getRank());
+                        $piece->moveTo($move);
                         //On teste s'il y a echec au roi dans cete configuration
                         if(!self::echecToKingOf($color)){
                             //Le roi n'est pas mis en echec alors il n'y a a pas de pat, on remet le plateau à sa place originelle
@@ -139,7 +140,7 @@ class Board
                             return false;
                         }
                     }
-                    //On replace la piece a ses valeurs initiales
+                    //On replace la piece à ses valeurs initiales
                     $piece=$savePiece;
                 }
             }
