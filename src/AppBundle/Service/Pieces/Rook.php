@@ -16,16 +16,16 @@ class Rook extends Piece
 {
     public function getPossibleMovesCoordinates(): array
     {
-        $PossibleMovesList = array();
+        $possibleMovesList = array();
         for($i = 0; $i < 8; $i++)
         {
             if(!($i == $this->coordinates->getFile())) //Pour toutes les colonnes autre que celle de la pièce elle même
-                $PossibleMovesList[] = new BoardCoordinates($i, $this->coordinates->getRank()); //On rajoute une coordonnée sur la même ligne
+                $possibleMovesList[] = new BoardCoordinates($i, $this->coordinates->getRank()); //On rajoute une coordonnée sur la même ligne
             if(!($i == $this->coordinates->getRank())) //Pour toutes les lignes autre que celle de la pièce elle même
-                $PossibleMovesList[] = new BoardCoordinates($this->coordinates->getFile(), $i); //On rajoute une coordonnée sur la même colonne
+                $possibleMovesList[] = new BoardCoordinates($this->coordinates->getFile(), $i); //On rajoute une coordonnée sur la même colonne
                 
         }
-        return $PossibleMovesList;
+        return $possibleMovesList;
     }
 
     public function toString(): String
