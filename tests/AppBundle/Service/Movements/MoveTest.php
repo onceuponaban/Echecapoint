@@ -20,5 +20,10 @@ class MoveTest extends \PHPUnit_Framework_TestCase
         
         self::assertEquals("Qd4xe5",$move->toString());
     }
+    
+    public static function fromString(string $stringMove):Move
+    {
+        return null;
+    }
 }
 
