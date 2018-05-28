@@ -50,5 +50,10 @@ class Knight extends Piece
         $this->value = PiecesValue::KNIGHT;
     }
     
+    public function moveTo(BoardCoordinates $newCoordinates): bool
+    {
+        return false;
+    }
+    
 }
 

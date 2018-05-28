@@ -52,5 +52,11 @@ class Bishop extends Piece
         $this->value = PiecesValue::BISHOP;
     }
     
+    public function moveTo(BoardCoordinates $newCoordinates): bool
+    {
+        return false;
+    }
+
+    
 }
 
