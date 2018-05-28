@@ -1,7 +1,5 @@
 <?php
-namespace Service\Movements;
-
-use AppBundle\Service\Movements\Move;
+namespace AppBundle\Service\Movements;
 
 /**
  * @name Turn
@@ -33,9 +31,19 @@ class Turn
      */
     private $blackMove;
     
-    public function __construct()
+    public function __construct(int $turnNumber, Move $whiteMove, Move $blackMove)
     {
+        if($turnNumber > 0)
+        {
+            $this->turnNumber = $turnNumber;
+        }
+        else
+        {
+            $this->turnNumber = 1;
+        }
         
+        $this->whiteMove = $whiteMove;
+        $this->blackMove = $blackMove;
     }
     
     /**
