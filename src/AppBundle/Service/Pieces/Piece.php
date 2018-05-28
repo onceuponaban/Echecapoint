@@ -49,13 +49,6 @@ abstract class Piece
     public abstract function moveTo(BoardCoordinates $newCoordinates):bool;
     
     /**
-     * @method getPossibleMovesCoordinates
-     * @desc Renvoie les coordonnées des cases où la pièce peut se déplacer, sans tenir compte des autres pièces de l'échiquier
-     * @return array : Un tableau de BoardCoordinates
-     */
-    public abstract function getPossibleMovesCoordinates():array;
-    
-    /**
      * @method ToString
      * @desc Renvoie la chaine de caractère contenant la lettre de la pièce suivi de ses coordonnées sur le plateau
      * @return String

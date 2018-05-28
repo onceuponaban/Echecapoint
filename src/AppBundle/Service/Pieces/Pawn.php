@@ -16,17 +16,12 @@ class Pawn extends Piece
 {
     private $hasMoved;
     
-    public function getPossibleMovesCoordinates(): array
+    /**
+     * @return boolean
+     */
+    public function getHasMoved()
     {
-        $possibleMovesList = array();
-        $i = $this->coordinates->getFile();
-        $j = $this->coordinates->getRank();
-        
-        $possibleMovesList[] = new BoardCoordinates($i+1,$j);
-        if(!$this->hasMoved) //si le pion n'a pas bougé, il peut avancer de deux cases
-            $possibleMovesList[] = new BoardCoordinates($i+2,$j);
-        
-        return $possibleMovesList;
+        return $this->hasMoved;
     }
     
     public function toString(): String
@@ -44,6 +39,13 @@ class Pawn extends Piece
     
     public function moveTo(BoardCoordinates $newCoordinates): bool
     {
+        if($newCoordinates->isOnTheBoard())
+        {
+            $this->coordinates = $newCoordinates;
+            if(!$this->hasMoved)
+                $this->hasMoved = true;
+            return true;
+        }
         return false;
     }
     

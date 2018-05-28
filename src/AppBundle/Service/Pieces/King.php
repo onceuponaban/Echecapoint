@@ -14,27 +14,13 @@ use AppBundle\Service\Movements\Notation;
 
 class King extends Piece
 {
-    public function getPossibleMovesCoordinates(): array
+    private $hasMoved;
+
+    public function getHasMoved()
     {
-        $possibleMovesList = array();
-        $i = $this->coordinates->getFile();
-        $j = $this->coordinates->getRank();
-        
-        for($k=$i-1;$k<=$i+1;$k++) //On vérifie chaque case dans une grille 3x3 centrée sur la pièce
-        {
-            for($l=$j-1;$l<=$j+1;$l++)
-            {
-                $moveCandidate = new BoardCoordinates($k, $l);
-                if(($k != $i && $l != $j)&&($moveCandidate->isOnTheBoard())) //si les coordonnées sont valides et ne sont pas la pièce elle même
-                {
-                    $possibleMovesList = $moveCandidate;
-                }
-            }
-        }
-        
-        return $possibleMovesList;
+        return $this->hasMoved;
     }
-    
+
     public function toString(): String
     {
         return Notation::KING . $this->coordinates->toString();
@@ -45,10 +31,18 @@ class King extends Piece
         $this->coordinates = $coordinates;
         $this->isWhite = $isWhite;
         $this->value = 0; //le roi ne peut pas être pris, il n'a donc pas de valeur!
+        $this->hasMoved = false;
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool
     {
+        if($newCoordinates->isOnTheBoard())
+        {
+            $this->coordinates = $newCoordinates;
+            if(!$this->hasMoved)
+                $this->hasMoved = true;
+            return true;
+        }
         return false;
     }
     
