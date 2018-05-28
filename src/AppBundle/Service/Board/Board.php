@@ -44,8 +44,8 @@ class Board
         foreach ($this->pieceList  as $piece){
             //Si la piece dans la list est un roi
             if($piece==King::class){
-                //Si le roi est blanc et la couleur de recherche aussi
-                if(($piece->isWhite && $color==WHITE)||(!$piece->isWhite && $color==BLACK)){
+                //Si le roi et la couleur de recherche sont les mêmes
+                if(!($piece->isWhite xor $color==WHITE)||!($piece->isWhite xor $color==BLACK)){
                  $KingCoordinates=$piece.getcoordinates();
                 }
             } 
@@ -54,7 +54,7 @@ class Board
         //Pour toutes les pièce de l'autre couleur on vérifie si elles peuvent mettre le roi en echec 
         
         foreach ($this->pieceList as $piece){
-            if(($piece->isWhite && $color==BLACK)||(!$piece->isWhite && $color==WHITE)){
+            if(($piece->isWhite xor $color==BLACK)||($piece->isWhite xor $color==WHITE)){
                 //test coup possible vers $KingCoordinates
                 //si le coup est possible
                 //return true;
@@ -76,7 +76,7 @@ class Board
                 //Si la piece dans la list est un roi
                 if($piece==King::class){
                     //Si le roi est la couleur de recherche sont les mêmes
-                    if(($piece->isWhite && $color==WHITE)||(!$piece->isWhite && $color==BLACK)){
+                    if(!($piece->isWhite xor $color==WHITE)||!($piece->isWhite xor $color==BLACK)){
                         $KingCoordinates=$piece.getcoordinates();
                         $King = $piece;
                     }
@@ -111,6 +111,41 @@ class Board
         }
         
         
+    }
+    
+    public function Pat(int $color){
+        //S'il y a echec
+        if(self::echecToKingOf($color)){
+            //alors il n'y a pas de pat
+            return false;
+        }
+        else{
+            $savePieceList = $this->pieceList;
+            foreach ($this->pieceList as $piece){
+                //Si la piece et la couleur sont les mêmes
+                if(!($piece->isWhite xor $color==WHITE)||!($piece->isWhite xor $color==BLACK)){
+                    //On récupère les mouvement possibles
+                    $savePiece = $piece;
+                    $MovePossible = $piece->getPossibleMoves();
+                    //On teste chacun des mouvements
+                    foreach ($MovePossible as $move){
+                        //On bouge la pièce
+                        $piece->coordinates->setFileAndRank($move->getFile(),$move->getRank());
+                        //On teste s'il y a echec au roi dans cete configuration
+                        if(!self::echecToKingOf($color)){
+                            //Le roi n'est pas mis en echec alors il n'y a a pas de pat, on remet le plateau à sa place originelle
+                            $piece = $savePiece;
+                            $this->pieceList = $savePieceList;
+                            return false;
+                        }
+                    }
+                    //On replace la piece a ses valeurs initiales
+                    $piece=$savePiece;
+                }
+            }
+            //On a testé tous les mouvements sans en trouver un ne mettant pas le roi en echec, alors il y a pat
+            return TRUE;
+        }
     }
     
     
