@@ -39,7 +39,7 @@ class Board
     
     
     
-    public function echecToKingOf(int $color):bool{
+    public function checkOf(int $color):bool{
         
         //Recherche des coordonnées du roi de la couleur spécifiée
         foreach ($this->pieceList  as $piece){
@@ -66,7 +66,7 @@ class Board
         }
     }
     
-    public function echecAndMat(int $color):bool{
+    public function checkmateOf(int $color):bool{
         //Le roi de la couleur est-il en echec
         if(self::echecToKingOf($color)){
             //On sauvegarde la liste de pièce actuelle
@@ -114,7 +114,7 @@ class Board
         
     }
     
-    public function Pat(int $color){
+    public function stalemateOf(int $color){
         //S'il y a echec
         if(self::echecToKingOf($color)){
             //alors il n'y a pas de pat
