@@ -55,5 +55,10 @@ class Turn
     {
         return $this->turnNumber.". ".$this->whiteMove->toString()." ".$this->blackMove->toString().";";
     }
+    
+    public static function fromString(string $stringTurn):Turn
+    {
+        return null;
+    }
 }
 
