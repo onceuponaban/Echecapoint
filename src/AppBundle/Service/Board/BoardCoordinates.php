@@ -87,6 +87,11 @@ class BoardCoordinates
         return "";
     }
     
+    public static function fromString(string $stringCoordinates):BoardCoordinates
+    {
+        return null;
+    }
+    
     /**
      * @method setFile
      * @desc Change la valeur de la colonne des coordonnées de la case
