@@ -38,9 +38,14 @@ class Turn
         
     }
     
+    /**
+     * @name toString
+     * @desc Renvoie la chaine de caractère associé à un tour de jeu
+     * @return string
+     */
     public function toString():string
     {
-        return "";
+        return $this->turnNumber.". ".$this->whiteMove->toString()." ".$this->blackMove->toString()." ";
     }
 }
 
