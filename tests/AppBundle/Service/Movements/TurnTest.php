@@ -17,7 +17,7 @@ class TurnTest extends \PHPUnit_Framework_TestCase
         
         $turn = new Turn(1, $whiteMove, $blackMove);
         
-        self::assertEquals("1. Qd4-e5 Rg8xa8 ",$turn->toString());
+        self::assertEquals("1. Qd4-e5 Rg8xa8;",$turn->toString());
     }
     
     public function testToStringWrongNumber()
@@ -28,7 +28,7 @@ class TurnTest extends \PHPUnit_Framework_TestCase
         
         $turn = new Turn(-1, $whiteMove, $blackMove);
         
-        self::assertEquals("1. Qd4-e5 Rg8xa8 ",$turn->toString());
+        self::assertEquals("1. Qd4-e5 Rg8xa8;",$turn->toString());
     }
 }
 

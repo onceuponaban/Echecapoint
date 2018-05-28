@@ -53,7 +53,7 @@ class Turn
      */
     public function toString():string
     {
-        return $this->turnNumber.". ".$this->whiteMove->toString()." ".$this->blackMove->toString()." ";
+        return $this->turnNumber.". ".$this->whiteMove->toString()." ".$this->blackMove->toString().";";
     }
 }
 
