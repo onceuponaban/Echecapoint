@@ -65,5 +65,10 @@ class Move
         
         return $this->piece->toString().$moveType.$this->coordinates->toString();
     }
+    
+    public static function fromString(string $stringMove):Move
+    {
+        return null;
+    }
 }
 
