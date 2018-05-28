@@ -16,28 +16,28 @@ class Bishop extends Piece
 {
     public function getPossibleMovesCoordinates(): array
     {
-        $PossibleMovesList = array();
+        $possibleMovesList = array();
         $i = $this->coordinates->getFile();
         $j = $this->coordinates->getRank();
         for($k = 1; $k<6;$k++) //parcours des diagonales avec vérification des coordonnées
         {
-            $MoveCandidate0 = new BoardCoordinates($i+$k, $j+$k);
-            if($MoveCandidate0->isOnTheBoard())
-                $PossibleMovesList[] = $MoveCandidate0;
+            $moveCandidate0 = new BoardCoordinates($i+$k, $j+$k);
+            if($moveCandidate0->isOnTheBoard())
+                $possibleMovesList[] = $moveCandidate0;
             
-            $MoveCandidate1 = new BoardCoordinates($i+$k, $j-$k);
-            if($MoveCandidate1->isOnTheBoard())
-                $PossibleMovesList[] = $MoveCandidate1;
+            $moveCandidate1 = new BoardCoordinates($i+$k, $j-$k);
+            if($moveCandidate1->isOnTheBoard())
+                $possibleMovesList[] = $moveCandidate1;
             
-            $MoveCandidate2 = new BoardCoordinates($i-$k, $j+$k);
-            if($MoveCandidate2->isOnTheBoard())
-                $PossibleMovesList[] = $MoveCandidate2;
+            $moveCandidate2 = new BoardCoordinates($i-$k, $j+$k);
+            if($moveCandidate2->isOnTheBoard())
+                $possibleMovesList[] = $moveCandidate2;
             
-            $MoveCandidate3 = new BoardCoordinates($i-$k, $j-$k);
-            if($MoveCandidate3->isOnTheBoard())
-                $PossibleMovesList[] = $MoveCandidate3;
+            $moveCandidate3 = new BoardCoordinates($i-$k, $j-$k);
+            if($moveCandidate3->isOnTheBoard())
+                $possibleMovesList[] = $moveCandidate3;
         }
-        return $PossibleMovesList;
+        return $possibleMovesList;
     }
     
     public function toString(): String

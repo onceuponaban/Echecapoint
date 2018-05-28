@@ -42,6 +42,13 @@ abstract class Piece
     public abstract function __construct(BoardCoordinates $coordinates, bool $isWhite);
     
     /**
+     * @name moveTo
+     * @desc Déplace la piece
+     * @param BoardCoordinates $newCoordinates
+     */
+    public abstract function moveTo(BoardCoordinates $newCoordinates):bool;
+    
+    /**
      * @method getPossibleMovesCoordinates
      * @desc Renvoie les coordonnées des cases où la pièce peut se déplacer, sans tenir compte des autres pièces de l'échiquier
      * @return array : Un tableau de BoardCoordinates
