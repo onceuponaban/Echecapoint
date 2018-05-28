@@ -57,11 +57,14 @@ class Board
         foreach ($this->pieceList as $piece){
             if(($piece->isWhite xor $color==BLACK)||($piece->isWhite xor $color==WHITE)){
                 //test coup possible vers $KingCoordinates
-                //si le coup est possible
-                //return true;
-                
-                //sinon
-                //return false
+                $savePiece = $piece;
+                if($piece->moveTo($KingCoordinates)){
+                    $piece=$savePiece;
+                    return TRUE;
+                }
+                else {
+                    return FALSE;
+                }
             }
         }
     }
