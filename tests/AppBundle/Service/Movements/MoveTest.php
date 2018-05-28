@@ -3,14 +3,22 @@ namespace tests\AppBundle\Service\Movements;
 
 use AppBundle\Service\Pieces\Queen;
 use AppBundle\Service\Board\BoardCoordinates;
+use AppBundle\Service\Movements\Move;
 
 class MoveTest extends \PHPUnit_Framework_TestCase
 {
-    public function testToString()
+    public function testToStringMove()
     {
-        $queen = new Queen(new BoardCoordinates(3,3),true);
+        $move = new Move(new Queen(new BoardCoordinates(3,3),true),new BoardCoordinates(4,4), false);
         
-        self::assertEquals("Qd4",$queen->toString());
+        self::assertEquals("Qd4-e5",$move->toString());
+    }
+    
+    public function testToStringCapture()
+    {
+        $move = new Move(new Queen(new BoardCoordinates(3,3),true),new BoardCoordinates(4,4), true);
+        
+        self::assertEquals("Qd4xe5",$move->toString());
     }
 }
 
