@@ -49,6 +49,7 @@ class Move
     function toString():String
     {
         $moveType;
+        
         if($this->isACapture)
         {
             $moveType = Notation::CAPTURE;

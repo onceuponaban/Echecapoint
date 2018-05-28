@@ -2,7 +2,6 @@
 namespace tests\AppBundle\Service\Board;
 
 use AppBundle\Service\Board\BoardCoordinates;
-use Service\Board\Board;
 
 class BoardCoordinatesTest extends \PHPUnit_Framework_TestCase
 {
