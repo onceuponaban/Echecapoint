@@ -29,7 +29,7 @@ class BoardCoordinates
      * @desc Si les coordonnées sont sur le plateau
      * @var boolean : true, les coordonnées sont sur le plateau | false, les coordonnées ne sont pas sur le plateau
      */
-    private $isOnTheBoard;
+    private $isOnTheBoard = true;
     
     /**
      * @method construct
@@ -82,7 +82,7 @@ class BoardCoordinates
                     break;
             }
             
-            return $StringBoardCoordinates . strval($this->rank - 1);
+            return $StringBoardCoordinates . strval($this->rank + 1);
         }
         return "";
     }
