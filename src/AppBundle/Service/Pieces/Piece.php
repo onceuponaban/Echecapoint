@@ -34,6 +34,30 @@ abstract class Piece
     private $value;
     
     /**
+     * @return \AppBundle\Service\Board\BoardCoordinates
+     */
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isWhite()
+    {
+        return $this->isWhite;
+    }
+
+    /**
+     * @return \AppBundle\Service\Pieces\PiecesValue
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
      * @method construct
      * @desc Le constructeur de la classe
      * @param BoardCoordinates $coordinates

@@ -16,7 +16,7 @@ class King extends Piece
 {
     private $hasMoved;
 
-    public function getHasMoved()
+    public function hasMoved()
     {
         return $this->hasMoved;
     }

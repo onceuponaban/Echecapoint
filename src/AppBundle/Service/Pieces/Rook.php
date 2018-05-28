@@ -19,7 +19,7 @@ class Rook extends Piece
     /**
      * @return boolean
      */
-    public function getHasMoved()
+    public function hasMoved()
     {
         return $this->hasMoved;
     }
