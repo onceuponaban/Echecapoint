@@ -47,7 +47,7 @@ class Board
             //Si la piece dans la list est un roi
             if($piece==King::class){
                 //Si le roi et la couleur de recherche sont les mêmes
-                if(!($piece->isWhite xor $color==WHITE)||!($piece->isWhite xor $color==BLACK)){
+                if(!($piece->isWhite xor $color)||!($piece->isWhite xor $color)){
                  $KingCoordinates=$piece.getcoordinates();
                 }
             } 
