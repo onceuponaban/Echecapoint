@@ -72,7 +72,7 @@ class Board
     
     public function checkmateOf(int $color):bool{
         //Le roi de la couleur est-il en echec
-        if(self::checkOf($color)){
+        if($this->checkOf($color)){
             //On sauvegarde la liste de pièce actuelle
             $savePieceList = $this->pieceList;
             
@@ -87,7 +87,7 @@ class Board
                     }
                 }
             }
-            //On récupère la liste des déplacements possibles du roi en question
+            //On r�cup�re la liste des déplacements possibles du roi en question
             $KingMoves = $King->getPossibleMovesCoordinates();
             
             //Pour tous les mouvements possibles de la liste
@@ -95,11 +95,7 @@ class Board
                 //On déplace le roi
                 $King->moveTo($move);
                 //Si le roi n'est plus en echec
-<<<<<<< HEAD
-                if(!($this->echecToKingOf($color))){
-=======
-                if(!self::checkOf($color)){
->>>>>>> f384d9f464360a7a81ee04e7b85168c206ba3daf
+                if(!($this->checkOf($color))){
                     //On replace le roi
                     $King->moveTo($KingCoordinates);
                     //Il n'y a pas echec et mat
@@ -124,11 +120,7 @@ class Board
     
     public function stalemateOf(int $color){
         //S'il y a echec
-<<<<<<< HEAD
-        if($this->echecToKingOf($color)){
-=======
-        if(self::checkOf($color)){
->>>>>>> f384d9f464360a7a81ee04e7b85168c206ba3daf
+        if($this->checkOf($color)){
             //alors il n'y a pas de pat
             return false;
         }
@@ -145,11 +137,7 @@ class Board
                         //On bouge la pièce
                         $piece->moveTo($move);
                         //On teste s'il y a echec au roi dans cete configuration
-<<<<<<< HEAD
-                        if(!($this->echecToKingOf($color))){
-=======
-                        if(!self::checkOf($color)){
->>>>>>> f384d9f464360a7a81ee04e7b85168c206ba3daf
+                        if(!($this->checkOf($color))){
                             //Le roi n'est pas mis en echec alors il n'y a a pas de pat, on remet le plateau à sa place originelle
                             $piece = $savePiece;
                             $this->pieceList = $savePieceList;
