@@ -34,6 +34,30 @@ abstract class Piece
     private $value;
     
     /**
+     * @return \AppBundle\Service\Board\BoardCoordinates
+     */
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isWhite()
+    {
+        return $this->isWhite;
+    }
+
+    /**
+     * @return \AppBundle\Service\Pieces\PiecesValue
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
      * @method construct
      * @desc Le constructeur de la classe
      * @param BoardCoordinates $coordinates
@@ -47,13 +71,6 @@ abstract class Piece
      * @param BoardCoordinates $newCoordinates
      */
     public abstract function moveTo(BoardCoordinates $newCoordinates):bool;
-    
-    /**
-     * @method getPossibleMovesCoordinates
-     * @desc Renvoie les coordonnées des cases où la pièce peut se déplacer, sans tenir compte des autres pièces de l'échiquier
-     * @return array : Un tableau de BoardCoordinates
-     */
-    public abstract function getPossibleMovesCoordinates():array;
     
     /**
      * @method ToString

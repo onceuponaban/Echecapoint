@@ -49,6 +49,11 @@ class Queen extends Piece
     
     public function moveTo(BoardCoordinates $newCoordinates): bool
     {
+        if($newCoordinates->isOnTheBoard())
+        {
+            $this->coordinates = $newCoordinates;
+            return true;
+        }
         return false;
     }
     

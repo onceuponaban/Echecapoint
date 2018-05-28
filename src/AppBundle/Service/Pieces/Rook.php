@@ -14,18 +14,14 @@ use AppBundle\Service\Movements\Notation;
 
 class Rook extends Piece
 {
-    public function getPossibleMovesCoordinates(): array
+    private $hasMoved;
+    
+    /**
+     * @return boolean
+     */
+    public function hasMoved()
     {
-        $possibleMovesList = array();
-        for($i = 0; $i < 8; $i++)
-        {
-            if(!($i == $this->coordinates->getFile())) //Pour toutes les colonnes autre que celle de la pièce elle même
-                $possibleMovesList[] = new BoardCoordinates($i, $this->coordinates->getRank()); //On rajoute une coordonnée sur la même ligne
-            if(!($i == $this->coordinates->getRank())) //Pour toutes les lignes autre que celle de la pièce elle même
-                $possibleMovesList[] = new BoardCoordinates($this->coordinates->getFile(), $i); //On rajoute une coordonnée sur la même colonne
-                
-        }
-        return $possibleMovesList;
+        return $this->hasMoved;
     }
 
     public function toString(): String
@@ -38,10 +34,18 @@ class Rook extends Piece
         $this->coordinates = $coordinates;
         $this->isWhite = $isWhite;
         $this->value = PiecesValue::ROOK;
+        $this->hasMoved = false;
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool
     {
+        if($newCoordinates->isOnTheBoard())
+        {
+            $this->coordinates = $newCoordinates;
+            if(!$this->hasMoved)
+                $this->hasMoved = true;
+            return true;
+        }
         return false;
     }
 

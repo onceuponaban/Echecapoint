@@ -9,12 +9,13 @@ use AppBundle\Service\Pieces\Bishop;
 use AppBundle\Service\Pieces\Knight;
 use AppBundle\Service\Pieces\Rook;
 use AppBundle\Service\Pieces\Queen;
+use AppBundle\Service\Board\BoardCoordinates;
 
 /**
  * @name Board
- * 
+ *
  * @desc Représente un plateau d'échecs
- * 
+ *
  * @author Luca Mayer-Dalverny
  */
 class Board
@@ -48,6 +49,7 @@ class Board
         switch ($pieceToGetMoves)
         {
             case Pawn::class:
+                
                 break;
                 
             case Bishop::class:
@@ -79,10 +81,10 @@ class Board
                 if(!($piece->isWhite xor $color)||!($piece->isWhite xor $color)){
                  $KingCoordinates=$piece.getcoordinates();
                 }
-            } 
+            }
         }
         
-        //Pour toutes les pièce de l'autre couleur on vérifie si elles peuvent mettre le roi en echec 
+        //Pour toutes les pièce de l'autre couleur on vérifie si elles peuvent mettre le roi en echec
         
         foreach ($this->pieceList as $piece){
             if($piece->isWhite xor $color){
@@ -117,7 +119,7 @@ class Board
                     }
                 }
             }
-            //On r�cup�re la liste des déplacements possibles du roi en question
+            //On récupère la liste des déplacements possibles du roi en question
             $KingMoves = $King->getPossibleMovesCoordinates();
             
             //Pour tous les mouvements possibles de la liste
@@ -129,7 +131,7 @@ class Board
                     //On replace le roi
                     $King->moveTo($KingCoordinates);
                     //Il n'y a pas echec et mat
-                    return false;  
+                    return false;
                 }
             }
             //Pour tous les déplacements possibles du roi, ce dernier est toujours en echec
@@ -192,6 +194,17 @@ class Board
     public function updateFromMove(Move $moveToAdd)
     {
         
+    }
+    
+    public function isFilled(BoardCoordinates $coordinates)
+    {
+        foreach ($this->pieceList as $piece)
+        {
+            //si on retrouve une pièce de même ligne et colonne
+            if($piece->getCoordinates()->getFile() == $coordinates->getFile() && $piece->getCoordinates()->getRank() == $coordinates->getRank())
+                return true;
+        }
+        return false;
     }
     
 }
