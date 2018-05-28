@@ -56,7 +56,7 @@ class Board
         //Pour toutes les pièce de l'autre couleur on vérifie si elles peuvent mettre le roi en echec 
         
         foreach ($this->pieceList as $piece){
-            if(($piece->isWhite xor $color==BLACK)||($piece->isWhite xor $color==WHITE)){
+            if($piece->isWhite xor $color){
                 //test coup possible vers $KingCoordinates
                 $savePiece = $piece;
                 if($piece->moveTo($KingCoordinates)){
@@ -81,7 +81,7 @@ class Board
                 //Si la pièce dans la list est un roi
                 if($piece==King::class){
                     //Si le roi est la couleur de recherche sont les mêmes
-                    if(!($piece->isWhite xor $color==WHITE)||!($piece->isWhite xor $color==BLACK)){
+                    if(!($piece->isWhite xor $color)){
                         $KingCoordinates=$piece.getcoordinates();
                         $King = $piece;
                     }
@@ -95,7 +95,7 @@ class Board
                 //On déplace le roi
                 $King->moveTo($move);
                 //Si le roi n'est plus en echec
-                if(!self::echecToKingOf($color)){
+                if(!($this->echecToKingOf($color))){
                     //On replace le roi
                     $King->moveTo($KingCoordinates);
                     //Il n'y a pas echec et mat
@@ -120,7 +120,7 @@ class Board
     
     public function stalemateOf(int $color){
         //S'il y a echec
-        if(self::echecToKingOf($color)){
+        if($this->echecToKingOf($color)){
             //alors il n'y a pas de pat
             return false;
         }
@@ -128,7 +128,7 @@ class Board
             $savePieceList = $this->pieceList;
             foreach ($this->pieceList as $piece){
                 //Si la piece et la couleur sont les mêmes
-                if(!($piece->isWhite xor $color==WHITE)||!($piece->isWhite xor $color==BLACK)){
+                if(!($piece->isWhite xor $color)){
                     //On r�cup�re les mouvement possibles
                     $savePiece = $piece;
                     $MovePossible = $piece->getPossibleMoves();
@@ -137,7 +137,7 @@ class Board
                         //On bouge la pièce
                         $piece->moveTo($move);
                         //On teste s'il y a echec au roi dans cete configuration
-                        if(!self::echecToKingOf($color)){
+                        if(!($this->echecToKingOf($color))){
                             //Le roi n'est pas mis en echec alors il n'y a a pas de pat, on remet le plateau à sa place originelle
                             $piece = $savePiece;
                             $this->pieceList = $savePieceList;
