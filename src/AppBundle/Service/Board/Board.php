@@ -101,8 +101,8 @@ class Board
         switch ($pieceToGetMoves)
         {
             case Pawn::class:
+                $moveList = $this->getPossibleMovesOfPawn($pieceToGetMoves);
                 break;
-                
             case Bishop::class:
                 $moveList = $this->getPossibleMovesOfBishop($pieceToGetMoves);
                 break;
@@ -129,13 +129,120 @@ class Board
     
     public function getPossibleMovesOfPawn(Piece $pieceToGetMoves):array
     {
+        $moveList = array();
+        $pieceFile = $pieceToGetMoves->getCoordinates()->getFile();
+        $pieceRank = $pieceToGetMoves->getCoordinates()->getRank();
         if($pieceToGetMoves->isWhite())
         {
-            
+            $move1 = new BoardCoordinates($pieceFile + 1, $pieceRank);
+            //si la case devant est vide
+            if(!$this->isFilled($move1))
+            {
+                $moveList[] = $move1;
+                $move2 = new BoardCoordinates($pieceFile + 2, $pieceRank);
+                //si la case 2 lignes devant est vide également et que le pion n'a pas bougé
+                if(!$this->isFilled($move2) && !$pieceToGetMoves->hasMoved())
+                    $moveList[] = $move2;
+            }
+            $diagonalLeft = new BoardCoordinates($pieceFile + 1, $pieceRank - 1);
+            if($this->isFilled($diagonalRight))
+            {
+                //si une pièce ennemie est à la diagonale gauche
+                if(!($this->pieceAt($diagonalLeft)->isWhite() == $pieceToGetMoves->isWhite()))
+                    $moveList[] = $diagonalLeft;
+            }
+            $diagonalRight = new BoardCoordinates($pieceFile + 1, $pieceRank + 1);
+            if($this->isFilled($diagonalRight))
+            {
+                //si une pièce ennemie est à la diagonale droite
+                if(!($this->pieceAt($diagonalRight)->isWhite() == $pieceToGetMoves->isWhite()))
+                    $moveList[] = $diagonalRight;
+            }
+            //Prise en passant
+            $leftOfPawn = new BoardCoordinates($pieceFile, $pieceRank - 1);
+            if($this->isFilled($leftOfPawn))
+            {
+                //si une pièce ennemie est à gauche
+                if(!($this->pieceAt($leftOfPawn)->isWhite() == $pieceToGetMoves->isWhite()))
+                {
+                    if($this->pieceAt($leftOfPawn) instanceof Pawn)
+                    {
+                        if($this->pieceAt($leftOfPawn)->enPassantCapturePossible())
+                            $moveList[] = $leftOfPawn;
+                    }
+                    $moveList[] = $leftOfPawn;
+                }
+            }
+            $rightOfPawn = new BoardCoordinates($pieceFile, $pieceRank + 1);
+            if($this->isFilled($rightOfPawn))
+            {
+                //si une pièce ennemie est à la diagonale droite
+                if(!($this->pieceAt($rightOfPawn)->isWhite() == $pieceToGetMoves->isWhite()))
+                {
+                    if($this->pieceAt($rightOfPawn) instanceof Pawn)
+                    {
+                        if($this->pieceAt($rightOfPawn)->enPassantCapturePossible())
+                            $moveList[] = $rightOfPawn;
+                    }
+                    $moveList[] = $rightOfPawn;
+                }
+            }
         }
         else
         {
-            
+            $move1 = new BoardCoordinates($pieceFile- 1, $pieceRank);
+            //si la case devant est vide
+            if(!$this->isFilled($move1))
+            {
+                $moveList[] = $move1;
+                $move2 = new BoardCoordinates($pieceFile - 2, $pieceRank);
+                //si la case 2 lignes devant est vide également et que le pion n'a pas bougé
+                if(!$this->isFilled($move2) && !$pieceToGetMoves->hasMoved())
+                    $moveList[] = $move2;
+            }
+            $diagonalLeft = new BoardCoordinates($pieceFile - 1, $pieceRank - 1);
+            if($this->isFilled($diagonalRight))
+            {
+                //si une pièce ennemie est à la diagonale gauche
+                if(!($this->pieceAt($diagonalLeft)->isWhite() == $pieceToGetMoves->isWhite()))
+                    $moveList[] = $diagonalLeft;
+            }
+            $diagonalRight = new BoardCoordinates($pieceFile - 1, $pieceRank + 1);
+            if($this->isFilled($diagonalRight))
+            {
+                //si une pièce ennemie est à la diagonale droite
+                if(!($this->pieceAt($diagonalRight)->isWhite() == $pieceToGetMoves->isWhite()))
+                    $moveList[] = $diagonalRight;
+            }
+            //Prise en passant
+            $leftOfPawn = new BoardCoordinates($pieceFile, $pieceRank - 1);
+            if($this->isFilled($leftOfPawn))
+            {
+                //si une pièce ennemie est à gauche
+                if(!($this->pieceAt($leftOfPawn)->isWhite() == $pieceToGetMoves->isWhite()))
+                {
+                    if($this->pieceAt($leftOfPawn) instanceof Pawn)
+                    {
+                        if($this->pieceAt($leftOfPawn)->enPassantCapturePossible())
+                            $moveList[] = $leftOfPawn;
+                    }
+                    $moveList[] = $leftOfPawn;
+                }
+            }
+            $rightOfPawn = new BoardCoordinates($pieceFile, $pieceRank + 1);
+            if($this->isFilled($rightOfPawn))
+            {
+                //si une pièce ennemie est à la diagonale droite
+                if(!($this->pieceAt($rightOfPawn)->isWhite() == $pieceToGetMoves->isWhite()))
+                {
+                    if($this->pieceAt($rightOfPawn) instanceof Pawn)
+                    {
+                        if($this->pieceAt($rightOfPawn)->enPassantCapturePossible())
+                            $moveList[] = $rightOfPawn;
+                    }
+                    $moveList[] = $rightOfPawn;
+                }
+            }
         }
     }
     
