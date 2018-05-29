@@ -271,15 +271,12 @@ class Board
             if($piece->isWhite xor $color){
                 //test coup possible vers $KingCoordinates
                 $savePiece = $piece;
-                $movePossible = $this->getPossibleMovesOf($piece);
-                foreach ($movePossible as $move){
-                    if($move->getCoordinates==$KingCoordinates){
-                        $piece=$savePiece;
-                        return TRUE;
-                    }
-                    else {
-                        return FALSE;
-                    }
+                if($piece->moveTo($KingCoordinates)){
+                    $piece=$savePiece;
+                    return TRUE;
+                }
+                else {
+                    return FALSE;
                 }
             }
         }
