@@ -306,7 +306,7 @@ class User implements UserInterface
      */
     public function getPartieBlanche()
     {
-        return $this->partieBlanche;
+        return $this->partiesBlanches;
     }
 
     /**
@@ -314,7 +314,7 @@ class User implements UserInterface
      */
     public function getPartieNoire()
     {
-        return $this->partieNoire;
+        return $this->partiesNoires;
     }
 
     /**
