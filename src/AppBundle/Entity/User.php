@@ -88,11 +88,17 @@ class User implements UserInterface
      * 
      * @var Collection
      * 
-     * @ORM\OneToMany(targetEntity="Play",mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Game",mappedBy="whitePlayer")
      *  
      */
+    private $partiesBlanches;
     
-    private $play;
+    /**
+     * @var Collection
+     * 
+     * @ORM\OneToMany(targetEntity="Game",mappedBy="blackPlayer")
+     */
+    private $partiesNoires;
 
     /**
      * Get id
@@ -232,46 +238,13 @@ class User implements UserInterface
     {
         return $this->nbPtsLaisses;
     }
+    
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->play = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add play
-     *
-     * @param \AppBundle\Entity\Play $play
-     *
-     * @return User
-     */
-    public function addPlay(\AppBundle\Entity\Play $play)
-    {
-        $this->play[] = $play;
-
-        return $this;
-    }
-
-    /**
-     * Remove play
-     *
-     * @param \AppBundle\Entity\Play $play
-     */
-    public function removePlay(\AppBundle\Entity\Play $play)
-    {
-        $this->play->removeElement($play);
-    }
-
-    /**
-     * Get play
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPlay()
-    {
-        return $this->play;
+        //$this->play = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -328,12 +301,36 @@ class User implements UserInterface
     {
         $this->roles = $roles;
     }
+    /**
+     * @return \Symfony\Component\Validator\Constraints\Collection
+     */
+    public function getPartieBlanche()
+    {
+        return $this->partieBlanche;
+    }
 
+    /**
+     * @return \Symfony\Component\Validator\Constraints\Collection
+     */
+    public function getPartieNoire()
+    {
+        return $this->partieNoire;
+    }
 
-    
-    
+    /**
+     * @param \Symfony\Component\Validator\Constraints\Collection $partieBlanche
+     */
+    public function setPartieBlanche($partieBlanche)
+    {
+        $this->partieBlanche = $partieBlanche;
+    }
 
+    /**
+     * @param \Symfony\Component\Validator\Constraints\Collection $partieNoire
+     */
+    public function setPartieNoire($partieNoire)
+    {
+        $this->partieNoire = $partieNoire;
+    }
 
-    
-    
 }
