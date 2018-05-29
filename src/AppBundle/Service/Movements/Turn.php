@@ -63,11 +63,11 @@ class Turn
         
         $turnNumber = intval($arrayMove[0]);
         
-        $whiteMove = Move::fromString($arrayMove[1]);
+        $whiteMove = Move::fromString($arrayMove[1],true);
         
         if(count($arrayMove) > 2)
         {
-            $blackMove = Move::fromString($arrayMove[3]);
+            $blackMove = Move::fromString($arrayMove[3],false);
         }
         else
         {

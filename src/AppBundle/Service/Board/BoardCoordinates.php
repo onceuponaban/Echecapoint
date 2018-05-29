@@ -89,7 +89,48 @@ class BoardCoordinates
     
     public static function fromString(string $stringCoordinates):BoardCoordinates
     {
-        return null;
+        $arrayCoordinates = explode(" ", $stringCoordinates);
+        
+        $file = -1;
+        
+        switch($arrayCoordinates[0])
+        {
+            case 'a':
+                $file = 0;
+                break;
+                
+            case 'b':
+                $file = 1;
+                break;
+                
+            case 'c':
+                $file = 2;
+                break;
+                
+            case 'd':
+                $file = 3;
+                break;
+                
+            case 'e':
+                $file = 4;
+                break;
+                
+            case 'f':
+                $file = 5;
+                break;
+                
+            case 'g':
+                $file = 6;
+                break;
+                
+            case 'h':
+                $file = 7;
+                break;
+        }
+        
+        $rank = intval($arrayCoordinates[1]) - 1;
+        
+        return new BoardCoordinates($file, $rank);
     }
     
     /**
