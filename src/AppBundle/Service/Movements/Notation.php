@@ -13,7 +13,7 @@ abstract class Notation
     
     const MATE = '#';
     
-    const PAWN = '';
+    const PAWN = 'P';
     
     const KNIGHT = 'N';
     
