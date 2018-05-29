@@ -461,11 +461,14 @@ class Board
     
     public function updateFromString(string $gameNotation)
     {
-        $turnArray = explode(";",$gameNotation);
-        
-        foreach($turnArray as $turn)
+        if($gameNotation != "")
         {
-            array_push($this->turnList, Turn::fromString($turn));
+            $turnArray = explode(";",$gameNotation);
+            
+            foreach($turnArray as $turn)
+            {
+                array_push($this->turnList, Turn::fromString($turn));
+            }
         }
     }
     
