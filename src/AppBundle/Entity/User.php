@@ -66,16 +66,17 @@ class User implements UserInterface
      */
     private $password;
     
+    
     /**
      * @var string
      * 
-     * @ORM\Column(name="salt",type="string")
+     * @ORM\Column(name="salt",type="string",length=255)
      */
     
     private $salt;
     
     /**
-     * @var JsonArrayType
+     * @var array
      * 
      * @ORM\Column(name="roles",type="json_array")
      * 
@@ -104,7 +105,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set pseudo
+     * Set username
      *
      * @param string $pseudo
      *
@@ -118,7 +119,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get pseudo
+     * Get username
      *
      * @return string
      */
@@ -187,6 +188,15 @@ class User implements UserInterface
         $this->nbPtsTotal = $nbPtsTotal;
 
         return $this;
+    }
+
+    
+    /**
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
     }
 
     /**
@@ -273,10 +283,31 @@ class User implements UserInterface
         // TODO Auto-generated method stub
         
     }
+    
+    /**
+     * Get password
+     * 
+     * @return string 
+     * 
+     * {@inheritDoc}
+     * @see \Symfony\Component\Security\Core\User\UserInterface::getPassword()
+     * 
+     * 
+     */
     public function getPassword()
     {
         
         return $this->password;
+    }
+    
+    
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 
     public function getSalt()
@@ -290,7 +321,17 @@ class User implements UserInterface
         return $this->roles;
         
     }
+    /**
+     * @param array $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
 
+
+    
+    
 
 
     
