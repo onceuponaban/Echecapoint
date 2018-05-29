@@ -461,7 +461,7 @@ class Board
     
     public function updateFromString(string $gameNotation)
     {
-        if($gameNotation != "")
+        if($gameNotation != " ")
         {
             $turnArray = explode(";",$gameNotation);
             
