@@ -10,6 +10,7 @@ use AppBundle\Service\Pieces\Knight;
 use AppBundle\Service\Pieces\Rook;
 use AppBundle\Service\Pieces\Queen;
 use AppBundle\Service\Board\BoardCoordinates;
+use AppBundle\Service\Movements\Turn;
 
 /**
  * @name Board
@@ -26,6 +27,13 @@ class Board
      * @var array(Piece::class)
      */
     private $pieceList = array(Piece::class);
+    
+    /**
+     * @name turnList
+     * @desc La liste des tours de jeu déjà joués
+     * @var array(Turn::class)
+     */
+    private $turnList = array(Turn::class);
     
     /**
      * @name whiteScore
@@ -364,7 +372,12 @@ class Board
     
     public function updateFromString(string $gameNotation)
     {
+        $turnArray = explode(";",$gameNotation);
         
+        foreach($turnArray as $turn)
+        {
+            array_push($this->turnList, Turn::fromString($turn));
+        }
     }
     
     public function updateFromMove(Move $moveToAdd)
