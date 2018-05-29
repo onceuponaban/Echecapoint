@@ -451,5 +451,10 @@ class Board
         return null;
     }
     
+    public function addPiece(Piece $piece){
+        $this->pieceList[] = $piece;
+        
+    }
+    
 }
 
