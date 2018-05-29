@@ -251,7 +251,7 @@ class Board
             //Si la piece dans la list est un roi
             if($piece==King::class){
                 //Si le roi et la couleur de recherche sont les mêmes
-                if(!($piece->isWhite xor $color)||!($piece->isWhite xor $color)){
+                if(!($piece->isWhite xor $color)){
                  $KingCoordinates=$piece.getcoordinates();
                 }
             }
@@ -263,12 +263,15 @@ class Board
             if($piece->isWhite xor $color){
                 //test coup possible vers $KingCoordinates
                 $savePiece = $piece;
-                if($piece->moveTo($KingCoordinates)){
-                    $piece=$savePiece;
-                    return TRUE;
-                }
-                else {
-                    return FALSE;
+                $movePossible = $this->getPossibleMovesOf($piece);
+                foreach ($movePossible as $move){
+                    if($move->getCoordinates==$KingCoordinates){
+                        $piece=$savePiece;
+                        return TRUE;
+                    }
+                    else {
+                        return FALSE;
+                    }
                 }
             }
         }
@@ -293,7 +296,7 @@ class Board
                 }
             }
             //On récupère la liste des déplacements possibles du roi en question
-            $KingMoves = $King->getPossibleMovesCoordinates();
+            $KingMoves = $this->getPossibleMovesOf($King);
             
             //Pour tous les mouvements possibles de la liste
             foreach ($KingMoves as $move){
@@ -337,7 +340,7 @@ class Board
                 if(!($piece->isWhite xor $color)){
                     //On récupère les mouvement possibles
                     $savePiece = $piece;
-                    $MovePossible = $piece->getPossibleMoves();
+                    $MovePossible = $this->getPossibleMovesOf($piece);
                     //On teste chacun des mouvements
                     foreach ($MovePossible as $move){
                         //On bouge la pièce
