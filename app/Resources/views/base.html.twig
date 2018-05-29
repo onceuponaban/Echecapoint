@@ -11,7 +11,40 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {%  if app.user!=null %}
+        <ul id="dropdown_auth" class="dropdown-content">
+        	<li><a href="#">Profile</a></li>
+        	<li><a href="{{ path('app_logout') }}">Logout</a></li>
+        </ul>
+        {% endif %}
+        
+        <nav>
+            <div class="nav-wrapper">
+            	<a href="{{ path('app_index') }}" class="brand-logo">&nbsp;Echecs à Points</a>
+            	<ul class="right hide-on-med-and-down">
+            	{% if app.user!=null %}
+            		<li>
+            			<a class="dropdown-button" href="#!" data-activates="dropdown_auth">
+            			{{ app.user.username }}
+            			<i class="material-icons right">arrow_drop_down</i>
+            			</a>
+            		</li>
+            		{% else %}
+            		<li><a href="{{ path('app_login') }}">Login</a></li>
+            		{% endif %}
+            	</ul>
+            </div>
+        </nav>
+    
+    
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+        </div>
+       {% block javascripts %}
+          <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+          <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
+        

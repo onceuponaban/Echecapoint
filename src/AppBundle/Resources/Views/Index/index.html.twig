@@ -9,7 +9,7 @@ Echecs a Points
 <div class="container">
 <h1>Bienvenue</h1>
 {% if app.user!=null %}
-
+<a href="{{ path('dashboard') }}" class="waves-effect waves-light btn">Atteindre mon tableau de bord</a>
 {% else %}
 <h5>Pour pouvoir jouer vous devez être identifié.</h5>
 <div class="row"></div>
