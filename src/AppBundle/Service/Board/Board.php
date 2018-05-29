@@ -127,71 +127,32 @@ class Board
         }
     }
     
+    public function getPossibleMovesOfPawn(Piece $pieceToGetMoves):array
+    {
+        if($pieceToGetMoves->isWhite())
+        {
+            
+        }
+        else
+        {
+            
+        }
+    }
+    
     public function getPossibleMovesOfBishop(Piece $pieceToGetMoves):array
     {
         $moveList = array();
-        $pieceFile = $pieceToGetMoves->getCoordinates()->getFile();
-        $pieceRank = $pieceToGetMoves->getCoordinates()->getRank();
-        //On va parcourir les quatres diagonales jusqu'à rencontrer
-        $i = 1;
-        do {
-            $move = new BoardCoordinates($pieceFile + $i, $pieceRank + $i);
-            if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
-                break;
-            $moveList[] = $move;
-            if ($this->isFilled($move)) //si la case est occupée, on s'arrête également
-            {
-                //si la pièce est du camp adverse, elle peut être capturée
-                if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
-                    $moveList[] = $move;
-                break;
-            }
-            $i++;
-        } while ($i<=7);
-        do {
-            $move = new BoardCoordinates($pieceFile + $i, $pieceRank - $i);
-            if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
-                break;
-                $moveList[] = $move;
-                if ($this->isFilled($move)) //si la case est occupée
-                {
-                    //si la pièce est du camp adverse, elle peut être capturée
-                    if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
-                        $moveList[] = $move;
-                    break;
-                }
-                $i++;
-        } while ($i<=7);
-        do {
-            $move = new BoardCoordinates($pieceFile - $i, $pieceRank + $i);
-            if (!$move->isOnTheBoard())
-                if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
-                break;
-                $moveList[] = $move;
-                if ($this->isFilled($move)) //si la case est occupée
-                {
-                    //si la pièce est du camp adverse, elle peut être capturée
-                    if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
-                        $moveList[] = $move;
-                    break;
-                }
-                $i++;
-        } while ($i<=7);
-        do {
-            $move = new BoardCoordinates($pieceFile - $i, $pieceRank - $i);
-            if (!$move->isOnTheBoard())
-                if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
-                break;
-                $moveList[] = $move;
-                if($this->isFilled($move)) //si la case est occupée
-                {
-                    //si la pièce est du camp adverse, elle peut être capturée
-                    if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
-                        $moveList[] = $move;
-                    break;
-                }
-                $i++;
-        } while ($i<=7);
+        //On va parcourir les quatres diagonales jusqu'à rencontrer une pièce ou la fin du plateau
+        $directionsList = array(
+            array('file' => 1, 'rank' => 1),
+            array('file' => 1, 'rank' => -1),
+            array('file' => -1, 'rank' => 1),
+            array('file' => -1, 'rank' => -1),
+        );
+        foreach ($directionsList as $direction)
+        {
+            $moveList = array_merge($moveList,$this->exploreDirection($pieceToGetMoves, $direction));
+        }
         return $moveList;
     }
     
@@ -224,66 +185,17 @@ class Board
     public function getPossibleMovesOfRook(Piece $pieceToGetMoves):array
     {
         $moveList = array();
-        $pieceFile = $pieceToGetMoves->getCoordinates()->getFile();
-        $pieceRank = $pieceToGetMoves->getCoordinates()->getRank();
-        $i = 1;
-        do {
-            $move = new BoardCoordinates($pieceFile + $i, $pieceRank);
-            if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
-                break;
-                $moveList[] = $move;
-                if ($this->isFilled($move)) //si la case est occupée
-                {
-                    //si la pièce est du camp adverse, elle peut être capturée
-                    if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
-                        $moveList[] = $move;
-                    break;
-                }
-                $i++;
-        } while($i<=7);
-        do {
-            $move = new BoardCoordinates($pieceFile - $i, $pieceRank);
-            if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
-                break;
-                $moveList[] = $move;
-                if($this->isFilled($move)) //si la case est occupée
-                {
-                    //si la pièce est du camp adverse, elle peut être capturée
-                    if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
-                        $moveList[] = $move;
-                    break;
-                }
-                $i++;
-        } while ($i<=7);
-        do {
-            $move = new BoardCoordinates($pieceFile, $pieceRank + $i);
-            if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
-                break;
-                $moveList[] = $move;
-                if($this->isFilled($move)) //si la case est occupée
-                {
-                    //si la pièce est du camp adverse, elle peut être capturée
-                    if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
-                        $moveList[] = $move;
-                    break;
-                }
-                $i++;
-        } while($i<=7);
-        do {
-            $move = new BoardCoordinates($pieceFile + $i, $pieceRank - $i);
-            if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
-                break;
-                $moveList[] = $move;
-                if ($this->isFilled($move)) //si la case est occupée
-                {
-                    //si la pièce est du camp adverse, elle peut être capturée
-                    if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
-                        $moveList[] = $move;
-                    break;
-                }
-                $i++;
-        } while($i<=7);
-        
+        //On va parcourir les quatres directions cardinales jusqu'à rencontrer une pièce ou la fin du plateau
+        $directionsList = array(
+            array('file' => 1, 'rank' => 0),
+            array('file' => -1, 'rank' => 0),
+            array('file' => 0, 'rank' => 1),
+            array('file' => 0, 'rank' => -1),
+        );
+        foreach ($directionsList as $direction)
+        {
+            $moveList = array_merge($moveList,$this->exploreDirection($pieceToGetMoves, $direction));
+        }
         return $moveList;
     }
     
@@ -419,8 +331,30 @@ class Board
             //le roi n'est pas en echec, donc pas de mat
             return FALSE;
         }
-        
-        
+    }
+    
+    public function exploreDirection(Piece $pieceToGetMoves, array $direction): array
+    {
+        $i = 1;
+        $pieceFile = $pieceToGetMoves->getCoordinates()->getFile();
+        $pieceRank = $pieceToGetMoves->getCoordinates()->getRank();
+        $moveList = array();
+        do
+        {
+            $move = new BoardCoordinates($pieceFile + $direction['file'], $pieceRank + $direction['rank']);
+            if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
+                break;
+                $moveList[] = $move;
+                if ($this->isFilled($move)) //si la case est occupée
+                {
+                    //si la pièce est du camp adverse, elle peut être capturée
+                    if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
+                        $moveList[] = $move;
+                        break;
+                }
+                $i++;
+        } while($i<=7);
+        return $moveList;
     }
     
     public function stalemateOf(int $color)
