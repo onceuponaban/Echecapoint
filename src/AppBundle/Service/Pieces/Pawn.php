@@ -16,6 +16,8 @@ class Pawn extends Piece
 {
     private $hasMoved;
     
+    private $enPassantCapturePossble;
+    
     /**
      * @return boolean
      */
@@ -35,6 +37,7 @@ class Pawn extends Piece
         $this->isWhite = $isWhite;
         $this->value = PiecesValue::PAWN;
         $this->hasMoved = false;
+        $this->enPassantCapturePossble = false;
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool
@@ -44,6 +47,9 @@ class Pawn extends Piece
             $this->coordinates = $newCoordinates;
             if(!$this->hasMoved)
                 $this->hasMoved = true;
+            if(abs($newCoordinates->getRank()-$this->getCoordinates()->getRank()) == 2)
+                $this->enPassantCapturePossble = true;
+                else $this->enPassantCapturePossble = false;
             return true;
         }
         return false;
