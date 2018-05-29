@@ -1,5 +1,5 @@
 <?php
-namespace Service\Board;
+namespace AppBundle\Service\Board;
 
 use AppBundle\Service\Movements\Move;
 use AppBundle\Service\Pieces\King;
@@ -51,6 +51,48 @@ class Board
     
     const WHITE = 1;
     const BLACK = 0;
+    
+    public function __construct()
+    {
+        $this->whiteScore = 0;
+        $this->blackScore = 0;
+        
+        for($index = 0 ; $index < 8 ; $index+=1)
+        {
+            $this->addPiece(new Pawn(new BoardCoordinates($index, 1), true));
+            $this->addPiece(new Pawn(new BoardCoordinates($index, 6), false));
+            
+            if(($index == 0) || ($index == 7))
+            {
+                $this->addPiece(new Rook(new BoardCoordinates($index,0), true));
+                $this->addPiece(new Rook(new BoardCoordinates($index,7), false));
+            }
+            
+            if(($index == 1) || ($index == 6))
+            {
+                $this->addPiece(new Knight(new BoardCoordinates($index,0), true));
+                $this->addPiece(new Knight(new BoardCoordinates($index,7), false));
+            }
+            
+            if(($index == 2) || ($index == 5))
+            {
+                $this->addPiece(new Bishop(new BoardCoordinates($index,0), true));
+                $this->addPiece(new Bishop(new BoardCoordinates($index,7), false));
+            }
+            
+            if($index == 3)
+            {
+                $this->addPiece(new Queen(new BoardCoordinates($index,0), true));
+                $this->addPiece(new Queen(new BoardCoordinates($index,7), false));
+            }
+            
+            if($index == 4)
+            {
+                $this->addPiece(new King(new BoardCoordinates($index,0), true));
+                $this->addPiece(new King(new BoardCoordinates($index,7), false));
+            }
+        }
+    }
     
     public function getPossibleMovesOf(Piece $pieceToGetMoves):array
     {
@@ -454,6 +496,11 @@ class Board
     public function addPiece(Piece $piece){
         $this->pieceList[] = $piece;
         
+    }
+    
+    public function getPieces():array
+    {
+        return $this->pieceList;
     }
     
 }
