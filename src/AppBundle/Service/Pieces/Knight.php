@@ -45,5 +45,37 @@ class Knight extends Piece
         return false;
     }
     
+    /**
+     * @return \AppBundle\Service\Board\BoardCoordinates
+     */
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function isWhite()
+    {
+        return $this->isWhite;
+    }
+    
+    /**
+     * @return \AppBundle\Service\Pieces\PiecesValue
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getHtmlCode()
+    {
+        return $this->htmlCode;
+    }
+    
 }
 
