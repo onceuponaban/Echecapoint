@@ -204,5 +204,17 @@ class BoardCoordinates
     {
         return $this->isOnTheBoard;
     }
+    
+    public function isEqualTo(BoardCoordinates $coordinatesToCompare):bool
+    {
+        $postulate = false;
+        
+        if(($this->file == $coordinatesToCompare->getFile())&&($this->rank == $coordinatesToCompare->getRank()))
+        {
+            $postulate = true;
+        }
+        
+        return $postulate;
+    }
 }
 

@@ -21,7 +21,7 @@ class Knight extends Piece
     
     public function __construct(BoardCoordinates $coordinates, bool $isWhite)
     {
-        $this->coordinates = $coordinates;
+        $this->coordinates = new BoardCoordinates($coordinates->getFile(), $coordinates->getRank());
         $this->isWhite = $isWhite;
         $this->value = PiecesValue::KNIGHT;
         
@@ -39,7 +39,7 @@ class Knight extends Piece
     {
         if($newCoordinates->isOnTheBoard())
         {
-            $this->coordinates = $newCoordinates;
+            $this->coordinates = new BoardCoordinates($newCoordinates->getFile(), $newCoordinates->getRank());
             return true;
         }
         return false;

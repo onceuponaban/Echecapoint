@@ -26,14 +26,14 @@ class Board
      * @desc La liste des pièces présentes sur le plateau
      * @var array(Piece::class)
      */
-    private $pieceList = array(Piece::class);
+    private $pieceList = array();
     
     /**
      * @name turnList
      * @desc La liste des tours de jeu déjà joués
      * @var array(Turn::class)
      */
-    private $turnList = array(Turn::class);
+    private $turnList = array();
     
     /**
      * @name whiteScore
@@ -54,6 +54,7 @@ class Board
 
     public function __construct(bool $isEmpty)
     {
+        
         if(!$isEmpty)
         {
             for($index = 0 ; $index < 8 ; $index+=1)
@@ -643,8 +644,10 @@ class Board
         return null;
     }
     
-    public function addPiece(Piece $piece){
-        $this->pieceList[] = $piece;
+    public function addPiece(Piece $piece)
+    {
+        echo "Added ".get_class($piece)." in position ".$piece->getCoordinates()->toString()."\n";
+        array_push($this->pieceList, $piece);
     }
     
     public function getPieces():array
@@ -653,7 +656,6 @@ class Board
     }
     
     /**
-<<<<<<< HEAD
      * @return \AppBundle\Service\Board\array(Piece::class)
      */
     public function getPieceList()

@@ -21,7 +21,7 @@ class Bishop extends Piece
     
     public function __construct(BoardCoordinates $coordinates, bool $isWhite)
     {
-        $this->coordinates = $coordinates;
+        $this->coordinates = new BoardCoordinates($coordinates->getFile(), $coordinates->getRank());
         $this->isWhite = $isWhite;
         $this->value = PiecesValue::BISHOP;
         
@@ -39,12 +39,13 @@ class Bishop extends Piece
     {
         if($newCoordinates->isOnTheBoard())
         {
-            $this->coordinates = $newCoordinates;
+            $this->coordinates = new BoardCoordinates($newCoordinates->getFile(), $newCoordinates->getRank());
             return true;
         }
         return false;
     }
 
+    
     
 }
 

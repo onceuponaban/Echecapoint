@@ -28,7 +28,7 @@ class King extends Piece
     
     public function __construct(BoardCoordinates $coordinates, bool $isWhite)
     {
-        $this->coordinates = $coordinates;
+        $this->coordinates = new BoardCoordinates($coordinates->getFile(), $coordinates->getRank());
         $this->isWhite = $isWhite;
         $this->value = 0; //le roi ne peut pas être pris, il n'a donc pas de valeur!
         $this->hasMoved = false;
@@ -47,7 +47,7 @@ class King extends Piece
     {
         if($newCoordinates->isOnTheBoard())
         {
-            $this->coordinates = $newCoordinates;
+            $this->coordinates = new BoardCoordinates($newCoordinates->getFile(), $newCoordinates->getRank());
             if(!$this->hasMoved)
                 $this->hasMoved = true;
             return true;

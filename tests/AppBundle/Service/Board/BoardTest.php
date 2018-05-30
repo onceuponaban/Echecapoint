@@ -5,6 +5,10 @@ use AppBundle\Service\Pieces\King;
 use AppBundle\Service\Board\BoardCoordinates;
 use AppBundle\Service\Pieces\Pawn;
 use AppBundle\Service\Pieces\Bishop;
+use AppBundle\Service\Pieces\Knight;
+use AppBundle\Service\Pieces\Rook;
+use AppBundle\Service\Pieces\Queen;
+use AppBundle\AppBundle;
 /**
  * Board test case.
  */
@@ -15,6 +19,8 @@ class BoardTest extends PHPUnit_Framework_TestCase
      * @var Board
      */
     private $board;
+    
+    
     const WHITE = 1;
     const BLACK = 0;
     
@@ -28,7 +34,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         
         // TODO Auto-generated BoardTest::setUp()
         
-        $this->board = new Board(/* parameters */);
+        $this->board = new Board(true);
     }
     /**
      * Cleans up the environment after running a test.
@@ -53,11 +59,69 @@ class BoardTest extends PHPUnit_Framework_TestCase
     {
         $board = new Board(false);
         
+        echo "board is type of : ".gettype($board)."\n";
+        
         $pieceList = $board->getPieceList();
         
-        foreach ($pieceList as $piece)
+        echo "pieceList is type of : ".gettype($pieceList)."\n";
+        
+        foreach ($pieceList as &$piece)
         {
-            self::assertTrue(false);
+            //echo "Hello From ".get_class($piece)."\n";
+            //echo "piece is typeof : ".gettype($piece)."\n";
+            
+            switch (get_class($piece))
+            {
+                case Rook::class:
+                    echo "Hello From Pawn\n";
+                    break;
+                    
+                case Knight::class:
+                    echo "Hello From Knight\n";
+                    break;
+                    
+                case Bishop::class:
+                    echo "Hello From Bishop\n";
+                    break;
+                    
+                case Rook::class:
+                    echo "Hello From Rook\n";
+                    if($piece->isWhite())
+                    {
+                        self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(0,0)));
+                        self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(7,0)));
+                    }
+                    else
+                    {
+                        self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(7,7)));
+                    }
+                    break;
+                    
+                case Queen::class:
+                    echo "Hello From Queen\n";
+                    if($piece->isWhite())
+                    {
+                        self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(3,0)));
+                    }
+                    else
+                    {
+                        echo $piece->toString();
+                        //self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(3,7)));
+                    }
+                    break;
+                    
+                case King::class:
+                    echo "Hello From King\n";
+                    if($piece->isWhite())
+                    {
+                        self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(4,0)));
+                    }
+                    else
+                    {
+                        //self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(4,7)));
+                    }
+                    break;
+            }
         }
     }
     
@@ -117,9 +181,9 @@ class BoardTest extends PHPUnit_Framework_TestCase
     public function testCheckOf()
     {
         // TODO Auto-generated BoardTest->testCheckOf()
+        /*
         
-        
-        $Board = new Board();
+        $Board = new Board(false);
         
         $WhiteKingsCoordinates = new BoardCoordinates(4, 0);
         $BlackPawnsCoordinates = new BoardCoordinates(3, 1);
@@ -139,7 +203,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         self::assertEquals(true, $Board->checkOf(WHITE));
         self::assertEquals(FALSE, $Board->checkOf(BLACK));
         
-        
+        */
         
     }
     /**
