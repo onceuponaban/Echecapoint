@@ -646,7 +646,6 @@ class Board
     
     public function addPiece(Piece $piece)
     {
-        echo "Added ".get_class($piece)." in position ".$piece->getCoordinates()->toString()."\n";
         array_push($this->pieceList, $piece);
     }
     
