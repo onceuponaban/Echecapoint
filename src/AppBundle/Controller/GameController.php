@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Game;
 use AppBundle\Service\Board\Board;
+use AppBundle\Service\Board\BoardCoordinates;
+use AppBundle\Service\Pieces\Pawn;
 
 /**
  * @Route("/game")
@@ -41,8 +43,13 @@ class GameController extends Controller
         
         $board = new Board(false);
         
+        $board->updateFromString($game->getBoard());
+        
+        $piece = new Pawn(new BoardCoordinates(0,0),true);
+        
         return $this->render('AppBundle:Game:show.html.twig', array(
-            'board' => $board->updateFromString($game->getBoard())
+            'board' => $board,
+            'piece' => $piece
         ));
     }
 

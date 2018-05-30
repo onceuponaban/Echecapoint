@@ -6,17 +6,17 @@
 <!--<h1>Welcome to the Game:show page</h1> -->
 
 <table class="responsive-table">
-	{% for file in 1..8 %}
+
+
+	{% for file in 0..7 %}
 	
 	<tr>
 	
-	{% for rank in 1..8 %}
+	{% for rank in 0..7 %}
 	
 	
 	<td>
-	
-	<h2>&#9813;</h2>
-	
+	{{ piece.htmlCode }}
 	</td>
 	
 	{% endfor %}

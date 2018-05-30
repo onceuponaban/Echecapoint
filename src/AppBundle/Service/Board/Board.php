@@ -550,5 +550,29 @@ class Board
         return $this->pieceList;
     }
     
+    /**
+     * @return \AppBundle\Service\Board\array(Piece::class)
+     */
+    public function getPieceList()
+    {
+        return $this->pieceList;
+    }
+
+    /**
+     * @return number
+     */
+    public function getWhiteScore()
+    {
+        return $this->whiteScore;
+    }
+
+    /**
+     * @return number
+     */
+    public function getBlackScore()
+    {
+        return $this->blackScore;
+    }
+    
 }
 

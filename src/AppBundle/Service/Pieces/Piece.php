@@ -64,6 +64,16 @@ abstract class Piece
     {
         return $this->value;
     }
+    
+    
+
+    /**
+     * @return string
+     */
+    public function getHtmlCode()
+    {
+        return $this->htmlCode;
+    }
 
     /**
      * @method construct
