@@ -28,7 +28,7 @@ function ResetColor()
 		for(var j = 0 ; j < 8 ; j+=1)
 		{
 			var element = document.getElementById(String(i)+String(j));
-			if( ((i+j) % 2) != 0)
+			if( ((i+j) % 2) == 0)
 			{
 				element.style.background = 'silver';
 			}

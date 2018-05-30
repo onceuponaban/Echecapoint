@@ -14,6 +14,24 @@ if($case && $partie)
     $piece = $board->pieceAt(BoardCoordinates::fromString($case));
     
     $moveList = $board->getPossibleMovesOf($piece);
+    
+    if(count($moveList) != 0)
+    {
+        
+        $stringMove = "";
+        
+        foreach ($moveList as $move)
+        {
+            $stringMove = $stringMove." ".$move->getCoordinates().toString();
+        }
+        
+        echo $stringMove;
+        
+    }
+    else 
+    {
+        echo "";
+    }
 }
 else
 {
