@@ -248,6 +248,7 @@ class Board
                 }
             }
         }
+        return $moveList;
     }
     
     public function getPossibleMovesOfBishop(Piece $pieceToGetMoves):array
@@ -533,6 +534,8 @@ class Board
                 foreach ($this->pieceList as $piece)
                 {
                     $boardTest->addPiece($piece);
+                    $boardTest->setWhiteScore($this->whiteScore);
+                    $boardTest->setBlackScore($this->blackScore);
                     //le mouvement n'est valide que si il ne met pas le roi en échec. On va donc effectuer le mouvement puis vérifier si le roi est en échec.
                     if(!$moveToAdd->isACapture())
                     {
@@ -603,19 +606,39 @@ class Board
                             $enemyPawnTrueLocation = new BoardCoordinates($moveToAdd->getCoordinates()->getFile(), $moveToAdd->getPiece()->getCoordinates()->getFile());
                             //on effectue le mouvement sur le plateau de test
                             $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
+                            //On ajuste le score en conséquence
+                            if($moveToAdd->getPiece()->isWhite())
+                            {
+                                $boardTest->setWhiteScore($boardTest->getWhiteScore() + $boardTest->pieceAt($enemyPawnTrueLocation)->getValue());
+                            }
+                            else
+                            {
+                                $boardTest->setBlackScore($boardTest->getBlackScore() + $boardTest->pieceAt($enemyPawnTrueLocation)->getValue());
+                            }
                             $boardTest->removePieceAt($enemyPawnTrueLocation);
                         }
                         else //mouvement avec capture normal
                         {
                             $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
+                            //On ajuste le score en conséquence
+                            if($moveToAdd->getPiece()->isWhite())
+                            {
+                                $boardTest->setWhiteScore($boardTest->getWhiteScore() + $boardTest->pieceAt($moveToAdd->getCoordinates())->getValue());
+                            }
+                            else
+                            {
+                                $boardTest->setBlackScore($boardTest->getBlackScore() + $boardTest->pieceAt($moveToAdd->getCoordinates())->getValue());
+                            }
                             $boardTest->removePieceAt($moveToAdd->getCoordinates());
                         }
                     }
                     //Après le mouvement (si il y en a eu un) on vérifie si il met le roi en echec
                     if(!$boardTest->checkOf($moveToAdd->getPiece()->isWhite()))
                     {
-                        //mouvement valide ne mettant pas le roi en échec: on recopie la liste des pièces du plateau de test sur le plateau principal
+                        //mouvement valide ne mettant pas le roi en échec: on recopie la liste des pièces du plateau de test sur le plateau principal et on applique le score
                         $this->setPieces($boardTest->getPieces());
+                        $this->setWhiteScore($boardTest->whiteScore);
+                        $this->setBlackScore($boardTest->blackScore);
                         return true;
                     }
                 }
@@ -632,6 +655,7 @@ class Board
         return true;
     }
     
+    //retourne la piece présente aux coordonnées données si elle existe, sinon retourne null
     public function pieceAt(BoardCoordinates $coordinates):Piece
     {
         
@@ -677,6 +701,22 @@ class Board
     public function getBlackScore()
     {
         return $this->blackScore;
+    }
+    
+    /**
+     * @param number $whiteScore
+     */
+    public function setWhiteScore($whiteScore)
+    {
+        $this->whiteScore = $whiteScore;
+    }
+    
+    /**
+     * @param number $blackScore
+     */
+    public function setBlackScore($blackScore)
+    {
+        $this->blackScore = $blackScore;
     }
     
     /**
