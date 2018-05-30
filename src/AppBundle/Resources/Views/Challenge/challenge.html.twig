@@ -3,9 +3,6 @@
 {% block javascripts %}
           <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
           <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
-          <script>$(document).ready(function(){
-        	    $('select').material_select();
-          });</script>
           
          
 {% endblock %}
@@ -38,18 +35,18 @@
 	<form action="{{ path('createChallenge') }}" method="post" class="col s12">
 		<div class = "row">
             <label for="opponent">Choisissez votre adversaire : </label> 
-               <select id="opponent" name="_opponent" >
-                  <option value = "" disabled selected>Adversaire</option>
+               <select id="opponent" name="_opponent" style="display: inline;">
+                  <option value ="null">Adversaire</option>
                   {% for theUser in usersList %}
-                  <option value = "{{ theUser.id }}">{{ theUser.username }}</option>
+                  <option value = {{ theUser.id }}>{{ theUser.username }}</option>
                   {% endfor %}
                </select>
                              
             </div>
 		<div class="row">
 			<label for="color">Quelle couleur souhaitez-vous jouer ?</label><br>
-    		<label for="colorW"><input type="radio" id="colorW" name="_color" value="white" ></label><span>&#9812;</span>
-    		<label for="colorB"><input type="radio" id="colorB" name="_color" value="black" ></label><span>&#9818;</span>
+    		<label for="colorW"><input type="radio" id="colorW" name="_color" value=1 ></label><span>&#9812;</span>
+    		<label for="colorB"><input type="radio" id="colorB" name="_color" value=0 ></label><span>&#9818;</span>
 		</div>
 		
 		
