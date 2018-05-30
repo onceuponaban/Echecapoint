@@ -536,6 +536,7 @@ class Board
                     $boardTest->addPiece($piece);
                     $boardTest->setWhiteScore($this->whiteScore);
                     $boardTest->setBlackScore($this->blackScore);
+                    $boardTest->setTurnList($this->getTurnList());
                     //le mouvement n'est valide que si il ne met pas le roi en échec. On va donc effectuer le mouvement puis vérifier si le roi est en échec.
                     if(!$moveToAdd->isACapture())
                     {
@@ -632,13 +633,29 @@ class Board
                             $boardTest->removePieceAt($moveToAdd->getCoordinates());
                         }
                     }
-                    //Après le mouvement (si il y en a eu un) on vérifie si il met le roi en echec
+                    //Après le mouvement (si il y en a eu un) on met à jour la liste de tours et on vérifie si il met le roi en echec
+                    if($moveToAdd->getPiece()->isWhite())
+                    {
+                        $turn = new Turn(count($boardTest) + 1, $moveToAdd, null);
+                        $boardTest->setTurnList(array_push($boardTest->getTurnList(), $turn));
+                    }
+                    else
+                    {
+                        //On récupère la liste des tours
+                        $turnListToUpdate = $boardTest->getTurnList();
+                        //On met a jour le dernier tour
+                        $turnListToUpdate[count($turnListToUpdate) - 1]->setBlackMove($moveToAdd);
+                        //On le remet dans la liste
+                        $boardTest->setTurnList($turnListToUpdate);
+                    }
+                    
                     if(!$boardTest->checkOf($moveToAdd->getPiece()->isWhite()))
                     {
                         //mouvement valide ne mettant pas le roi en échec: on recopie la liste des pièces du plateau de test sur le plateau principal et on applique le score
                         $this->setPieces($boardTest->getPieces());
                         $this->setWhiteScore($boardTest->whiteScore);
                         $this->setBlackScore($boardTest->blackScore);
+                        $this->setTurnList($boardTest->getTurnList());
                         return true;
                     }
                 }
@@ -737,6 +754,32 @@ class Board
             }
         }
         return false;
+    }
+    
+    /**
+     * @return \AppBundle\Service\Board\array(Turn::class)
+     */
+    public function getTurnList()
+    {
+        return $this->turnList;
+    }
+    
+    /**
+     * @param \AppBundle\Service\Board\array(Turn::class) $turnList
+     */
+    public function setTurnList($turnList)
+    {
+        $this->turnList = $turnList;
+    }
+    
+    public function toString():string
+    {
+        $turnListString = "";
+        foreach($this->getTurnList() as $turn)
+        {
+            $turnListString = $turnListString . $turn->toString() . "";
+        }
+        return $turnListString;
     }
     
 }

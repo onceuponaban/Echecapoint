@@ -3,9 +3,9 @@ namespace AppBundle\Service\Movements;
 
 /**
  * @name Turn
- * 
+ *
  * @desc Représete un tour de jeu aux échecs
- * 
+ *
  * @author Luca Mayer-Dalverny
  */
 class Turn
@@ -30,7 +30,7 @@ class Turn
      * @var Move
      */
     private $blackMove;
-    
+
     public function __construct(int $turnNumber, Move $whiteMove, Move $blackMove)
     {
         if($turnNumber > 0)
@@ -121,6 +121,22 @@ class Turn
     public function getBlackMove()
     {
         return $this->blackMove;
+    }
+    
+    /**
+     * @param \AppBundle\Service\Movements\Move $whiteMove
+     */
+    public function setWhiteMove($whiteMove)
+    {
+        $this->whiteMove = $whiteMove;
+    }
+    
+    /**
+     * @param \AppBundle\Service\Movements\Move $blackMove
+     */
+    public function setBlackMove($blackMove)
+    {
+        $this->blackMove = $blackMove;
     }
 }
 
