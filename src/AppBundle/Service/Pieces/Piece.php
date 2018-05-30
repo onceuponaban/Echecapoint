@@ -2,6 +2,7 @@
 namespace AppBundle\Service\Pieces;
 
 use AppBundle\Service\Board\BoardCoordinates;
+use phpDocumentor\Reflection\Types\String_;
 
 /**
  * @name Piece
@@ -34,28 +35,11 @@ abstract class Piece
     private $value;
     
     /**
-     * @return \AppBundle\Service\Board\BoardCoordinates
+     * @name htmlCode
+     * @desc Le code html de la pièce
+     * @var string
      */
-    public function getCoordinates()
-    {
-        return $this->coordinates;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isWhite()
-    {
-        return $this->isWhite;
-    }
-
-    /**
-     * @return \AppBundle\Service\Pieces\PiecesValue
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
+    private $htmlCode;
 
     /**
      * @method construct

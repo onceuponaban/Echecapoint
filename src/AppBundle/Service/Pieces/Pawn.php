@@ -33,18 +33,28 @@ class Pawn extends Piece
     
     public function __construct(BoardCoordinates $coordinates, bool $isWhite)
     {
-        $this->coordinates = $coordinates;
+        $this->coordinates = new BoardCoordinates($coordinates->getFile(), $coordinates->getRank());
         $this->isWhite = $isWhite;
         $this->value = PiecesValue::PAWN;
         $this->hasMoved = false;
         $this->enPassantCapturePossible = false;
+        
+        if($this->isWhite())
+        {
+            $this->htmlCode = "9817";
+        }
+        else
+        {
+            $this->htmlCode = "9823";
+        }
+        
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool
     {
         if($newCoordinates->isOnTheBoard())
         {
-            $this->coordinates = $newCoordinates;
+            $this->coordinates = new BoardCoordinates($newCoordinates->getFile(), $newCoordinates->getRank());
             if(!$this->hasMoved)
                 $this->hasMoved = true;
             if(abs($newCoordinates->getRank()-$this->getCoordinates()->getRank()) == 2)
@@ -62,6 +72,36 @@ class Pawn extends Piece
         return $this->enPassantCapturePossible;
     }
 
+    /**
+     * @return \AppBundle\Service\Board\BoardCoordinates
+     */
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
     
+    /**
+     * @return boolean
+     */
+    public function isWhite()
+    {
+        return $this->isWhite;
+    }
+    
+    /**
+     * @return \AppBundle\Service\Pieces\PiecesValue
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getHtmlCode()
+    {
+        return $this->htmlCode;
+    }
 }
 

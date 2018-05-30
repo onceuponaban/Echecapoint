@@ -42,20 +42,60 @@ class Queen extends Piece
     
     public function __construct(BoardCoordinates $coordinates, bool $isWhite)
     {
-        $this->coordinates = $coordinates;
+        $this->coordinates = new BoardCoordinates($coordinates->getFile(), $coordinates->getRank());
         $this->isWhite = $isWhite;
         $this->value = PiecesValue::QUEEN;
+        
+        if($this->isWhite())
+        {
+            $this->htmlCode = "9813";
+        }
+        else
+        {
+            $this->htmlCode = "9819";
+        }
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool
     {
         if($newCoordinates->isOnTheBoard())
         {
-            $this->coordinates = $newCoordinates;
+            $this->coordinates = new BoardCoordinates($newCoordinates->getFile(), $newCoordinates->getRank());
             return true;
         }
         return false;
     }
     
+    /**
+     * @return \AppBundle\Service\Board\BoardCoordinates
+     */
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function isWhite()
+    {
+        return $this->isWhite;
+    }
+    
+    /**
+     * @return \AppBundle\Service\Pieces\PiecesValue
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getHtmlCode()
+    {
+        return $this->htmlCode;
+    }
 }
 

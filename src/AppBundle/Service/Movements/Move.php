@@ -41,6 +41,30 @@ class Move
     private $isACapture;
     
     /**
+     * @return \AppBundle\Service\Pieces\Piece
+     */
+    public function getPiece()
+    {
+        return $this->piece;
+    }
+
+    /**
+     * @return \AppBundle\Service\Board\BoardCoordinates
+     */
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isACapture()
+    {
+        return $this->isACapture;
+    }
+
+    /**
      * @name contruct
      * @desc Le constructeur de la classe
      * @param Piece $pieceToMove

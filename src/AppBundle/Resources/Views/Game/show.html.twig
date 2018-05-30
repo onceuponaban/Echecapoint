@@ -1,7 +1,45 @@
-{% extends "::base.html.twig" %}
-
-{% block title %}AppBundle:Game:show{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Game:show page</h1>
+
+<table style="text-align:center;margin:auto">
+
+
+	{% for file in 0..7 %}
+	
+		<tr>
+	
+	        {% for rank in 0..7 %}
+	
+	            {% if (file+rank)%2 == 0 %}
+		
+					<td style="width:40pt; height:40pt;">
+	
+	            {% else %}
+	        
+	        		<td style="width:40pt; height:40pt;background:silver;">
+	
+	            {% endif %}
+				
+				{% for piece in board.piecelist %}
+				
+					{% if piece.coordinates.file == file and piece.coordinates.rank == rank %}
+					
+						<span style="font-size:250%">&#{{ piece.htmlCode }};</span>
+				
+					{% endif %}
+					
+				{% endfor %}
+					
+				</td>
+	
+            {% endfor %}
+	
+		</tr>
+	
+	{% endfor %}
+
+</table>
+
+
 {% endblock %}
