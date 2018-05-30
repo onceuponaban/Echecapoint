@@ -13,7 +13,7 @@ Echecs a Points
 {% for game in BlackGames %}
 	<li class="collection-item">
 	 <div class="card-panel teal grey darken-4 white-text">Contre <span style="text-transform: capitalize;">{{ game.whitePlayer.username }}</span>
-	 <a class="waves-effect waves-light btn right green black-text" style="margin-left:5px;" href="{{ path('app_game_show/game.id') }}"><i class="material-icons right">chevron_right</i>Continuer</a> 
+	 <a class="waves-effect waves-light btn right green black-text" style="margin-left:5px;"  href="{{ path('app_game_show',{id : game.id })}}"><i class="material-icons right">chevron_right</i>Continuer</a> 
 	 <a class="waves-effect waves-light btn right orange black-text" style="margin-left:5px;"><i class="material-icons right">swap_horiz</i>Proposer le nul</a> 
 	 <a class="waves-effect waves-light btn right red black-text"><i class="material-icons right">close</i>Abandonner</a>
 	 </div>
