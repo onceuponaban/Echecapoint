@@ -6,20 +6,18 @@ Echecs a Points
 
 {% block body %}
 <meta charset="UTF-8" />
-<h1>Bienvenue</h1>
+<h1>Bienvenue <span style="text-transform: capitalize;">{{ app.user.username }}</span></h1>
 {% if app.user!=null %}
 <h4>Vos parties en cours :</h4>
 {% for game in BlackGames %}
 	 <div class="card-panel teal grey darken-4 white-text">Contre <span style="text-transform: capitalize;">{{ game.whitePlayer.username }}</span>
 	 <a class="waves-effect waves-light btn right green black-text" style="margin-left:5px;"  href="{{ path('app_game_show',{id : game.id })}}"><i class="material-icons right">chevron_right</i>Continuer</a> 
-	 <a class="waves-effect waves-light btn right orange black-text" style="margin-left:5px;"><i class="material-icons right">swap_horiz</i>Proposer le nul</a> 
 	 <a class="waves-effect waves-light btn right red black-text"><i class="material-icons right">close</i>Abandonner</a>
 	 </div>
 	{% endfor %}
 	{% for game in WhiteGames %}
 	<div class="card-panel teal white black-text">Contre <span style="text-transform: capitalize;" >{{ game.blackPlayer.username }}</span>
 	<a class="waves-effect waves-light btn right green" style="margin-left:5px;" href="{{ path('app_game_show',{id : game.id })}}"><i class="material-icons right">chevron_right</i>Continuer</a> 
-	<a class="waves-effect waves-light btn right orange" style="margin-left:5px;"><i class="material-icons right">swap_horiz</i>Proposer le nul</a> 
 	<a class="waves-effect waves-light btn right red"><i class="material-icons right">close</i>Abandonner</a></div>
 	{% endfor %}
 
