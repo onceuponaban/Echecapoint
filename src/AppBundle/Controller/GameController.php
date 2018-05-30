@@ -45,11 +45,9 @@ class GameController extends Controller
         
         $board->updateFromString($game->getBoard());
         
-        $piece = new Pawn(new BoardCoordinates(0,0),true);
-        
         return $this->render('AppBundle:Game:show.html.twig', array(
-            'board' => $board,
-            'piece' => $piece
+            'game' => $game,
+            'board' => $board
         ));
     }
 

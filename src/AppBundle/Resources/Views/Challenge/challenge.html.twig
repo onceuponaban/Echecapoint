@@ -1,0 +1,61 @@
+{% extends "::base.html.twig" %}
+
+{% block javascripts %}
+          <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+          <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+          
+         
+{% endblock %}
+
+{% block body %}
+<style>
+.input-field input:focus + label {
+   color: #80d8ff !important;
+ }
+ /* label underline focus color */
+ .row .input-field input:focus {
+   border-bottom: 1px solid #80d8ff !important;
+   box-shadow: 0 1px 0 0 #80d8ff !important
+ }
+ .input-field input[type=text].valid {
+     border-bottom: 1px solid #80d8ff !important;
+     box-shadow: 0 1px 0 0 #80d8ff !important;
+   }
+   
+   [type="radio"]:not(:checked), [type="radio"]:checked {
+     position: relative; 
+     opacity: 1; 
+}
+</style>
+<h3>Défi</h3>
+<meta charset="UTF-8" />
+
+
+<div class="row">
+	<form action="{{ path('createChallenge') }}" method="post" class="col s12">
+		<div class = "row">
+            <label for="opponent">Choisissez votre adversaire : </label> 
+               <select id="opponent" name="_opponent" style="display: inline;">
+                  <option value ="null">Adversaire</option>
+                  {% for theUser in usersList %}
+                  <option value = {{ theUser.id }}>{{ theUser.username }}</option>
+                  {% endfor %}
+               </select>
+                             
+            </div>
+		<div class="row">
+			<label for="color">Quelle couleur souhaitez-vous jouer ?</label><br>
+    		<label for="colorW"><input type="radio" id="colorW" name="_color" value=1 ></label><span>&#9812;</span>
+    		<label for="colorB"><input type="radio" id="colorB" name="_color" value=0 ></label><span>&#9818;</span>
+		</div>
+		
+		
+		<div class="row">
+		 <button class="btn waves-effect waves-light light-blue accent-1" type="submit" name="action">
+		 Jouer<i class="material-icons right">group</i>
+		 </button>
+		</div>
+	</form>
+</div>
+
+{% endblock %}

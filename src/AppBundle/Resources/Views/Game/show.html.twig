@@ -1,30 +1,48 @@
-{% block title %}{% endblock %}
+{% block javascripts %}
+  <script type="text/javascript" src="{{ asset('js/game.js') }}"></script>
+{% endblock %}
 
 {% block body %}
+
+<h1 style="text-align:center;">{{ game.whitePlayer.username }} : {{board.whiteScore}} - {{board.blackScore}} : {{ game.blackPlayer.username }}</h1>
 
 <table style="text-align:center;margin:auto">
 
 
 	{% for file in 0..7 %}
 	
-	<tr>
+		<tr>
 	
-	{% for rank in 0..7 %}
+	        {% for rank in 0..7 %}
 	
-	{% if (file+rank)%2 == 0 %}
-	<td style="width:40pt; height:40pt;">
-	{% else %}
-	<td style="width:40pt; height:40pt;background:silver;">
-	{% endif %}
-	<span style="font-size:250%">
-	&#{{ piece.htmlCode }};
-	</span>
-	</td>
+	            {% if (file+rank)%2 != 0 %}
+		
+					<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;" onclick="SelectionCase(this)">
+	
+	            {% else %}
+	            	        
+	        		<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;background:silver;" onclick="SelectionCase(this)">
+	
+	            {% endif %}
+				
+				{% for piece in board.piecelist %}
+				
+					{% if piece.coordinates.file == file and piece.coordinates.rank == rank %}
+					
+						<span style="font-size:250%">&#{{ piece.htmlCode }};</span>
+				
+					{% endif %}
+					
+				{% endfor %}
+					
+				</td>
+	
+            {% endfor %}
+	
+		</tr>
+	
 	{% endfor %}
-	
-	</tr>
-	
-	{% endfor %}
+
 </table>
 
 

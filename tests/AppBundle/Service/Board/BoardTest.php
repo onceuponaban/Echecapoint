@@ -59,33 +59,25 @@ class BoardTest extends PHPUnit_Framework_TestCase
     {
         $board = new Board(false);
         
-        echo "board is type of : ".gettype($board)."\n";
-        
         $pieceList = $board->getPieceList();
         
-        echo "pieceList is type of : ".gettype($pieceList)."\n";
-        
         foreach ($pieceList as &$piece)
-        {
-            //echo "Hello From ".get_class($piece)."\n";
-            //echo "piece is typeof : ".gettype($piece)."\n";
-            
+        {   
             switch (get_class($piece))
             {
                 case Rook::class:
-                    echo "Hello From Pawn\n";
+                    
                     break;
                     
                 case Knight::class:
-                    echo "Hello From Knight\n";
+                    
                     break;
                     
                 case Bishop::class:
-                    echo "Hello From Bishop\n";
+                    
                     break;
                     
                 case Rook::class:
-                    echo "Hello From Rook\n";
                     if($piece->isWhite())
                     {
                         self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(0,0)));
@@ -98,27 +90,24 @@ class BoardTest extends PHPUnit_Framework_TestCase
                     break;
                     
                 case Queen::class:
-                    echo "Hello From Queen\n";
                     if($piece->isWhite())
                     {
                         self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(3,0)));
                     }
                     else
                     {
-                        echo $piece->toString();
-                        //self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(3,7)));
+                        self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(3,7)));
                     }
                     break;
                     
                 case King::class:
-                    echo "Hello From King\n";
                     if($piece->isWhite())
                     {
                         self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(4,0)));
                     }
                     else
                     {
-                        //self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(4,7)));
+                        self::assertTrue($piece->getCoordinates()->isEqualTo(new BoardCoordinates(4,7)));
                     }
                     break;
             }
