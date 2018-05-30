@@ -80,5 +80,63 @@ class MoveTest extends \PHPUnit_Framework_TestCase
         
     }
     
+    public function testFromStringCapture()
+    {
+        $move = new Move(new Knight(new BoardCoordinates(3,1), true), new BoardCoordinates(4,3), true);
+        
+        $moveFromString = Move::fromString($move->toString(), true);
+        
+        self::assertEquals($move,$moveFromString);
+    }
+    
+    public function testIsACaptureTrue()
+    {
+        $moveTrue = new Move(new Knight(new BoardCoordinates(3,1), true), new BoardCoordinates(4,3), true);
+    
+        self::assertTrue($moveTrue->isACapture());
+    }
+    
+    public function testIsACaptureFalse()
+    {
+        $moveFalse = new Move(new Knight(new BoardCoordinates(3,1), true), new BoardCoordinates(4,3), false);
+        
+        self::assertFalse($moveFalse->isACapture());
+    }
+    
+    public function testGetPieceTrue()
+    {
+        $piece = new Knight(new BoardCoordinates(3,1), true);
+        
+        $move = new Move($piece, new BoardCoordinates(4,3), true);
+        
+        self::assertEquals($piece, $move->getPiece());
+    }
+    
+    public function testGetPieceFalse()
+    {
+        $piece = new Knight(new BoardCoordinates(3,1), true);
+        
+        $move = new Move($piece, new BoardCoordinates(4,3), true);
+        
+        self::assertNotEquals(new Knight(new BoardCoordinates(4,1), true), $move->getPiece());
+    }
+    
+    public function testGetCoordinatesTrue()
+    {
+        $coordinates = new BoardCoordinates(4,3);
+        
+        $move = new Move(new Knight(new BoardCoordinates(3,1), true), $coordinates, true);
+        
+        self::assertTrue($move->getCoordinates()->isEqualTo($coordinates));
+    }
+    
+    public function testGetCoordinatesFalse()
+    {
+        $coordinates = new BoardCoordinates(4,3);
+        
+        $move = new Move(new Knight(new BoardCoordinates(3,1), true), $coordinates, true);
+        
+        self::assertFalse($move->getCoordinates()->isEqualTo(new BoardCoordinates(7,3)));
+    }
 }
 

@@ -114,34 +114,36 @@ class Move
             $isACapture = true;
         }
         
+        $move;
+        
         switch ($arrayMove[0])
         {
             case Notation::PAWN:
-                return new Move(new Pawn($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
+                $move = new Move(new Pawn($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
                 break;
                 
             case Notation::KNIGHT:
-                return new Move(new Knight($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
+                $move = new Move(new Knight($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
                 break;
                 
             case Notation::BISHOP:
-                return new Move(new Bishop($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
+                $move = new Move(new Bishop($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
                 break;
                 
             case Notation::ROOK:
-                return new Move(new Rook($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
+                $move = new Move(new Rook($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
                 break;
                 
             case Notation::QUEEN:
-                return new Move(new Queen($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
+                $move = new Move(new Queen($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
                 break;
                 
             case Notation::KING:
-                return new Move(new King($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
+                $move = new Move(new King($startCoordinates, $whiteToMove), $endCoordinates, $isACapture);
                 break;
         }
         
-        return null;
+        return $move;
     }
 }
 
