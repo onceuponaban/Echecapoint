@@ -24,6 +24,15 @@ class Bishop extends Piece
         $this->coordinates = $coordinates;
         $this->isWhite = $isWhite;
         $this->value = PiecesValue::BISHOP;
+        
+        if($this->isWhite())
+        {
+            $this->htmlCode = "&#9815;";
+        }
+        else
+        {
+            $this->htmlCode = "&#9821;";
+        }
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool

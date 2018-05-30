@@ -38,6 +38,16 @@ class Pawn extends Piece
         $this->value = PiecesValue::PAWN;
         $this->hasMoved = false;
         $this->enPassantCapturePossible = false;
+        
+        if($this->isWhite())
+        {
+            $this->htmlCode = "&#9817;";
+        }
+        else
+        {
+            $this->htmlCode = "&#9823;";
+        }
+        
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool

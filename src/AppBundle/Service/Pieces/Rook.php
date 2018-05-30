@@ -35,6 +35,15 @@ class Rook extends Piece
         $this->isWhite = $isWhite;
         $this->value = PiecesValue::ROOK;
         $this->hasMoved = false;
+        
+        if($this->isWhite())
+        {
+            $this->htmlCode = "&#9814;";
+        }
+        else
+        {
+            $this->htmlCode = "&#9820;";
+        }
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool

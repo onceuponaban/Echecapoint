@@ -24,6 +24,15 @@ class Knight extends Piece
         $this->coordinates = $coordinates;
         $this->isWhite = $isWhite;
         $this->value = PiecesValue::KNIGHT;
+        
+        if($this->isWhite())
+        {
+            $this->htmlCode = "&#9816;";
+        }
+        else
+        {
+            $this->htmlCode = "&#9822;";
+        }
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool

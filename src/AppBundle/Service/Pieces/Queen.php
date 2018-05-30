@@ -45,6 +45,15 @@ class Queen extends Piece
         $this->coordinates = $coordinates;
         $this->isWhite = $isWhite;
         $this->value = PiecesValue::QUEEN;
+        
+        if($this->isWhite())
+        {
+            $this->htmlCode = "&#9813;";
+        }
+        else
+        {
+            $this->htmlCode = "&#9819;";
+        }
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool

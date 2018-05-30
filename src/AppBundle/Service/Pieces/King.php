@@ -32,6 +32,15 @@ class King extends Piece
         $this->isWhite = $isWhite;
         $this->value = 0; //le roi ne peut pas être pris, il n'a donc pas de valeur!
         $this->hasMoved = false;
+        
+        if($this->isWhite())
+        {
+            $this->htmlCode = "&#9812;";
+        }
+        else
+        {
+            $this->htmlCode = "&#9818;";
+        }
     }
     
     public function moveTo(BoardCoordinates $newCoordinates): bool

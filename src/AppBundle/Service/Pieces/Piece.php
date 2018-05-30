@@ -2,6 +2,7 @@
 namespace AppBundle\Service\Pieces;
 
 use AppBundle\Service\Board\BoardCoordinates;
+use phpDocumentor\Reflection\Types\String_;
 
 /**
  * @name Piece
@@ -32,6 +33,13 @@ abstract class Piece
      * @var PiecesValue
      */
     private $value;
+    
+    /**
+     * @name htmlCode
+     * @desc Le code html de la pièce
+     * @var string
+     */
+    private $htmlCode;
     
     /**
      * @return \AppBundle\Service\Board\BoardCoordinates
