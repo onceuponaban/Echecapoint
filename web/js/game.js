@@ -1,17 +1,61 @@
+var xhr = new XMLHttpRequest();
 
+function getXMLHttpRequest() { 
+    var xhr = null; 
+    if (window.XMLHttpRequest || window.ActiveXObject) { 
+        if (window.ActiveXObject) { 
+            try { 
+                    xhr = new ActiveXObject("Msxml2.XMLHTTP"); 
+            } catch(e) { 
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP"); 
+            } 
+        } else { 
+                xhr = new XMLHttpRequest(); 
+        } 
+    } else { 
+            alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest..."); 
+            return null; 
+    } 
+    return xhr; 
+}
 
+function request(callBack,element) {
+	
+    //On récupère la valeur rentrée par l'utilisateur
+    var xhr = getXMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        //réponse arrivé
+        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
+            callBack(xhr.responseText);
+        }
+    };
+    
+    //Ajustement de la couleur
+	ResetColor();
+	element.style.background = 'yellow';
+	
+	//Récupération de la coordonnée de la case
+	var coord = NotationFromId(element.id);
+    
+    
+    var notationCase = encodeURIComponent(coord);
+    var partie = encodeURIComponent(document.getElementById("partie").textContent); 
+    xhr.open("GET", "../../src/AppBundle/Service/Ajax/Game.php?Case="+notationCase+"&Partie="+partie, true);
+    xhr.send(null);
+   
+}
 
-
-
-
-
-
-
-
-
-
-
-
+function readData(oData) {
+    if(oData != "")
+    {
+    	var arrayCoord = oData.split(" ");
+    }
+    else{
+    	alert("Pas de Mouvement possible");
+    }
+    alert(oData);
+    //document.getElementById("error").value = oData;
+}
 
 function SelectionCase(element)
 {

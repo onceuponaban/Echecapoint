@@ -6,6 +6,8 @@
 
 <h1 style="text-align:center;">{{ game.whitePlayer.username }} : {{board.whiteScore}} - {{board.blackScore}} : {{ game.blackPlayer.username }}</h1>
 
+<h4 id="partie" style="text-align:center;">{{ game.board }}</h4>
+
 <table style="text-align:center;margin:auto">
 
 
@@ -17,11 +19,11 @@
 	
 	            {% if (file+rank)%2 != 0 %}
 		
-					<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;" onclick="SelectionCase(this)">
+					<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;" onclick="request(readData,this)">
 	
 	            {% else %}
 	            	        
-	        		<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;background:silver;" onclick="SelectionCase(this)">
+	        		<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;background:silver;" onclick="request(readData,this)">
 	
 	            {% endif %}
 				
@@ -45,5 +47,7 @@
 
 </table>
 
+<div id="error">
+</div>
 
 {% endblock %}

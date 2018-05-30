@@ -4,6 +4,7 @@ namespace AppBundle\Service\Pieces;
 use AppBundle\Service\Board\BoardCoordinates;
 use AppBundle\Service\Movements\Notation;
 
+
 /**
  * @name Pawn
  *
