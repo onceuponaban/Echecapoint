@@ -35,7 +35,7 @@ class ChallengeController extends Controller
             $adId =intval($request->get('_opponent'));
             $opponent = $this->getDoctrine()->getRepository(User::class)->findOneById($adId);
             
-            
+            if($opponent!=null){
             if($request->get('_color')==1){
                 $game->setWhitePlayer($this->getUser());
                 $game->setBlackPlayer($opponent);
@@ -59,6 +59,13 @@ class ChallengeController extends Controller
                 'opponent' => $opponent->getUsername(),
                 'gameId' => $game->getId()
             ));
+            }
+            
+            else{
+                return $this->render('AppBundle:Challenge:challengeCreate.html.twig', array(
+                    'valid' => 0
+                ));
+            }
         }
         
         else{
