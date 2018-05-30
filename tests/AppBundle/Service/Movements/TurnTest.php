@@ -3,6 +3,7 @@ namespace tests\AppBundle\Service\Movements;
 
 use AppBundle\Service\Board\BoardCoordinates;
 use AppBundle\Service\Movements\Move;
+use AppBundle\Service\Pieces\Pawn;
 use AppBundle\Service\Pieces\Queen;
 use AppBundle\Service\Pieces\Rook;
 use AppBundle\Service\Movements\Turn;
@@ -17,7 +18,7 @@ class TurnTest extends \PHPUnit_Framework_TestCase
         
         $turn = new Turn(1, $whiteMove, $blackMove);
         
-        self::assertEquals("1 Qd4-e5 Rg8xa8;",$turn->toString());
+        self::assertEquals("1 Qd4-e5 Rg8xa8",$turn->toString());
     }
     
     public function testToStringWrongNumber()
@@ -28,7 +29,27 @@ class TurnTest extends \PHPUnit_Framework_TestCase
         
         $turn = new Turn(-1, $whiteMove, $blackMove);
         
-        self::assertEquals("1 Qd4-e5 Rg8xa8;",$turn->toString());
+        self::assertEquals("1 Qd4-e5 Rg8xa8",$turn->toString());
+    }
+    
+    public function testFromStringTrue()
+    {
+        $turn = new Turn(1, new Move(new Pawn(new BoardCoordinates(4,1), true), new BoardCoordinates(4,3), false), new Move(new Pawn(new BoardCoordinates(3,6), false), new BoardCoordinates(3,5), false));
+        
+        $turnFromString = Turn::fromString($turn->toString());
+        
+        self::assertTrue($turn->isEqualTo($turnFromString));
+    }
+    
+    public function testFromStringFalse()
+    {
+        $turn = new Turn(1, new Move(new Pawn(new BoardCoordinates(4,1), true), new BoardCoordinates(4,3), false), new Move(new Pawn(new BoardCoordinates(3,6), false), new BoardCoordinates(3,5), false));
+        
+        $turnTwo = new Turn(1, new Move(new Pawn(new BoardCoordinates(4,1), true), new BoardCoordinates(4,2), false), new Move(new Pawn(new BoardCoordinates(3,6), false), new BoardCoordinates(3,5), false));
+        
+        $turnFromString = Turn::fromString($turn->toString());
+        
+        self::assertFalse($turn->isEqualTo($turnFromString));
     }
 }
 

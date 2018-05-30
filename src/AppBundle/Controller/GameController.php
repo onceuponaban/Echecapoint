@@ -46,7 +46,8 @@ class GameController extends Controller
         $board->updateFromString($game->getBoard());
         
         return $this->render('AppBundle:Game:show.html.twig', array(
-            'board' => $board,
+            'game' => $game,
+            'board' => $board
         ));
     }
 

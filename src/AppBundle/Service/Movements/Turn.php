@@ -53,13 +53,23 @@ class Turn
      */
     public function toString():string
     {
-        return $this->turnNumber." ".$this->whiteMove->toString()." ".$this->blackMove->toString().";";
+        return $this->turnNumber." ".$this->whiteMove->toString()." ".$this->blackMove->toString();
     }
     
     public static function fromString(string $stringTurn):Turn
     {
         
+        echo "\nListe de Tour : ".$stringTurn."\n";
+        
         $arrayMove = explode(" ", $stringTurn);
+        
+        
+        echo "Array de Move : ";
+        foreach ($arrayMove as $move)
+        {
+            echo $move."_&_";
+        }
+        echo "\n";
         
         $turnNumber = intval($arrayMove[0]);
         
@@ -67,7 +77,7 @@ class Turn
         
         if(count($arrayMove) > 2)
         {
-            $blackMove = Move::fromString($arrayMove[3],false);
+            $blackMove = Move::fromString($arrayMove[2],false);
         }
         else
         {
@@ -75,6 +85,42 @@ class Turn
         }
         
         return new Turn($turnNumber, $whiteMove, $blackMove);
+    }
+    
+    public function isEqualTo(Turn $otherTurn):bool
+    {
+        $postulate = false;
+        
+        if(($this->whiteMove == $otherTurn->getWhiteMove())&&($this->blackMove == $otherTurn->getBlackMove()))
+        {
+            $postulate = true;
+        }
+        
+        return $postulate;
+    }
+    
+    /**
+     * @return number
+     */
+    public function getTurnNumber()
+    {
+        return $this->turnNumber;
+    }
+
+    /**
+     * @return \AppBundle\Service\Movements\Move
+     */
+    public function getWhiteMove()
+    {
+        return $this->whiteMove;
+    }
+
+    /**
+     * @return \AppBundle\Service\Movements\Move
+     */
+    public function getBlackMove()
+    {
+        return $this->blackMove;
     }
 }
 
