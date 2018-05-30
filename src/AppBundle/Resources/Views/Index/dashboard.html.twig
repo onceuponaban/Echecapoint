@@ -9,9 +9,7 @@ Echecs a Points
 <h1>Bienvenue</h1>
 {% if app.user!=null %}
 <h4>Vos parties en cours :</h4>
-<ul class="collection">
 {% for game in BlackGames %}
-	<li class="collection-item">
 	 <div class="card-panel teal grey darken-4 white-text">Contre <span style="text-transform: capitalize;">{{ game.whitePlayer.username }}</span>
 	 <a class="waves-effect waves-light btn right green black-text" style="margin-left:5px;"  href="{{ path('app_game_show',{id : game.id })}}"><i class="material-icons right">chevron_right</i>Continuer</a> 
 	 <a class="waves-effect waves-light btn right orange black-text" style="margin-left:5px;"><i class="material-icons right">swap_horiz</i>Proposer le nul</a> 
@@ -19,14 +17,12 @@ Echecs a Points
 	 </div>
 	{% endfor %}
 	{% for game in WhiteGames %}
-	<li class="collection-item">
 	<div class="card-panel teal white black-text">Contre <span style="text-transform: capitalize;" >{{ game.blackPlayer.username }}</span>
 	<a class="waves-effect waves-light btn right green" style="margin-left:5px;" href="{{ path('app_game_show',{id : game.id })}}"><i class="material-icons right">chevron_right</i>Continuer</a> 
 	<a class="waves-effect waves-light btn right orange" style="margin-left:5px;"><i class="material-icons right">swap_horiz</i>Proposer le nul</a> 
 	<a class="waves-effect waves-light btn right red"><i class="material-icons right">close</i>Abandonner</a></div>
 	{% endfor %}
 
-</ul>
 
 <a class="waves-effect waves-light btn left light-blue darken-1"><i class="material-icons right">person_add</i>Defier un joueur</a> 
 
