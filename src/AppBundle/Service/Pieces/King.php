@@ -35,11 +35,11 @@ class King extends Piece
         
         if($this->isWhite())
         {
-            $this->htmlCode = "&#9812;";
+            $this->htmlCode = "9812";
         }
         else
         {
-            $this->htmlCode = "&#9818;";
+            $this->htmlCode = "9818";
         }
     }
     

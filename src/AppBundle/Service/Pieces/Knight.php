@@ -27,11 +27,11 @@ class Knight extends Piece
         
         if($this->isWhite())
         {
-            $this->htmlCode = "&#9816;";
+            $this->htmlCode = "9816";
         }
         else
         {
-            $this->htmlCode = "&#9822;";
+            $this->htmlCode = "9822";
         }
     }
     

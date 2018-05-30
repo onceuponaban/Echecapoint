@@ -41,11 +41,11 @@ class Pawn extends Piece
         
         if($this->isWhite())
         {
-            $this->htmlCode = "&#9817;";
+            $this->htmlCode = "9817";
         }
         else
         {
-            $this->htmlCode = "&#9823;";
+            $this->htmlCode = "9823";
         }
         
     }

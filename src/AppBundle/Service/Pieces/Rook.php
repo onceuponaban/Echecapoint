@@ -38,11 +38,11 @@ class Rook extends Piece
         
         if($this->isWhite())
         {
-            $this->htmlCode = "&#9814;";
+            $this->htmlCode = "9814";
         }
         else
         {
-            $this->htmlCode = "&#9820;";
+            $this->htmlCode = "9820";
         }
     }
     

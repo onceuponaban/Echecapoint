@@ -27,11 +27,11 @@ class Bishop extends Piece
         
         if($this->isWhite())
         {
-            $this->htmlCode = "&#9815;";
+            $this->htmlCode = "9815";
         }
         else
         {
-            $this->htmlCode = "&#9821;";
+            $this->htmlCode = "9821";
         }
     }
     

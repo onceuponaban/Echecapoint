@@ -48,11 +48,11 @@ class Queen extends Piece
         
         if($this->isWhite())
         {
-            $this->htmlCode = "&#9813;";
+            $this->htmlCode = "9813";
         }
         else
         {
-            $this->htmlCode = "&#9819;";
+            $this->htmlCode = "9819";
         }
     }
     
