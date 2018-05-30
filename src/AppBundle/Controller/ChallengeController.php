@@ -45,8 +45,9 @@ class ChallengeController extends Controller
                 $game->setWhitePlayer($opponent);
             }
            
-            
-            $game->setBoard("");
+            $board = new Board(false);
+            $strBrd=$board->toString();
+            $game->setBoard($strBrd);
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($game);
