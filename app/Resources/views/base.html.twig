@@ -13,8 +13,8 @@
     <body>
         {%  if app.user!=null %}
         <ul id="dropdown_auth" class="dropdown-content">
-        	<li><a href="#">Profile</a></li>
-        	<li><a href="{{ path('app_logout') }}">Logout</a></li>
+        	<li><a class="blue-text" href="#">Profile</a></li>
+        	<li><a class="blue-text" href="{{ path('app_logout') }}">Logout</a></li>
         </ul>
         {% endif %}
         
@@ -24,7 +24,7 @@
             	<ul class="right hide-on-med-and-down">
             	{% if app.user!=null %}
             		<li>
-            			<a class="dropdown-button" href="#!" data-activates="dropdown_auth">
+            			<a class="dropdown-button" href="#!" data-activates="dropdown_auth" >
             			{{ app.user.username }}
             			<i class="material-icons right">arrow_drop_down</i>
             			</a>

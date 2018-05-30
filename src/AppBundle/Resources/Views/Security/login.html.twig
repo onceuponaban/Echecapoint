@@ -5,6 +5,20 @@ Login
 {% endblock %}
 
 {% block body %}
+<style>
+.input-field input:focus + label {
+   color: #80d8ff !important;
+ }
+ /* label underline focus color */
+ .row .input-field input:focus {
+   border-bottom: 1px solid #80d8ff !important;
+   box-shadow: 0 1px 0 0 #80d8ff !important
+ }
+ .input-field input[type=text].valid {
+     border-bottom: 1px solid #80d8ff !important;
+     box-shadow: 0 1px 0 0 #80d8ff !important;
+   }
+</style>
 <h3>Authentification</h3>
 <meta charset="UTF-8" />
 {% if error %}
@@ -16,13 +30,13 @@ Login
 {% if app.user!=null %}
 <div class="row">
 <h4>Vous êtes déjà authentifié.</h4>
-<a href="{{ path('app_index') }}" class="waves-effect waves-light btn">Retourner à l'accueil.</a>
+<a href="{{ path('app_index') }}" class="waves-effect waves-light light-blue accent-1 btn">Retourner à l'accueil.</a>
 </div>
 {% else %}
 <div class="row">
 	<form action="{{ path('app_login') }}" method="post" class="col s12">
 		<div class="row">
-			<div class="input-field col s12">
+			<div class="input-field col s12 ">
 				<input type="text" id="username" name="_username" value="{{ last_username }}" class="validate"/>
 				<label for="username">Username :</label>
 			</div>
@@ -32,7 +46,7 @@ Login
 			</div>
 		</div>
 		<div class="row">
-		 <button class="btn waves-effect waves-light" type="submit" name="action">
+		 <button class="btn waves-effect waves-light light-blue accent-1" type="submit" name="action">
 		 Login<i class="material-icons right">verified_user</i>
 		 </button>
 		</div>
