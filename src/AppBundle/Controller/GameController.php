@@ -58,12 +58,22 @@ class GameController extends Controller
      */
     public function listMoveAction(Request $request)
     {
-        $id = $request->get('id');
-        
-        $file = $request->get('file');
-        
-        $rank = $request->get('rank');
-        
+        if($request->isXmlHttpRequest())
+        {
+            $id = $request->get('id');
+            
+            $file = $request->get('file');
+            
+            $rank = $request->get('rank');
+            
+        }else
+        {
+            $id = (isset($_GET["id"])) ? $_GET["id"] : NULL;
+            
+            $file = (isset($_GET["file"])) ? $_GET["file"] : NULL;
+            
+            $rank = (isset($_GET["rank"])) ? $_GET["rank"] : NULL;
+        }
         
         $game = $this->getDoctrine()->getRepository(Game::class)->find($id);
         
@@ -90,6 +100,7 @@ class GameController extends Controller
         }
         
         return new JsonResponse(array('moves' => json_encode($stringMove)));
+
     }
 
 }
