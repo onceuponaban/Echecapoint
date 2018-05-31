@@ -460,9 +460,9 @@ class BoardTest extends PHPUnit_Framework_TestCase
         $pawnFirstMove = new BoardCoordinates(1, 3);
         $board = new Board(false);
         $testMove = new Move($board->pieceAt($pawnb2InitialCoordinates),$pawnFirstMove,false);
-        $board->updateFromMove($testMove);
-        //self::assertTrue($board->updateFromMove($testMove));
-        var_dump($board->pieceAt($pawnFirstMove));
+        //var_dump($board->pieceAt($pawnFirstMove));
+        self::assertTrue($board->updateFromMove($testMove));
+        //var_dump($board->pieceAt($pawnFirstMove));
     }
     /**
      * Tests Board->isFilled()

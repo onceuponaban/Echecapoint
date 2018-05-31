@@ -570,7 +570,7 @@ class Board
         {
             if($moveToAdd->getCoordinates()->isEqualTo($move))
             {
-                echo "MOUVEMENT VALIDE\n";
+                //echo "MOUVEMENT VALIDE\n";
                 //On recopie notre plateau sur un plateau de test
                 $boardTest = new Board(true);
                 $boardTest->setWhiteScore($this->whiteScore);
@@ -638,6 +638,7 @@ class Board
                     }
                     else
                     {
+                        
                         //Mouvement standard : on tente le mouvement sur le plateau de test
                         //var_dump($boardTest->getPieces());
                         ($boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates()))->moveTo($moveToAdd->getCoordinates());
@@ -692,18 +693,17 @@ class Board
                         //On le remet dans la liste
                         $boardTest->setTurnList($turnListToUpdate);
                     }
-                    
-                    if(!$boardTest->checkOf($moveToAdd->getPiece()->isWhite()))
-                    {
-                        //mouvement valide ne mettant pas le roi en échec: on recopie la liste des pièces du plateau de test sur le plateau principal et on applique le score
-                        $this->setPieces($boardTest->getPieces());
-                        $this->setWhiteScore($boardTest->whiteScore);
-                        $this->setBlackScore($boardTest->blackScore);
-                        $this->setTurnList($boardTest->getTurnList());
-                        return true;
-                    }
                 }
-                
+                if(!$boardTest->checkOf($moveToAdd->getPiece()->isWhite()))
+                {
+                    //echo "MOUVEMENT EFFECTUÉ \n";
+                    //mouvement valide ne mettant pas le roi en échec: on recopie la liste des pièces du plateau de test sur le plateau principal et on applique le score
+                    $this->setPieces($boardTest->getPieces());
+                    $this->setWhiteScore($boardTest->whiteScore);
+                    $this->setBlackScore($boardTest->blackScore);
+                    $this->setTurnList($boardTest->getTurnList());
+                    return true;
+                }
             }
         }
         return false;
