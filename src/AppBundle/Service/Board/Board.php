@@ -576,7 +576,43 @@ class Board
                 $boardTest->setTurnList($this->getTurnList());
                 foreach ($this->pieceList as $pieceMain)
                 {
-                    $boardTest->addPiece($pieceMain);
+                    switch (get_class($pieceMain) )
+                    {
+                        case Pawn::class:
+                            $coordinates = new BoardCoordinates($pieceMain->getCoordinates()->getFile(), $pieceMain->getCoordinates()->getRank());
+                            $pieceToAdd = new Pawn($coordinates, $pieceMain->isWhite());
+                            $boardTest->addPiece($pieceToAdd);
+                            break;
+                        case Bishop::class:
+                            $coordinates = new BoardCoordinates($pieceMain->getCoordinates()->getFile(), $pieceMain->getCoordinates()->getRank());
+                            $pieceToAdd = new Bishop($coordinates, $pieceMain->isWhite());
+                            $boardTest->addPiece($pieceToAdd);
+                            break;
+                            
+                        case Knight::class:
+                            $coordinates = new BoardCoordinates($pieceMain->getCoordinates()->getFile(), $pieceMain->getCoordinates()->getRank());
+                            $pieceToAdd = new Knight($coordinates, $pieceMain->isWhite());
+                            $boardTest->addPiece($pieceToAdd);
+                            break;
+                            
+                        case Rook::class:
+                            $coordinates = new BoardCoordinates($pieceMain->getCoordinates()->getFile(), $pieceMain->getCoordinates()->getRank());
+                            $pieceToAdd = new Rook($coordinates, $pieceMain->isWhite());
+                            $boardTest->addPiece($pieceToAdd);
+                            break;
+                            
+                        case Queen::class:
+                            $coordinates = new BoardCoordinates($pieceMain->getCoordinates()->getFile(), $pieceMain->getCoordinates()->getRank());
+                            $pieceToAdd = new Queen($coordinates, $pieceMain->isWhite());
+                            $boardTest->addPiece($pieceToAdd);
+                            break;
+                            
+                        case King::class:
+                            $coordinates = new BoardCoordinates($pieceMain->getCoordinates()->getFile(), $pieceMain->getCoordinates()->getRank());
+                            $pieceToAdd = new King($coordinates, $pieceMain->isWhite());
+                            $boardTest->addPiece($pieceToAdd);
+                            break;
+                    }
                 }
                 //le mouvement n'est valide que si il ne met pas le roi en échec. On va donc effectuer le mouvement puis vérifier si le roi est en échec.
                 if(!$moveToAdd->isACapture())
@@ -678,7 +714,7 @@ class Board
                 //Après le mouvement (si il y en a eu un) on met à jour la liste de tours sur le plateau de test
                 if($moveToAdd->getPiece()->isWhite())
                 {
-                    $turn = new Turn(count($boardTest) + 1, $moveToAdd, null);
+                    $turn = new Turn(count($boardTest->getTurnList()) + 1, $moveToAdd, null);
                     $turnListToUpdate = $boardTest->getTurnList();
                     $turnListToUpdate[] = $turn;
                     $boardTest->setTurnList($turnListToUpdate);
@@ -700,6 +736,7 @@ class Board
                     $this->setWhiteScore($boardTest->whiteScore);
                     $this->setBlackScore($boardTest->blackScore);
                     $this->setTurnList($boardTest->getTurnList());
+                    //var_dump($turnListToUpdate);
                     return true;
                 }
             }
