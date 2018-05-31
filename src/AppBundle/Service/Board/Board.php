@@ -472,32 +472,27 @@ class Board
         $moveList = array();
         do
         {
-            //echo "test pour les coordonnées: (". ($pieceFile + $i*$direction['file']) .";". ($pieceRank + $i*$direction['rank']) .")\n";
             $move = new BoardCoordinates($pieceFile + $i*$direction['file'], $pieceRank + $i*$direction['rank']);
             if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
             {
-                //echo "Case invalide car hors du tableau: (". ($pieceFile + $i*$direction['file']) .";". ($pieceRank + $i*$direction['rank']) .")\n";
                 break;
             }
             //si la case est vide on l'ajoute
             if (!$this->isFilled($move))
             {
-                //echo "Case vide (valide): (". ($pieceFile + $i*$direction['file']) .";". ($pieceRank + $i*$direction['rank']) .")\n";
                 $moveList[] = $move;
             }
             if ($this->isFilled($move)) //si la case est occupée
             {
                 //si la pièce est du camp adverse, elle peut être capturée
-
                 if ($this->pieceAt($move)->isWhite() != $pieceToGetMoves->isWhite())
                 {
-                    //echo "Case occupée par un ennemi: (". ($pieceFile + $i*$direction['file']) .";". ($pieceRank + $i*$direction['rank']) .")\n";
                     $moveList[] = $move;
                     break;
                 }
                 else
                 {
-                    break;//echo "Case occupée par un allié: (". ($pieceFile + $i*$direction['file']) .";". ($pieceRank + $i*$direction['rank']) .")\n";
+                    break;
                 }
             }
             $i++;
