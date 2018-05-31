@@ -40,7 +40,7 @@ function request(callBack,element) {
     
     var notationCase = encodeURIComponent(coord);
     var partie = encodeURIComponent(document.getElementById("partie").textContent); 
-    xhr.open("GET", "../../src/AppBundle/Service/Ajax/Game.php?Case="+notationCase+"&Partie="+partie, true);
+    xhr.open("GET", "AppBundle/Service/Ajax/Game.php?Case="+notationCase+"&Partie="+partie, true);
     xhr.send(null);
    
 }
