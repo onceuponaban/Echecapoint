@@ -108,7 +108,7 @@ class GameController extends Controller
         return new JsonResponse(array('moves' => json_encode($stringMove)));
 
     }
-    
+
     /**
      * @Route("/move", name="app_move")
      */
