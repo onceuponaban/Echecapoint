@@ -325,9 +325,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         
         //On ajoute les pièce au plateau
         $Board->addPiece($BlackPawn);
-        echo 'ok';
         $Board->addPiece($WhiteBishop);
-        echo 'ok2';
         $Board->addPiece($WhiteKing);
         $Board->addPiece($BlackKing);
         
