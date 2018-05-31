@@ -130,10 +130,11 @@ class BoardTest extends PHPUnit_Framework_TestCase
      */
     public function testGetPossibleMovesOfPawn()
     {
+        $this->markTestIncomplete("getPossibleMovesOfPawn test not implemented");
         $pawn1 = new Pawn(new BoardCoordinates(1,1), true);
         $board = new Board(true);
         $board->addPiece($pawn1);
-        var_dump($board->getPossibleMovesOf($pawn1));
+        //var_dump($board->getPossibleMovesOf($pawn1));
     }
     
     /**
@@ -279,6 +280,19 @@ class BoardTest extends PHPUnit_Framework_TestCase
         unset($moveCheck[4]);
         //mais ellel peut se déplacer sur le pion lui même pour le capturer
         self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfQueen($queen)));
+    }
+    
+    /**
+     * Tests Board->getPossibleMovesOfKing()
+     */
+    public function testGetPossibleMovesOfKing()
+    {
+        // TODO Auto-generated BoardTest->testGetPossibleMovesOfKing()
+        $this->markTestIncomplete("getPossibleMovesOfKing test not implemented");
+        $king = new King(new BoardCoordinates(0,4), true);
+        $board = new Board(true);
+        $board->addPiece($king);
+        //var_dump($board->getPossibleMovesOf($king));
     }
     /**
      * Tests Board->checkOf()

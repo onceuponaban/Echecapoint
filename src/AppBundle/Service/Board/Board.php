@@ -338,7 +338,7 @@ class Board
         $pieceRank = $pieceToGetMoves->getCoordinates()->getRank();
         for ($i = $pieceFile - 1; $i <= $pieceFile + 1; $i++)
         {
-            for ($j = $pieceFile - 1; $j <= $pieceRank + 1; $j++)
+            for ($j = $pieceRank - 1; $j <= $pieceRank + 1; $j++)
             {
                 $move = new BoardCoordinates($i, $j);
                 //On vérifie que le mouvement est sur le plateau
@@ -346,18 +346,22 @@ class Board
                 {
                     //si la place est libre, c'est un mouvement valide
                     if (!$this->isFilled($move))
+                    {
                         $moveList[] = $move;
+                    }
                     //si la pièce est du camp adverse, elle peut être capturée
                     else if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
+                    {
                         $moveList[] = $move;
+                    }
                 }
             }
         }
         //Gestion du roque: il faut que le roi n'ait pas bougé, et que la tour n'ai pas bougé
         if(!$pieceToGetMoves->hasMoved())
         {
-            $possibleRookLeft = new BoardCoordinates($pieceFile, 0);
-            $possibleRookRight = new BoardCoordinates($pieceFile, 7);
+            $possibleRookLeft = new BoardCoordinates(0, $pieceRank);
+            $possibleRookRight = new BoardCoordinates(7, $pieceRank);
             if($this->checkRook($possibleRookLeft))
                 $moveList[] = $possibleRookLeft;
             if($this->checkRook($possibleRookRight))
