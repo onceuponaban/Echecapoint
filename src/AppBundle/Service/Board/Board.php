@@ -497,7 +497,7 @@ class Board
                 }
                 else
                 {
-                    //echo "Case occupée par un allié: (". ($pieceFile + $i*$direction['file']) .";". ($pieceRank + $i*$direction['rank']) .")\n";
+                    break;//echo "Case occupée par un allié: (". ($pieceFile + $i*$direction['file']) .";". ($pieceRank + $i*$direction['rank']) .")\n";
                 }
             }
             $i++;
