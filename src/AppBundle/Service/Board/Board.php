@@ -139,17 +139,17 @@ class Board
         $pieceRank = $pieceToGetMoves->getCoordinates()->getRank();
         if($pieceToGetMoves->isWhite())
         {
-            $move1 = new BoardCoordinates($pieceFile + 1, $pieceRank);
+            $move1 = new BoardCoordinates($pieceFile, $pieceRank + 1);
             //si la case devant est vide
             if(!$this->isFilled($move1))
             {
                 $moveList[] = $move1;
-                $move2 = new BoardCoordinates($pieceFile + 2, $pieceRank);
+                $move2 = new BoardCoordinates($pieceFile, $pieceRank + 2);
                 //si la case 2 lignes devant est vide également et que le pion n'a pas bougé
                 if(!$this->isFilled($move2) && !$pieceToGetMoves->hasMoved())
                     $moveList[] = $move2;
             }
-            $diagonalLeft = new BoardCoordinates($pieceFile + 1, $pieceRank - 1);
+            $diagonalLeft = new BoardCoordinates($pieceFile - 1, $pieceRank + 1);
             if($this->isFilled($diagonalLeft))
             {
                 //si une pièce ennemie est à la diagonale gauche
@@ -164,7 +164,7 @@ class Board
                     $moveList[] = $diagonalRight;
             }
             //Prise en passant
-            $leftOfPawn = new BoardCoordinates($pieceFile, $pieceRank - 1);
+            $leftOfPawn = new BoardCoordinates($pieceFile - 1, $pieceRank);
             if($this->isFilled($leftOfPawn))
             {
                 //si une pièce ennemie est à gauche
@@ -178,7 +178,7 @@ class Board
                     $moveList[] = $leftOfPawn;
                 }
             }
-            $rightOfPawn = new BoardCoordinates($pieceFile, $pieceRank + 1);
+            $rightOfPawn = new BoardCoordinates($pieceFile + 1, $pieceRank);
             if($this->isFilled($rightOfPawn))
             {
                 //si une pièce ennemie est à la diagonale droite
@@ -195,24 +195,24 @@ class Board
         }
         else
         {
-            $move1 = new BoardCoordinates($pieceFile- 1, $pieceRank);
+            $move1 = new BoardCoordinates($pieceFile, $pieceRank - 1);
             //si la case devant est vide
             if(!$this->isFilled($move1))
             {
                 $moveList[] = $move1;
-                $move2 = new BoardCoordinates($pieceFile - 2, $pieceRank);
+                $move2 = new BoardCoordinates($pieceFile, $pieceRank + 1);
                 //si la case 2 lignes devant est vide également et que le pion n'a pas bougé
                 if(!$this->isFilled($move2) && !$pieceToGetMoves->hasMoved())
                     $moveList[] = $move2;
             }
             $diagonalLeft = new BoardCoordinates($pieceFile - 1, $pieceRank - 1);
-            if($this->isFilled($diagonalRight))
+            if($this->isFilled($diagonalLeft))
             {
                 //si une pièce ennemie est à la diagonale gauche
                 if(!($this->pieceAt($diagonalLeft)->isWhite() == $pieceToGetMoves->isWhite()))
                     $moveList[] = $diagonalLeft;
             }
-            $diagonalRight = new BoardCoordinates($pieceFile - 1, $pieceRank + 1);
+            $diagonalRight = new BoardCoordinates($pieceFile + 1, $pieceRank - 1);
             if($this->isFilled($diagonalRight))
             {
                 //si une pièce ennemie est à la diagonale droite
@@ -220,7 +220,7 @@ class Board
                     $moveList[] = $diagonalRight;
             }
             //Prise en passant
-            $leftOfPawn = new BoardCoordinates($pieceFile, $pieceRank - 1);
+            $leftOfPawn = new BoardCoordinates($pieceFile - 1, $pieceRank);
             if($this->isFilled($leftOfPawn))
             {
                 //si une pièce ennemie est à gauche
@@ -234,7 +234,7 @@ class Board
                     $moveList[] = $leftOfPawn;
                 }
             }
-            $rightOfPawn = new BoardCoordinates($pieceFile, $pieceRank + 1);
+            $rightOfPawn = new BoardCoordinates($pieceFile + 1, $pieceRank);
             if($this->isFilled($rightOfPawn))
             {
                 //si une pièce ennemie est à la diagonale droite
