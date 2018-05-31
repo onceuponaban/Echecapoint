@@ -691,7 +691,7 @@ class Board
             return false;
         $arrayCheck = $coords2;
         $valueExists = false;
-        for ($i = 0; $i < count($coords1); $i++)
+        foreach($coords1 as $i => $checked)
         {
             $valueExists = false;
             while(!$valueExists)
@@ -718,7 +718,7 @@ class Board
         foreach ($this->pieceList as $piece)
         {
             //si on retrouve une pièce de même ligne et colonne
-            if($piece->getCoordinates()->getFile() == $coordinates->getFile() && $piece->getCoordinates()->getRank() == $coordinates->getRank())
+            if($piece->getCoordinates()->isEqualTo($coordinates))
                 return $piece;
         }
         return null;
