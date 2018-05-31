@@ -130,9 +130,33 @@ class BoardTest extends PHPUnit_Framework_TestCase
     public function testGetPossibleMovesOfBishop()
     {
         // TODO Auto-generated BoardTest->testGetPossibleMovesOfBishop()
-        $this->markTestIncomplete("getPossibleMovesOfBishop test not implemented");
-        
-        $this->board->getPossibleMovesOfBishop(/* parameters */);
+        $bishop = new Bishop(new BoardCoordinates(2,0), true);
+        $board = new Board(true);
+        $board->addPiece($bishop);
+        $moveCheck = array(
+            new BoardCoordinates(1, 1),
+            new BoardCoordinates(0, 2),
+            new BoardCoordinates(3, 1),
+            new BoardCoordinates(4, 2),
+            new BoardCoordinates(5, 3),
+            new BoardCoordinates(6, 4),
+            new BoardCoordinates(7, 5)
+        );
+        self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfBishop($bishop)));
+        $pawn = new Pawn(new BoardCoordinates(6,4), true);
+        $board->addPiece($pawn);
+        //Le fou ne peut pas se déplacer sur la position du pion allié ni derrière
+        self::assertFalse($board->equalCoords($moveCheck, $board->getPossibleMovesOfBishop($bishop)));
+        unset($moveCheck[5]);
+        unset($moveCheck[6]);
+        self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfBishop($bishop)));
+        $enemyPawn = new Pawn(new BoardCoordinates(1, 1), false);
+        $board->addPiece($enemyPawn);
+        //ni derrière le pion ennemi
+        self::assertFalse($board->equalCoords($moveCheck, $board->getPossibleMovesOfBishop($bishop)));
+        unset($moveCheck[1]);
+        //mais il peut se déplacer sur le pion lui même pour le capturer
+        self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfBishop($bishop)));
     }
     /**
      * Tests Board->getPossibleMovesOfKnight()
@@ -140,7 +164,6 @@ class BoardTest extends PHPUnit_Framework_TestCase
     public function testGetPossibleMovesOfKnight()
     {
         // TODO Auto-generated BoardTest->testGetPossibleMovesOfKnight()
-        //$this->markTestIncomplete("getPossibleMovesOfKnight test not implemented");
         $knight = new Knight(new BoardCoordinates(1,0), true);
         $board = new Board(true);
         $board->addPiece($knight);
@@ -160,8 +183,6 @@ class BoardTest extends PHPUnit_Framework_TestCase
         $board->addPiece($enemyPawn);
         //mais il peut se déplacer sur la position du pion ennemi (pour le capturer)
         self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
-        
-        
     }
     /**
      * Tests Board->getPossibleMovesOfRook()
@@ -170,8 +191,6 @@ class BoardTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated BoardTest->testGetPossibleMovesOfRook()
         $this->markTestIncomplete("getPossibleMovesOfRook test not implemented");
-        
-        $this->board->getPossibleMovesOfRook(/* parameters */);
     }
     /**
      * Tests Board->getPossibleMovesOfQueen()
@@ -223,7 +242,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         self::assertEquals(true, $Board->checkOf(1));
         
         //Le fou blanc ne met pas le roi noir en echec
-        self::assertEquals(FALSE, $Board->checkOf(0));
+        self::assertEquals(FALSE, $Board->checkOf(BLACK));
         
         
         
