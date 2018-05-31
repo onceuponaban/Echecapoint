@@ -62,7 +62,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         $pieceList = $board->getPieceList();
         
         foreach ($pieceList as &$piece)
-        {   
+        {
             switch (get_class($piece))
             {
                 case Rook::class:
@@ -140,9 +140,19 @@ class BoardTest extends PHPUnit_Framework_TestCase
     public function testGetPossibleMovesOfKnight()
     {
         // TODO Auto-generated BoardTest->testGetPossibleMovesOfKnight()
-        $this->markTestIncomplete("getPossibleMovesOfKnight test not implemented");
-        
-        $this->board->getPossibleMovesOfKnight(/* parameters */);
+        //$this->markTestIncomplete("getPossibleMovesOfKnight test not implemented");
+        $knight = new Knight(new BoardCoordinates(1,0), true);
+        $board = new Board(true);
+        $board->addPiece($knight);
+        $moveCheck = array(
+            new BoardCoordinates(3, 1),
+            new BoardCoordinates(2, 2),
+            new BoardCoordinates(0, 2)
+        );
+        self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
+        $pawn = new Pawn(new BoardCoordinates(3,1), true);
+        $board->addPiece($pawn);
+        self::assertFalse($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
     }
     /**
      * Tests Board->getPossibleMovesOfRook()
@@ -170,29 +180,42 @@ class BoardTest extends PHPUnit_Framework_TestCase
     public function testCheckOf()
     {
         // TODO Auto-generated BoardTest->testCheckOf()
-        /*
         
-        $Board = new Board(false);
+        //On crée un plateau
+        $Board = new Board(TRUE);
         
+        //On crée les coordonnées de 4 pièces
+        //Roi Blanc
         $WhiteKingsCoordinates = new BoardCoordinates(4, 0);
+        //Pion noir
         $BlackPawnsCoordinates = new BoardCoordinates(3, 1);
+        //Roi Noir
         $BlackKingsCoordinates = new BoardCoordinates(3, 6);
+        //Fou Blanc
         $WhiteBishopsCoordinates = new BoardCoordinates(0, 4);
         
+        //On crée les pièces
+        //Roi blanc
         $WhiteKing = new King($WhiteKingsCoordinates, TRUE);
+        //Pion noir
         $BlackPawn = new Pawn($BlackPawnsCoordinates, FALSE);
+        //Roi noir
         $BlackKing = new King($BlackKingsCoordinates, FALSE);
+        //Fou blanc
         $WhiteBishop = new Bishop($WhiteBishopsCoordinates, TRUE);
         
+        //On ajoute les pièce au plateau
         $Board->addPiece($WhiteKing);
         $Board->addPiece($BlackKing);
         $Board->addPiece($BlackPawn);
         $Board->addPiece($WhiteBishop);
         
+        //Le pion noir met le roi blanc en echec
         self::assertEquals(true, $Board->checkOf(WHITE));
+        //Le fou blanc ne met pas le roi noir en echec
         self::assertEquals(FALSE, $Board->checkOf(BLACK));
         
-        */
+        
         
     }
     /**
@@ -203,17 +226,94 @@ class BoardTest extends PHPUnit_Framework_TestCase
         // TODO Auto-generated BoardTest->testCheckmateOf()
         $this->markTestIncomplete("checkmateOf test not implemented");
         
-        $this->board->checkmateOf(/* parameters */);
+        //On crée un plateau
+        $board = new Board(TRUE);
+        
+        //On crée les coordonnées des pièces pour tester 
+        $BlackKingsCoordinates = new BoardCoordinates(3, 7);
+        $WhiteKingCoordinates = new BoardCoordinates(3 , 5);
+        $WhiteRookCoordinates = new BoardCoordinates(7, 7);
+        
+        //On crée les pièces
+        $BlackKing = new King($BlackKingsCoordinates, FALSE);
+        $WhiteKing = new King($WhiteKingCoordinates, TRUE);
+        $WhiteRook = new Rook($WhiteRookCoordinates, TRUE);
+        
+        //On ajoute les pièces au plateau
+        $board->addPiece($BlackKing);
+        $board->addPiece($WhiteKing);
+        $board->addPiece($WhiteRook);
+        
+        //Cas echec et mat
+        //On teste si on trouve bien le roi noir echec et mat
+        self::assertEquals(TRUE, $board->checkmateOf(0));
+        
+        //Cas ni mat ni echec
+        //On teste si on trouve bien que le roi blanc n'est pas echec et mat
+        self::assertEquals(FALSE, $board->checkmateOf(1));
+        
+        $board2 = new Board(true);
+        
+        //On crée les coordonnées de 4 pièces
+        //Roi Blanc
+        $WhiteKingsCoordinates = new BoardCoordinates(4, 0);
+        //Pion noir
+        $BlackPawnsCoordinates = new BoardCoordinates(3, 1);
+        //Roi Noir
+        $BlackKingsCoordinates = new BoardCoordinates(3, 6);
+       
+        
+        //On crée les pièces
+        //Roi blanc
+        $WhiteKing = new King($WhiteKingsCoordinates, TRUE);
+        //Pion noir
+        $BlackPawn = new Pawn($BlackPawnsCoordinates, FALSE);
+        //Roi noir
+        $BlackKing = new King($BlackKingsCoordinates, FALSE);
+        
+        
+        //On ajoute les pièce au plateau
+        $board2->addPiece($WhiteKing);
+        $board2->addPiece($BlackKing);
+        $board2->addPiece($BlackPawn);
+        
+        //Cas echec mais pas mat
+        //Le pion noir met le roi blanc en echec mais pas en echec et mat
+        self::assertEquals(FALSE, $board2->checkmateOf(1));
+        
+        
     }
     /**
      * Tests Board->stalemateOf()
      */
     public function testStalemateOf()
     {
-        // TODO Auto-generated BoardTest->testStalemateOf()
-        $this->markTestIncomplete("stalemateOf test not implemented");
+        //on crée un plateau
+        $board = new Board(TRUE);
         
-        $this->board->stalemateOf(/* parameters */);
+        //On crée les coordonnées des pièces
+        $BlackKingsCoordinates = new BoardCoordinates(0, 7);
+        $WhiteKingsCoordinates = new BoardCoordinates(2, 4);
+        $WhiteQueensCoordinates = new BoardCoordinates(1, 5);
+        
+        //On crée les pièces
+        $BlackKing = new King($BlackKingsCoordinates, FALSE);
+        $WhiteKing = new King($WhiteKingsCoordinates, TRUE);
+        $WhiteQueen = new Queen($WhiteQueensCoordinates, TRUE);
+        
+        //On ajoute les pièces au plateau
+        $board->addPiece($BlackKing);
+        $board->addPiece($WhiteQueen);
+        $board->addPiece($WhiteKing);
+        
+        //Pat
+        self::assertEquals(TRUE, $board->stalemateOf(0));
+        //pas de pat
+        self::assertEquals(FALSE, $board->stalemateOf(1));
+        
+        
+        
+        
     }
     /**
      * Tests Board->updateFromString()

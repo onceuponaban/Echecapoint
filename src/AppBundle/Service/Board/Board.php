@@ -285,10 +285,22 @@ class Board
         $untestedMoveList[] = new BoardCoordinates($pieceFile-1, $pieceRank-2);
         foreach($untestedMoveList as $move)
         {
-            //on vérifie si la case est sur le plateau
+            //on vérifie si la case est sur le plateau et que le mouvement ne soit pas bloqué par une pièce alliée
             if ($move->isOnTheBoard())
             {
-                $moveList[] = $move;
+                //si la case est occupée
+                if ($this->isFilled($move))
+                {
+                    //si la pièce sur la case est ennemie
+                    if($this->pieceAt($move)->isWhite() != $pieceToGetMoves->isWhite())
+                    {
+                        $moveList[] = $move;
+                    }
+                }
+                else //la case est vide
+                {
+                    $moveList[] = $move;
+                }
             }
         }
         return $moveList;
@@ -667,13 +679,40 @@ class Board
     
     public function isFilled(BoardCoordinates $coordinates):bool
     {
-        if(is_null(pieceAt($coordinates)))
+        if(is_null($this->pieceAt($coordinates)))
             return false;
         return true;
     }
     
+    //vérifie si les tableaux de coordonnées fournis en paramètre ont les mêmes coordonnées (peu importe l'ordre)
+    public function equalCoords($coords1, $coords2):bool
+    {
+        if (count($coords1) != count($coords2))
+            return false;
+        $arrayCheck = $coords2;
+        $valueExists = false;
+        for ($i = 0; $i < count($coords1); $i++)
+        {
+            $valueExists = false;
+            while(!$valueExists)
+            {
+                foreach($arrayCheck as $key => $check)
+                {
+                    if(!$valueExists && $coords1[$i]->isEqualTo($check))
+                    {
+                        unset($arrayCheck[$key]);
+                        $valueExists = true;
+                    }
+                }
+            }
+            if (!$valueExists)
+                return false;
+        }
+        return true;
+    }
+    
     //retourne la piece présente aux coordonnées données si elle existe, sinon retourne null
-    public function pieceAt(BoardCoordinates $coordinates):Piece
+    public function pieceAt(BoardCoordinates $coordinates): ?Piece
     {
         
         foreach ($this->pieceList as $piece)
