@@ -78,9 +78,9 @@ class Move
         $this->isACapture = $isACapture;
     }
     
-    function toString():String
+    public function toString():String
     {
-        $moveType;
+        $moveType = "";
         
         if($this->isACapture)
         {

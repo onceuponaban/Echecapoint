@@ -565,114 +565,117 @@ class Board
         //on récupère la liste des coups possible pour la pièce
         $moveList = $this->getPossibleMovesOf($moveToAdd->getPiece());
         //On parcours la liste des mouvement possibles pour vérifier que le mouvement est possbile
+        //var_dump($moveList);
         foreach ($moveList as $move)
         {
-            if($move->getFile() == $moveToAdd->getPiece()->getCoordinates()->getFile()
-                && $move->getRank() == $moveToAdd->getPiece()->getCoordinates()->getRank())
+            if($moveToAdd->getCoordinates()->isEqualTo($move))
             {
+                echo "MOUVEMENT VALIDE\n";
                 //On recopie notre plateau sur un plateau de test
-                $boardTest = new Board(Board::EMPTY);
+                $boardTest = new Board(true);
+                $boardTest->setWhiteScore($this->whiteScore);
+                $boardTest->setBlackScore($this->blackScore);
+                $boardTest->setTurnList($this->getTurnList());
                 foreach ($this->pieceList as $piece)
                 {
                     $boardTest->addPiece($piece);
-                    $boardTest->setWhiteScore($this->whiteScore);
-                    $boardTest->setBlackScore($this->blackScore);
-                    $boardTest->setTurnList($this->getTurnList());
-                    //le mouvement n'est valide que si il ne met pas le roi en échec. On va donc effectuer le mouvement puis vérifier si le roi est en échec.
-                    if(!$moveToAdd->isACapture())
+                }
+                //var_dump($boardTest);
+                //le mouvement n'est valide que si il ne met pas le roi en échec. On va donc effectuer le mouvement puis vérifier si le roi est en échec.
+                if(!$moveToAdd->isACapture())
+                {
+                    //le mouvement est soit un mouvement normal soit un roque
+                    if($moveToAdd->getPiece() instanceof King
+                        && (abs($moveToAdd->getCoordinates()->getFile() - $moveToAdd->getPiece()->getCoordinates()->getFile()) == 2))
                     {
-                        //le mouvement est soit un mouvement normal soit un roque
-                        if($moveToAdd->getPiece() instanceof King
-                            && (abs($moveToAdd->getCoordinates()->getFile() - $moveToAdd->getPiece()->getCoordinates()->getFile()) == 2))
+                        //si la distance entre la tour et le roi est positive, c'est un petit roque
+                        if ($moveToAdd->getCoordinates()->getFile() - $moveToAdd->getPiece()->getCoordinates()->getFile() > 0)
                         {
-                            //si la distance entre la tour et le roi est positive, c'est un petit roque
-                            if ($moveToAdd->getCoordinates()->getFile() - $moveToAdd->getPiece()->getCoordinates()->getFile() > 0)
+                            //on vérifie qu'aucune des cases couvertes par le roque ne soient menacées
+                            for ($i = $moveToAdd->getPiece()->getCoordinates()->getFile(); $i <= $moveToAdd->getCoordinates()->getFile(); $i++)
                             {
-                                //on vérifie qu'aucune des cases couvertes par le roque ne soient menacées
-                                for ($i = $moveToAdd->getPiece()->getCoordinates()->getFile(); $i <= $moveToAdd->getCoordinates()->getFile(); $i++)
+                                $SquareToCheck = new BoardCoordinates($i, $moveToAdd->getPiece()->getCoordinates()->getRank());
+                                foreach ($boardTest->getPieces() as $piece)
                                 {
-                                    $SquareToCheck = new BoardCoordinates($i, $moveToAdd->getPiece()->getCoordinates()->getRank());
-                                    foreach ($boardTest->getPieces() as $piece)
+                                    foreach($boardTest->getPossibleMovesOf($piece) as $possibleMove)
                                     {
-                                        foreach($boardTest->getPossibleMovesOf($piece) as $possibleMove)
-                                        {
-                                            if($possibleMove->getFile() == $SquareToCheck->getFile() && $possibleMove->getRank() == $SquareToCheck->getRank())
-                                                return false;
-                                        }
+                                        if($possibleMove->getFile() == $SquareToCheck->getFile() && $possibleMove->getRank() == $SquareToCheck->getRank())
+                                            return false;
                                     }
                                 }
-                                //aucune des cases ne sont menacées: on tente le mouvement sur le plateau de test
-                                $currentRookLocation = new BoardCoordinates(7, $moveToAdd->getCoordinates()->getRank());
-                                $newRookLocation = new BoardCoordinates($moveToAdd->getCoordinates()->getFile() - 1, $moveToAdd->getCoordinates()->getRank());
-                                //déplacement du roi
-                                $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
-                                //déplacement de la tour
-                                $boardTest->pieceAt($currentRookLocation)->moveTo($newRookLocation);
                             }
-                            else //sinon, c'est un grand roque.
+                            //aucune des cases ne sont menacées: on tente le mouvement sur le plateau de test
+                            $currentRookLocation = new BoardCoordinates(7, $moveToAdd->getCoordinates()->getRank());
+                            $newRookLocation = new BoardCoordinates($moveToAdd->getCoordinates()->getFile() - 1, $moveToAdd->getCoordinates()->getRank());
+                            //déplacement du roi
+                            $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
+                            //déplacement de la tour
+                            $boardTest->pieceAt($currentRookLocation)->moveTo($newRookLocation);
+                        }
+                        else //sinon, c'est un grand roque.
+                        {
+                            //on vérifie qu'aucune des cases couvertes par le roque ne soient menacées
+                            for ($i = $moveToAdd->getCoordinates()->getFile(); $i <= $moveToAdd->getPiece()->getCoordinates()->getFile(); $i++)
                             {
-                                //on vérifie qu'aucune des cases couvertes par le roque ne soient menacées
-                                for ($i = $moveToAdd->getCoordinates()->getFile(); $i <= $moveToAdd->getPiece()->getCoordinates()->getFile(); $i++)
+                                $SquareToCheck = new BoardCoordinates($i, $moveToAdd->getPiece()->getCoordinates()->getRank());
+                                foreach ($boardTest->getPieces() as $piece)
                                 {
-                                    $SquareToCheck = new BoardCoordinates($i, $moveToAdd->getPiece()->getCoordinates()->getRank());
-                                    foreach ($boardTest->getPieces() as $piece)
+                                    foreach($boardTest->getPossibleMovesOf($piece) as $possibleMove)
                                     {
-                                        foreach($boardTest->getPossibleMovesOf($piece) as $possibleMove)
-                                        {
-                                            if($possibleMove->getFile() == $SquareToCheck->getFile() && $possibleMove->getRank() == $SquareToCheck->getRank())
-                                                return false;
-                                        }
+                                        if($possibleMove->getFile() == $SquareToCheck->getFile() && $possibleMove->getRank() == $SquareToCheck->getRank())
+                                            return false;
                                     }
                                 }
-                                //aucune des cases ne sont menacées: on tente le mouvement sur le plateau de test
-                                $currentRookLocation = new BoardCoordinates(7, $moveToAdd->getCoordinates()->getRank());
-                                $newRookLocation = new BoardCoordinates($moveToAdd->getCoordinates()->getFile() + 1, $moveToAdd->getCoordinates()->getRank());
-                                //déplacement du roi
-                                $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
-                                //déplacement de la tour
-                                $boardTest->pieceAt($currentRookLocation)->moveTo($newRookLocation);
                             }
+                            //aucune des cases ne sont menacées: on tente le mouvement sur le plateau de test
+                            $currentRookLocation = new BoardCoordinates(7, $moveToAdd->getCoordinates()->getRank());
+                            $newRookLocation = new BoardCoordinates($moveToAdd->getCoordinates()->getFile() + 1, $moveToAdd->getCoordinates()->getRank());
+                            //déplacement du roi
+                            $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
+                            //déplacement de la tour
+                            $boardTest->pieceAt($currentRookLocation)->moveTo($newRookLocation);
+                        }
+                    }
+                    else
+                    {
+                        //Mouvement standard : on tente le mouvement sur le plateau de test
+                        //var_dump($boardTest->getPieces());
+                        ($boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates()))->moveTo($moveToAdd->getCoordinates());
+                    }
+                }
+                else //le mouvement est soit une capture normale soit une prise en passant
+                {
+                    //si c'est une prise en passant, la case de capture doit être vide
+                    if(!$boardTest->isFilled($moveToAdd->getCoordinates()))
+                    {
+                        //on récupère la position du pion à capturer
+                        $enemyPawnTrueLocation = new BoardCoordinates($moveToAdd->getCoordinates()->getFile(), $moveToAdd->getPiece()->getCoordinates()->getFile());
+                        //on effectue le mouvement sur le plateau de test
+                        $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
+                        //On ajuste le score en conséquence
+                        if($moveToAdd->getPiece()->isWhite())
+                        {
+                            $boardTest->setWhiteScore($boardTest->getWhiteScore() + $boardTest->pieceAt($enemyPawnTrueLocation)->getValue());
                         }
                         else
                         {
-                            //Mouvement standard : on tente le mouvement sur le plateau de test
-                            $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
+                            $boardTest->setBlackScore($boardTest->getBlackScore() + $boardTest->pieceAt($enemyPawnTrueLocation)->getValue());
                         }
+                        $boardTest->removePieceAt($enemyPawnTrueLocation);
                     }
-                    else //le mouvement est soit une capture normale soit une prise en passant
+                    else //mouvement avec capture normal
                     {
-                        //si c'est une prise en passant, la case de capture doit être vide
-                        if(!$boardTest->isFilled($moveToAdd->getCoordinates()))
+                        $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
+                        //On ajuste le score en conséquence
+                        if($moveToAdd->getPiece()->isWhite())
                         {
-                            //on récupère la position du pion à capturer
-                            $enemyPawnTrueLocation = new BoardCoordinates($moveToAdd->getCoordinates()->getFile(), $moveToAdd->getPiece()->getCoordinates()->getFile());
-                            //on effectue le mouvement sur le plateau de test
-                            $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
-                            //On ajuste le score en conséquence
-                            if($moveToAdd->getPiece()->isWhite())
-                            {
-                                $boardTest->setWhiteScore($boardTest->getWhiteScore() + $boardTest->pieceAt($enemyPawnTrueLocation)->getValue());
-                            }
-                            else
-                            {
-                                $boardTest->setBlackScore($boardTest->getBlackScore() + $boardTest->pieceAt($enemyPawnTrueLocation)->getValue());
-                            }
-                            $boardTest->removePieceAt($enemyPawnTrueLocation);
+                            $boardTest->setWhiteScore($boardTest->getWhiteScore() + $boardTest->pieceAt($moveToAdd->getCoordinates())->getValue());
                         }
-                        else //mouvement avec capture normal
+                        else
                         {
-                            $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
-                            //On ajuste le score en conséquence
-                            if($moveToAdd->getPiece()->isWhite())
-                            {
-                                $boardTest->setWhiteScore($boardTest->getWhiteScore() + $boardTest->pieceAt($moveToAdd->getCoordinates())->getValue());
-                            }
-                            else
-                            {
-                                $boardTest->setBlackScore($boardTest->getBlackScore() + $boardTest->pieceAt($moveToAdd->getCoordinates())->getValue());
-                            }
-                            $boardTest->removePieceAt($moveToAdd->getCoordinates());
+                            $boardTest->setBlackScore($boardTest->getBlackScore() + $boardTest->pieceAt($moveToAdd->getCoordinates())->getValue());
                         }
+                        $boardTest->removePieceAt($moveToAdd->getCoordinates());
                     }
                     //Après le mouvement (si il y en a eu un) on met à jour la liste de tours et on vérifie si il met le roi en echec
                     if($moveToAdd->getPiece()->isWhite())

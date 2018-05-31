@@ -8,6 +8,7 @@ use AppBundle\Service\Pieces\Bishop;
 use AppBundle\Service\Pieces\Knight;
 use AppBundle\Service\Pieces\Rook;
 use AppBundle\Service\Pieces\Queen;
+use AppBundle\Service\Movements\Move;
 use AppBundle\AppBundle;
 /**
  * Board test case.
@@ -204,7 +205,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         // TODO Auto-generated BoardTest->testGetPossibleMovesOfRook()
         //$this->markTestIncomplete("getPossibleMovesOfRook test not implemented");
         $rook = new Rook(new BoardCoordinates(0,0), true);
-        $rook = new Board(true);
+        $board = new Board(true);
         $board->addPiece($rook);
         $moveCheck = array(
             new BoardCoordinates(0, 1),
@@ -246,7 +247,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         // TODO Auto-generated BoardTest->testGetPossibleMovesOfQueen()
         //$this->markTestIncomplete("getPossibleMovesOfQueen test not implemented");
         $queen = new Queen(new BoardCoordinates(0,0), true);
-        $boad = new Board(true);
+        $board = new Board(true);
         $board->addPiece($queen);
         $moveCheck = array(
             new BoardCoordinates(0, 1),
@@ -452,9 +453,16 @@ class BoardTest extends PHPUnit_Framework_TestCase
     public function testUpdateFromMove()
     {
         // TODO Auto-generated BoardTest->testUpdateFromMove()
-        $this->markTestIncomplete("updateFromMove test not implemented");
+        //$this->markTestIncomplete("updateFromMove test not implemented");
         
-        $this->board->updateFromMove(/* parameters */);
+        //On génère un plateau complet et on récupère les coordonnées du pion qu'on essaye de déplacer
+        $pawnb2InitialCoordinates = new BoardCoordinates(1, 1);
+        $pawnFirstMove = new BoardCoordinates(1, 3);
+        $board = new Board(false);
+        $testMove = new Move($board->pieceAt($pawnb2InitialCoordinates),$pawnFirstMove,false);
+        $board->updateFromMove($testMove);
+        //self::assertTrue($board->updateFromMove($testMove));
+        var_dump($board->pieceAt($pawnFirstMove));
     }
     /**
      * Tests Board->isFilled()
