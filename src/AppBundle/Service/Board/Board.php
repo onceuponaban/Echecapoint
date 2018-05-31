@@ -700,7 +700,6 @@ class Board
                         //on récupère la position du pion à capturer
                         $enemyPawnTrueLocation = new BoardCoordinates($moveToAdd->getCoordinates()->getFile(), $moveToAdd->getPiece()->getCoordinates()->getFile());
                         //on effectue le mouvement sur le plateau de test
-                        ($boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates()))->moveTo($moveToAdd->getCoordinates());
                         //On ajuste le score en conséquence
                         if($moveToAdd->getPiece()->isWhite())
                         {
@@ -711,10 +710,10 @@ class Board
                             $boardTest->setBlackScore($boardTest->getBlackScore() + $boardTest->pieceAt($enemyPawnTrueLocation)->getValue());
                         }
                         $boardTest->removePieceAt($enemyPawnTrueLocation);
+                        ($boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates()))->moveTo($moveToAdd->getCoordinates());
                     }
                     else //mouvement avec capture normal
                     {
-                        $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
                         //On ajuste le score en conséquence
                         if($moveToAdd->getPiece()->isWhite())
                         {
@@ -725,6 +724,7 @@ class Board
                             $boardTest->setBlackScore($boardTest->getBlackScore() + $boardTest->pieceAt($moveToAdd->getCoordinates())->getValue());
                         }
                         $boardTest->removePieceAt($moveToAdd->getCoordinates());
+                        $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
                     }
                 }
                 //Après le mouvement (si il y en a eu un) on met à jour la liste de tours sur le plateau de test
@@ -865,17 +865,17 @@ class Board
         $this->pieceList = $pieceList;
     }
     
-    public function removePieceAt(BoardCoordinates $coordinates):bool
+    public function removePieceAt(BoardCoordinates $coordinates)
     {
+        $newList = Array();
         foreach($this->pieceList as $piece)
         {
-            if(($piece->getCoordinates())->isEqualto($coordinates))
+            if(!($piece->getCoordinates())->isEqualto($coordinates))
             {
-                unset($piece);
-                return true;
+                array_push($newList, $piece);
             }
         }
-        return false;
+        $this->setPieces($newList);
     }
     
     /**
