@@ -205,7 +205,7 @@ class Board
                 if(!$this->isFilled($move2) && !$pieceToGetMoves->hasMoved())
                     $moveList[] = $move2;
             }
-            $diagonalLeft = new BoardCoordinates($pieceFile - 1, $pieceRank - 1);
+            $diagonalRight = new BoardCoordinates($pieceFile - 1, $pieceRank - 1);
             if($this->isFilled($diagonalRight))
             {
                 //si une pièce ennemie est à la diagonale gauche
