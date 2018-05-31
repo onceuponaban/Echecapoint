@@ -324,10 +324,13 @@ class BoardTest extends PHPUnit_Framework_TestCase
         $WhiteBishop = new Bishop($WhiteBishopsCoordinates, TRUE);
         
         //On ajoute les pièce au plateau
+        $Board->addPiece($BlackPawn);
+        echo 'ok';
+        $Board->addPiece($WhiteBishop);
+        echo 'ok2';
         $Board->addPiece($WhiteKing);
         $Board->addPiece($BlackKing);
-        $Board->addPiece($BlackPawn);
-        $Board->addPiece($WhiteBishop);
+        
         
         //Le pion noir met le roi blanc en echec
         self::assertEquals(true, $Board->checkOf(1));

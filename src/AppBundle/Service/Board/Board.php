@@ -388,7 +388,6 @@ class Board
     public function checkOf(int $color):bool
     {
         
-
         //Recherche des coordonnées du roi de la couleur spécifiée
         foreach ($this->pieceList  as $piece){
             //Si la piece dans la list est un roi
@@ -403,21 +402,29 @@ class Board
         }
         
         //Pour toutes les pièce de l'autre couleur on vérifie si elles peuvent mettre le roi en echec
+        
         foreach ($this->pieceList as $piece){
+         
             if($piece->isWhite xor $color){
                 //test coup possible vers $KingCoordinates
                 $piecePossiblesMove = $this->getPossibleMovesOf($piece);
+                
                 foreach ($piecePossiblesMove as $move){
-                    if($move == $KingCoordinates){
+                   
+                   //Si le mouvement est aux coordonnées du roi
+                    if(($move->getFile() == $KingCoordinates->getFile())&&($move->getRank()==$KingCoordinates->getRank())){
+                       
                         return TRUE;
-                    }
-                    else {
-                        return FALSE;
                     }
                 }
                 
             }
         }
+        
+        
+      
+        return FALSE;
+        
     }
     
     public function checkmateOf(int $color):bool
