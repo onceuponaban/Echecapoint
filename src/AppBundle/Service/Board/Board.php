@@ -851,11 +851,11 @@ class Board
     
     public function removePieceAt(BoardCoordinates $coordinates):bool
     {
-        for($i = 0; $i < count($this->getPieces()); $i++)
+        foreach($this->getPieces() as $piece)
         {
-            if($this->getPieces()[$i]->getCoordinates()->getFile() == $coordinates->getFile() && $this->getPieces()[$i]->getCoordinates()->getRank() == $coordinates->getRank())
+            if(($piece->getCoordinates())->isEqualto($coordinates))
             {
-                unset($this->getPieces()[$i]);
+                unset($piece);
                 return true;
             }
         }
