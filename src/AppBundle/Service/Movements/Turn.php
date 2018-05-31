@@ -59,17 +59,17 @@ class Turn
     public static function fromString(string $stringTurn):Turn
     {
         
-        echo "\nListe de Tour : ".$stringTurn."\n";
+        //echo "\nListe de Tour : ".$stringTurn."\n";
         
         $arrayMove = explode(" ", $stringTurn);
         
         
-        echo "Array de Move : ";
+        /*echo "Array de Move : ";
         foreach ($arrayMove as $move)
         {
             echo $move."_&_";
         }
-        echo "\n";
+        echo "\n";*/
         
         $turnNumber = intval($arrayMove[0]);
         
