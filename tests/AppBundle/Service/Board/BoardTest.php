@@ -152,7 +152,16 @@ class BoardTest extends PHPUnit_Framework_TestCase
         self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
         $pawn = new Pawn(new BoardCoordinates(3,1), true);
         $board->addPiece($pawn);
+        //Le cavalier ne peut pas se déplacer sur la position du pion allié
         self::assertFalse($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
+        unset($moveCheck[0]);
+        self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
+        $enemyPawn = new Pawn(new BoardCoordinates(2, 2), false);
+        $board->addPiece($enemyPawn);
+        //mais il peut se déplacer sur la position du pion ennemi (pour le capturer)
+        self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
+        
+        
     }
     /**
      * Tests Board->getPossibleMovesOfRook()
@@ -229,7 +238,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         //On crée un plateau
         $board = new Board(TRUE);
         
-        //On crée les coordonnées des pièces pour tester 
+        //On crée les coordonnées des pièces pour tester
         $BlackKingsCoordinates = new BoardCoordinates(3, 7);
         $WhiteKingCoordinates = new BoardCoordinates(3 , 5);
         $WhiteRookCoordinates = new BoardCoordinates(7, 7);
