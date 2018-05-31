@@ -137,6 +137,16 @@ class GameController extends Controller
             
             $rankToGo = (isset($_GET["rankToGo"])) ? $_GET["rankToGo"] : NULL;
         }
+        
+        $game = $this->getDoctrine()->getRepository(Game::class)->find($id);
+        
+        $board = new Board(false);
+        
+        $board->updateFromString($game->getBoard());
+        
+        $coordinates = new BoardCoordinates($fileToGo, $rankToGo);
+        
+        $piece = $board->pieceAt($coordinates);
     }
 
 }
