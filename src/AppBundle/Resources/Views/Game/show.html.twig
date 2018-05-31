@@ -65,7 +65,11 @@ $(function() {
 					url: "{{ path("app_list_move") }}",
 					data: {id: {{ game.id }},file: coord[0],rank: coord[1]},	
 				}).done(function (data){
-						alert(data.moves);
+					alert(typeof data.moves +" : "+data.moves);
+						//data.moves.forEach(function(coord){
+						//		element = document.getElementById(coord);
+						//		element.style.background = 'green';
+						//	});
 					})
 		})
 })

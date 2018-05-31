@@ -10,6 +10,7 @@ use AppBundle\Service\Board\BoardCoordinates;
 use AppBundle\Service\Pieces\Pawn;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/game")
@@ -89,16 +90,15 @@ class GameController extends Controller
         
         if(!is_null($piece))
         {
+            
             $moveList = $board->getPossibleMovesOf($piece);
-            
-            
             
             if(count($moveList) != 0)
             {
                 
                 foreach ($moveList as $move)
                 {
-                    array_push($stringMove, $move->getCoordinates()->getFile().$move->getCoordinates()->getRank());
+                    array_push($stringMove, $move->getFile().$move->getRank());
                 }
                 
             }
