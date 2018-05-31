@@ -31,7 +31,7 @@ class Turn
      */
     private $blackMove;
 
-    public function __construct(int $turnNumber, Move $whiteMove, Move $blackMove)
+    public function __construct(int $turnNumber, Move $whiteMove, ?Move $blackMove)
     {
         if($turnNumber > 0)
         {
