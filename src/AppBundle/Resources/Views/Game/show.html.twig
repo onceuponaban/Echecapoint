@@ -31,7 +31,7 @@
 				
 					{% if piece.coordinates.file == file and piece.coordinates.rank == rank %}
 					
-						<span id="{{ piece.htmlCode }}" style="font-size:250%">&#{{ piece.htmlCode }};</span>
+						<span id="{% if piece.isWhite %}w{% else %}b{% endif %}{{ file }}{{ rank }}" style="font-size:250%">&#{{ piece.htmlCode }};</span>
 				
 					{% endif %}
 					
@@ -54,6 +54,7 @@
 <script type="text/javascript">
 
 $(function() {
+	
 	$("td").click(function (){
 
 			var id = $(this).attr('id');
@@ -78,25 +79,50 @@ $(function() {
 			}
 			else
 			{
-				SelectionCase(id);
-				
-				var coord = CoordinatesFromId(id);
-				$.ajax({
-						url: "{{ path("app_list_move") }}",
-						data: {id: {{ game.id }},file: coord[0],rank: coord[1]},	
-					}).done(function (data){
-						//alert(typeof data.moves +" : "+data.moves);
 
-						arrayMoves = ArrayFromString(data.moves);
-						
-						arrayMoves.forEach(function(coord){
-								element = document.getElementById(coord);
-								element.style.background = 'lightgreen';
-							});
-						})				
+				var userColor = GetUserColor();
+
+				if(document.getElementById(userColor+id) === null)
+				{
+					SelectionCase(id);
+					
+					var coord = CoordinatesFromId(id);
+					$.ajax({
+							url: "{{ path("app_list_move") }}",
+							data: {id: {{ game.id }},file: coord[0],rank: coord[1]},	
+						}).done(function (data){
+							//alert(typeof data.moves +" : "+data.moves);
+
+							arrayMoves = ArrayFromString(data.moves);
+							
+							arrayMoves.forEach(function(coord){
+									element = document.getElementById(coord);
+									element.style.background = 'lightgreen';
+								});
+							})		
+				}			
 			}
 		})
 })
+
+function GetUserColor()
+{
+	var user = "{{ user.username }}";
+	var whitePlayer = "{{ game.whitePlayer.username }}";
+	var blackPlayer = "{{ game.blackPlayer.username }}";
+	var userColor = "u";
+
+	if(user.localeCompare(whitePlayer))
+	{
+		userColor = "w";
+	}
+	if(user.localeCompare(blackPlayer))
+	{
+		userColor = "b";
+	}
+	
+	return userColor;
+}
 
 function GetYellowCase()
 {
