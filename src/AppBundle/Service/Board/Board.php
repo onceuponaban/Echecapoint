@@ -555,8 +555,24 @@ class Board
             
             foreach($turnArray as $turn)
             {
-                array_push($this->turnList, Turn::fromString($turn));
+                if($turn != '')
+                {
+                    array_push($this->turnList, Turn::fromString($turn));
+                }
             }
+            
+            foreach ($this->turnList as $turnToUse)
+            {
+                $this->updateFromMove($turnToUse->getWhiteMove());
+                
+                $blackMove = $turnToUse->getBlackMove();
+                
+                if(!is_null($blackMove))
+                {
+                    $this->updateFromMove($blackMove);
+                }
+            }
+            
         }
     }
     

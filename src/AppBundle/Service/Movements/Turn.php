@@ -53,6 +53,10 @@ class Turn
      */
     public function toString():string
     {
+        if(is_null($this->blackMove))
+        {
+            return $this->turnNumber." ".$this->whiteMove->toString();
+        }
         return $this->turnNumber." ".$this->whiteMove->toString()." ".$this->blackMove->toString();
     }
     
@@ -77,14 +81,14 @@ class Turn
         
         if(count($arrayMove) > 2)
         {
-            $blackMove = Move::fromString($arrayMove[2],false);
+            return new Turn($turnNumber, $whiteMove,Move::fromString($arrayMove[2],false));
         }
         else
         {
-            $blackMove == null;
+            return new Turn($turnNumber, $whiteMove,null);
         }
         
-        return new Turn($turnNumber, $whiteMove, $blackMove);
+        
     }
     
     public function isEqualTo(Turn $otherTurn):bool

@@ -159,6 +159,7 @@ class GameController extends Controller
         else
         {
             $isACapture = true;
+            $board->removePieceAt($coordinates);
         }
         
         $move = new Move($piece, $coordinates, $isACapture);
@@ -171,7 +172,9 @@ class GameController extends Controller
             $em->persist($game);
             $em->flush();
             
-            return new JsonResponse(array('moves' => json_encode("OK")));
+            $coordinatesTest = new BoardCoordinates($filePiece,$rankPiece);
+            
+            return new JsonResponse(array('moves' => json_encode($filePiece.$rankPiece." => ".$fileToGo.$rankToGo)));
         }
         else
         {

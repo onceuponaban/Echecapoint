@@ -112,5 +112,16 @@ class BoardCoordinatesTest extends \PHPUnit_Framework_TestCase
         
         self::assertTrue($coordinates->isEqualTo($coordinatesFromString));
     }
+    
+    public function testFromStringFalse()
+    {
+        $coordinates = new BoardCoordinates(0,0);
+        
+        $other;
+        
+        $coordinatesFromString = BoardCoordinates::fromString($coordinates->toString());
+        
+        self::assertFalse($coordinates->isEqualTo($coordinatesFromString));
+    }
 }
 

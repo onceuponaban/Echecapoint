@@ -65,6 +65,8 @@ $(function() {
 				var coordToGo = CoordinatesFromId(id);
 				var coordPiece = GetYellowCase()
 				
+				alert("Piece : "+coordPiece[0]+coordPiece[1]+" => "+coordToGo[0]+coordToGo[1]);
+				
 				$.ajax({
 						url: "{{ path("app_move") }}",
 						data: {id: {{ game.id }},filePiece: coordPiece[0],rankPiece: coordPiece[1],fileToGo: coordToGo[0],rankToGo: coordToGo[1]},	
