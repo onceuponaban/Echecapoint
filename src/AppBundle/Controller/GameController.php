@@ -162,7 +162,13 @@ class GameController extends Controller
         
         if($board->updateFromMove($move))
         {
+            $game->setBoard($board->toString());
             
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($game);
+            $em->flush();
+            
+            return $this->redirectToRoute('app_game_show',$game->getId());
         }
         else
         {
