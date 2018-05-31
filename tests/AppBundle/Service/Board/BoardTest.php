@@ -124,6 +124,18 @@ class BoardTest extends PHPUnit_Framework_TestCase
         
         $this->board->getPossibleMovesOf(/* parameters */);
     }
+    
+    /**
+     * Tests Board->getPossibleMovesOfPawn()
+     */
+    public function testGetPossibleMovesOfPawn()
+    {
+        $pawn1 = new Pawn(new BoardCoordinates(1,1), true);
+        $board = new Board(true);
+        $board->addPiece($pawn1);
+        var_dump($board->getPossibleMovesOf($pawn1));
+    }
+    
     /**
      * Tests Board->getPossibleMovesOfBishop()
      */
@@ -192,7 +204,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         // TODO Auto-generated BoardTest->testGetPossibleMovesOfRook()
         //$this->markTestIncomplete("getPossibleMovesOfRook test not implemented");
         $rook = new Rook(new BoardCoordinates(0,0), true);
-        $rook = new Board(true);
+        $board = new Board(true);
         $board->addPiece($rook);
         $moveCheck = array(
             new BoardCoordinates(0, 1),
@@ -232,9 +244,9 @@ class BoardTest extends PHPUnit_Framework_TestCase
     public function testGetPossibleMovesOfQueen()
     {
         // TODO Auto-generated BoardTest->testGetPossibleMovesOfQueen()
-        //$this->markTestIncomplete("getPossibleMovesOfQueen test not implemented");
+        $this->markTestIncomplete("getPossibleMovesOfQueen test not implemented");
         $queen = new Queen(new BoardCoordinates(0,0), true);
-        $boad = new Board(true);
+        $board = new Board(true);
         $board->addPiece($queen);
         $moveCheck = array(
             new BoardCoordinates(0, 1),
@@ -427,8 +439,6 @@ class BoardTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated BoardTest->testUpdateFromMove()
         $this->markTestIncomplete("updateFromMove test not implemented");
-        
-        $this->board->updateFromMove(/* parameters */);
     }
     /**
      * Tests Board->isFilled()
