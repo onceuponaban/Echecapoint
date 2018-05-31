@@ -65,7 +65,7 @@ $(function() {
 					url: "{{ path("app_list_move") }}",
 					data: {id: {{ game.id }},file: coord[0],rank: coord[1]},	
 				}).done(function (data){
-						alert(data);
+						alert(data.moves);
 					})
 		})
 })

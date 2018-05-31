@@ -85,18 +85,23 @@ class GameController extends Controller
         
         $piece = $board->pieceAt($coordinates);
         
-        $moveList = $board->getPossibleMovesOf($piece);
-        
         $stringMove = array();
         
-        if(count($moveList) != 0)
+        if(!is_null($piece))
         {
+            $moveList = $board->getPossibleMovesOf($piece);
             
-            foreach ($moveList as $move)
+            
+            
+            if(count($moveList) != 0)
             {
-                array_push($stringMove, $move->getCoordinates()->getFile().$move->getCoordinates()->getRank());
+                
+                foreach ($moveList as $move)
+                {
+                    array_push($stringMove, $move->getCoordinates()->getFile().$move->getCoordinates()->getRank());
+                }
+                
             }
-            
         }
         
         return new JsonResponse(array('moves' => json_encode($stringMove)));
