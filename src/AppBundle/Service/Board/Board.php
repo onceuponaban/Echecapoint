@@ -102,7 +102,7 @@ class Board
     {
         $moveList = array();
         
-        switch ($pieceToGetMoves)
+        switch (get_class($pieceToGetMoves))
         {
             case Pawn::class:
                 $moveList = $this->getPossibleMovesOfPawn($pieceToGetMoves);
@@ -471,18 +471,22 @@ class Board
         $moveList = array();
         do
         {
+            var_dump($direction);
+            var_dump($pieceFile);
+            var_dump($pieceRank);
+            echo "test pour les coordonnées: ". $pieceFile + $direction['file']." ". $pieceRank + $direction['rank']."\n";
             $move = new BoardCoordinates($pieceFile + $direction['file'], $pieceRank + $direction['rank']);
             if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
                 break;
-                $moveList[] = $move;
-                if ($this->isFilled($move)) //si la case est occupée
-                {
-                    //si la pièce est du camp adverse, elle peut être capturée
-                    if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
-                        $moveList[] = $move;
-                        break;
-                }
-                $i++;
+            $moveList[] = $move;
+            if ($this->isFilled($move)) //si la case est occupée
+            {
+                //si la pièce est du camp adverse, elle peut être capturée
+                if (!($this->pieceAt($move)->isWhite() == $pieceToGetMoves->isWhite()))
+                    $moveList[] = $move;
+                    break;
+            }
+            $i++;
         } while($i<=7);
         return $moveList;
     }
