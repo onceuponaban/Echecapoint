@@ -181,7 +181,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
         $enemyPawn = new Pawn(new BoardCoordinates(2, 2), false);
         $board->addPiece($enemyPawn);
-        //mais il peut se déplacer sur la position du pion ennemi (pour le capturer)
+        //mais elle peut se déplacer sur la position du pion ennemi (pour le capturer)
         self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
     }
     /**
@@ -232,9 +232,41 @@ class BoardTest extends PHPUnit_Framework_TestCase
     public function testGetPossibleMovesOfQueen()
     {
         // TODO Auto-generated BoardTest->testGetPossibleMovesOfQueen()
-        $this->markTestIncomplete("getPossibleMovesOfQueen test not implemented");
-        
-        $this->board->getPossibleMovesOfQueen(/* parameters */);
+        //$this->markTestIncomplete("getPossibleMovesOfQueen test not implemented");
+        $queen = new Queen(new BoardCoordinates(0,0), true);
+        $boad = new Board(true);
+        $board->addPiece($queen);
+        $moveCheck = array(
+            new BoardCoordinates(0, 1),
+            new BoardCoordinates(0, 2),
+            new BoardCoordinates(0, 3),
+            new BoardCoordinates(0, 4),
+            new BoardCoordinates(0, 5),
+            new BoardCoordinates(0, 6),
+            new BoardCoordinates(0, 7),
+            new BoardCoordinates(1, 0),
+            new BoardCoordinates(2, 0),
+            new BoardCoordinates(3, 0),
+            new BoardCoordinates(4, 0),
+            new BoardCoordinates(5, 0),
+            new BoardCoordinates(6, 0),
+            new BoardCoordinates(7, 0)
+        );
+        self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfQueen($queen)));
+        $pawn = new Pawn(new BoardCoordinates(0,6), true);
+        $board->addPiece($pawn);
+        //La reine ne peut pas se déplacer sur la position du pion allié ni derrière
+        self::assertFalse($board->equalCoords($moveCheck, $board->getPossibleMovesOfQueen($queen)));
+        unset($moveCheck[5]);
+        unset($moveCheck[6]);
+        self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfQueen($queen)));
+        $enemyPawn = new Pawn(new BoardCoordinates(0, 4), false);
+        $board->addPiece($enemyPawn);
+        //ni derrière le pion ennemi
+        self::assertFalse($board->equalCoords($moveCheck, $board->getPossibleMovesOfQueen($queen)));
+        unset($moveCheck[4]);
+        //mais ellel peut se déplacer sur le pion lui même pour le capturer
+        self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfQueen($queen)));
     }
     /**
      * Tests Board->checkOf()
