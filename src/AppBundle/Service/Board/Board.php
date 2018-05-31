@@ -834,7 +834,7 @@ class Board
         $turnListString = "";
         foreach($this->getTurnList() as $turn)
         {
-            $turnListString = $turnListString . $turn->toString() . "";
+            $turnListString = $turnListString . "" . $turn->toString() . ";";
         }
         return $turnListString;
     }

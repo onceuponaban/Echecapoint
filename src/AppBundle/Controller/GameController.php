@@ -11,6 +11,7 @@ use AppBundle\Service\Pieces\Pawn;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Service\Movements\Move;
 
 /**
  * @Route("/game")
@@ -146,7 +147,27 @@ class GameController extends Controller
         
         $coordinates = new BoardCoordinates($fileToGo, $rankToGo);
         
-        $piece = $board->pieceAt($coordinates);
+        $piece = $board->pieceAt(new BoardCoordinates($filePiece, $rankPiece));
+        
+        if(is_null($board->pieceAt($coordinates)))
+        {
+            $isACapture = false;
+        }
+        else
+        {
+            $isACapture = true;
+        }
+        
+        $move = new Move($piece, $coordinates, $isACapture);
+        
+        if($board->updateFromMove($move))
+        {
+            
+        }
+        else
+        {
+            return new JsonResponse(array('moves' => json_encode("Erreur")));
+        }
     }
 
 }
