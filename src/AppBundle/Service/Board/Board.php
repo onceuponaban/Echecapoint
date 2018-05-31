@@ -699,7 +699,6 @@ class Board
                 // et on vérifie si il met le roi en echec
                 if(!$boardTest->checkOf($moveToAdd->getPiece()->isWhite()))
                 {
-                    echo "MOUVEMENT EFFECTUÉ \n";
                     //mouvement valide ne mettant pas le roi en échec: on recopie la liste des pièces du plateau de test sur le plateau principal et on applique le score
                     $this->setPieces($boardTest->getPieces());
                     $this->setWhiteScore($boardTest->whiteScore);
