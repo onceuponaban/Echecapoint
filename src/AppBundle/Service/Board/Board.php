@@ -389,7 +389,7 @@ class Board
             if($piece==King::class){
                 //Si le roi et la couleur de recherche sont les mêmes
                 if(!($piece->isWhite xor $color)){
-                 $KingCoordinates=$piece.getcoordinates();
+                 $KingCoordinates=$piece->getCoordinates();
                 }
             }
         }
