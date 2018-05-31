@@ -47,7 +47,7 @@ class TurnTest extends \PHPUnit_Framework_TestCase
         
         $turnTwo = new Turn(1, new Move(new Pawn(new BoardCoordinates(4,1), true), new BoardCoordinates(4,2), false), new Move(new Pawn(new BoardCoordinates(3,6), false), new BoardCoordinates(3,5), false));
         
-        $turnFromString = Turn::fromString($turn->toString());
+        $turnFromString = Turn::fromString($turnTwo->toString());
         
         self::assertFalse($turn->isEqualTo($turnFromString));
     }

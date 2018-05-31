@@ -62,7 +62,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         $pieceList = $board->getPieceList();
         
         foreach ($pieceList as &$piece)
-        {   
+        {
             switch (get_class($piece))
             {
                 case Rook::class:
@@ -140,9 +140,19 @@ class BoardTest extends PHPUnit_Framework_TestCase
     public function testGetPossibleMovesOfKnight()
     {
         // TODO Auto-generated BoardTest->testGetPossibleMovesOfKnight()
-        $this->markTestIncomplete("getPossibleMovesOfKnight test not implemented");
-        
-        $this->board->getPossibleMovesOfKnight(/* parameters */);
+        //$this->markTestIncomplete("getPossibleMovesOfKnight test not implemented");
+        $knight = new Knight(new BoardCoordinates(1,0), true);
+        $board = new Board(true);
+        $board->addPiece($knight);
+        $moveCheck = array(
+            new BoardCoordinates(3, 1),
+            new BoardCoordinates(2, 2),
+            new BoardCoordinates(0, 2)
+        );
+        self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
+        $pawn = new Pawn(new BoardCoordinates(3,1), true);
+        $board->addPiece($pawn);
+        self::assertFalse($board->equalCoords($moveCheck, $board->getPossibleMovesOfKnight($knight)));
     }
     /**
      * Tests Board->getPossibleMovesOfRook()
