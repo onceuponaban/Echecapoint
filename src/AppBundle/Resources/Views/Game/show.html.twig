@@ -65,15 +65,34 @@ $(function() {
 					url: "{{ path("app_list_move") }}",
 					data: {id: {{ game.id }},file: coord[0],rank: coord[1]},	
 				}).done(function (data){
-					alert(typeof data.moves +" : "+data.moves);
-						//data.moves.forEach(function(coord){
-						//		element = document.getElementById(coord);
-						//		element.style.background = 'green';
-						//	});
+					//alert(typeof data.moves +" : "+data.moves);
+
+					arrayMoves = ArrayFromString(data.moves);
+					
+					arrayMoves.forEach(function(coord){
+							element = document.getElementById(coord);
+							element.style.background = 'lightgreen';
+						});
 					})
 		})
 })
 
+function ArrayFromString(string)
+{
+	var arrayString = string.split("");
+
+	var arrayReturn = [];
+
+	if(arrayString.length > 6)
+	{
+		for(var i = 2 ; i < arrayString.length ; i+=5)
+		{
+			arrayReturn.push(arrayString[i]+arrayString[i+1]);
+		} 
+	}
+
+	return arrayReturn;
+}
 
 function SelectionCase(id)
 {
