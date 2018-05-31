@@ -489,5 +489,11 @@ class BoardTest extends PHPUnit_Framework_TestCase
     {
         $board = new Board(false);
         
+        $move = new Move($board->pieceAt(BoardCoordinates::fromString("e2")),BoardCoordinates::fromString("e4"),false);
+        
+        $board->updateFromMove($move);
+        
+        echo $board->toString()."\n";
+        
     }
 }

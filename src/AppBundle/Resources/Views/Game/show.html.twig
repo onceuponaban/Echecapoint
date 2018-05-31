@@ -69,10 +69,16 @@ $(function() {
 						url: "{{ path("app_move") }}",
 						data: {id: {{ game.id }},filePiece: coordPiece[0],rankPiece: coordPiece[1],fileToGo: coordToGo[0],rankToGo: coordToGo[1]},	
 					}).done(function (data){
+
+						alert(typeof data.moves +" : "+data.moves);
 						
 						if(data.moves.localeCompare("\"Erreur\"") == 0)
 						{
 							ResetColor();
+						}
+						else
+						{
+							location.reload();
 						}
 						
 						})	

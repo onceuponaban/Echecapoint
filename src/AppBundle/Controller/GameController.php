@@ -171,7 +171,7 @@ class GameController extends Controller
             $em->persist($game);
             $em->flush();
             
-            return $this->redirectToRoute('app_game_show',$game->getId());
+            return new JsonResponse(array('moves' => json_encode("OK")));
         }
         else
         {

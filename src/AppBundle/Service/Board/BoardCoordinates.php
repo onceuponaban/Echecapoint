@@ -89,7 +89,7 @@ class BoardCoordinates
     
     public static function fromString(string $stringCoordinates):BoardCoordinates
     {
-        $arrayCoordinates = explode(" ", $stringCoordinates);
+        $arrayCoordinates = str_split($stringCoordinates);
         
         $file = -1;
         

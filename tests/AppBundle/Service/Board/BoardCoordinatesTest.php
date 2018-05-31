@@ -103,5 +103,14 @@ class BoardCoordinatesTest extends \PHPUnit_Framework_TestCase
         
         self::assertFalse($randomCoordinates->isOnTheBoard(),"");
     }
+    
+    public function testFromStringTrue()
+    {
+        $coordinates = new BoardCoordinates(0,0);
+        
+        $coordinatesFromString = BoardCoordinates::fromString($coordinates->toString());
+        
+        self::assertTrue($coordinates->isEqualTo($coordinatesFromString));
+    }
 }
 
