@@ -576,9 +576,9 @@ class Board
                 $boardTest->setWhiteScore($this->whiteScore);
                 $boardTest->setBlackScore($this->blackScore);
                 $boardTest->setTurnList($this->getTurnList());
-                foreach ($this->pieceList as $piece)
+                foreach ($this->pieceList as $pieceMain)
                 {
-                    $boardTest->addPiece($piece);
+                    $boardTest->addPiece($pieceMain);
                 }
                 //var_dump($boardTest);
                 //le mouvement n'est valide que si il ne met pas le roi en échec. On va donc effectuer le mouvement puis vérifier si le roi est en échec.
@@ -595,11 +595,11 @@ class Board
                             for ($i = $moveToAdd->getPiece()->getCoordinates()->getFile(); $i <= $moveToAdd->getCoordinates()->getFile(); $i++)
                             {
                                 $SquareToCheck = new BoardCoordinates($i, $moveToAdd->getPiece()->getCoordinates()->getRank());
-                                foreach ($boardTest->getPieces() as $piece)
+                                foreach ($boardTest->getPieces() as $pieceTest)
                                 {
-                                    foreach($boardTest->getPossibleMovesOf($piece) as $possibleMove)
+                                    foreach($boardTest->getPossibleMovesOf($pieceTest) as $possibleMove)
                                     {
-                                        if($possibleMove->getFile() == $SquareToCheck->getFile() && $possibleMove->getRank() == $SquareToCheck->getRank())
+                                        if($SquareToCheck->isEqualTo($possibleMove))
                                             return false;
                                     }
                                 }
@@ -610,7 +610,7 @@ class Board
                             //déplacement du roi
                             $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
                             //déplacement de la tour
-                            $boardTest->pieceAt($currentRookLocation)->moveTo($newRookLocation);
+                            ($boardTest->pieceAt($currentRookLocation))->moveTo($newRookLocation);
                         }
                         else //sinon, c'est un grand roque.
                         {
@@ -618,11 +618,11 @@ class Board
                             for ($i = $moveToAdd->getCoordinates()->getFile(); $i <= $moveToAdd->getPiece()->getCoordinates()->getFile(); $i++)
                             {
                                 $SquareToCheck = new BoardCoordinates($i, $moveToAdd->getPiece()->getCoordinates()->getRank());
-                                foreach ($boardTest->getPieces() as $piece)
+                                foreach ($boardTest->getPieces() as $pieceTest)
                                 {
-                                    foreach($boardTest->getPossibleMovesOf($piece) as $possibleMove)
+                                    foreach($boardTest->getPossibleMovesOf($pieceTest) as $possibleMove)
                                     {
-                                        if($possibleMove->getFile() == $SquareToCheck->getFile() && $possibleMove->getRank() == $SquareToCheck->getRank())
+                                        if($SquareToCheck->isEqualTo($possibleMove))
                                             return false;
                                     }
                                 }
@@ -631,9 +631,9 @@ class Board
                             $currentRookLocation = new BoardCoordinates(7, $moveToAdd->getCoordinates()->getRank());
                             $newRookLocation = new BoardCoordinates($moveToAdd->getCoordinates()->getFile() + 1, $moveToAdd->getCoordinates()->getRank());
                             //déplacement du roi
-                            $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
+                            ($boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates()))->moveTo($moveToAdd->getCoordinates());
                             //déplacement de la tour
-                            $boardTest->pieceAt($currentRookLocation)->moveTo($newRookLocation);
+                            ($boardTest->pieceAt($currentRookLocation))->moveTo($newRookLocation);
                         }
                     }
                     else
@@ -652,7 +652,7 @@ class Board
                         //on récupère la position du pion à capturer
                         $enemyPawnTrueLocation = new BoardCoordinates($moveToAdd->getCoordinates()->getFile(), $moveToAdd->getPiece()->getCoordinates()->getFile());
                         //on effectue le mouvement sur le plateau de test
-                        $boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates())->moveTo($moveToAdd->getCoordinates());
+                        ($boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates()))->moveTo($moveToAdd->getCoordinates());
                         //On ajuste le score en conséquence
                         if($moveToAdd->getPiece()->isWhite())
                         {
@@ -678,25 +678,27 @@ class Board
                         }
                         $boardTest->removePieceAt($moveToAdd->getCoordinates());
                     }
-                    //Après le mouvement (si il y en a eu un) on met à jour la liste de tours et on vérifie si il met le roi en echec
-                    if($moveToAdd->getPiece()->isWhite())
-                    {
-                        $turn = new Turn(count($boardTest) + 1, $moveToAdd, null);
-                        $boardTest->setTurnList(array_push($boardTest->getTurnList(), $turn));
-                    }
-                    else
-                    {
-                        //On récupère la liste des tours
-                        $turnListToUpdate = $boardTest->getTurnList();
-                        //On met a jour le dernier tour
-                        $turnListToUpdate[count($turnListToUpdate) - 1]->setBlackMove($moveToAdd);
-                        //On le remet dans la liste
-                        $boardTest->setTurnList($turnListToUpdate);
-                    }
                 }
+                //Après le mouvement (si il y en a eu un) on met à jour la liste de tours sur le plateau de test
+                if($moveToAdd->getPiece()->isWhite())
+                {
+                    $turn = new Turn(count($boardTest) + 1, $moveToAdd, null);
+                    $turnListToUpdate = $boardTest->getTurnList();
+                    $turnListToUpdate[] = $turn;
+                    $boardTest->setTurnList($turnListToUpdate);
+                }
+                else
+                {
+                    //On récupère la liste des tours
+                    $turnListToUpdate = $boardTest->getTurnList();
+                    //On met a jour le dernier tour
+                    $turnListToUpdate[count($turnListToUpdate) - 1]->setBlackMove($moveToAdd);
+                    //On le remet dans la liste
+                    $boardTest->setTurnList($turnListToUpdate);
+                }
+                // et on vérifie si il met le roi en echec
                 if(!$boardTest->checkOf($moveToAdd->getPiece()->isWhite()))
                 {
-                    //echo "MOUVEMENT EFFECTUÉ \n";
                     //mouvement valide ne mettant pas le roi en échec: on recopie la liste des pièces du plateau de test sur le plateau principal et on applique le score
                     $this->setPieces($boardTest->getPieces());
                     $this->setWhiteScore($boardTest->whiteScore);
