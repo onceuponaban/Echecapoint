@@ -149,6 +149,8 @@ class BoardTest extends PHPUnit_Framework_TestCase
         self::assertFalse($board->equalCoords($moveCheck, $board->getPossibleMovesOfBishop($bishop)));
         unset($moveCheck[5]);
         unset($moveCheck[6]);
+        var_dump($moveCheck);
+        var_dump($board->getPossibleMovesOfBishop($bishop));
         self::assertTrue($board->equalCoords($moveCheck, $board->getPossibleMovesOfBishop($bishop)));
         $enemyPawn = new Pawn(new BoardCoordinates(1, 1), false);
         $board->addPiece($enemyPawn);
