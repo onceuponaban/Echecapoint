@@ -565,12 +565,10 @@ class Board
         //on récupère la liste des coups possible pour la pièce
         $moveList = $this->getPossibleMovesOf($moveToAdd->getPiece());
         //On parcours la liste des mouvement possibles pour vérifier que le mouvement est possbile
-        //var_dump($moveList);
         foreach ($moveList as $move)
         {
             if($moveToAdd->getCoordinates()->isEqualTo($move))
             {
-                //echo "MOUVEMENT VALIDE\n";
                 //On recopie notre plateau sur un plateau de test
                 $boardTest = new Board(true);
                 $boardTest->setWhiteScore($this->whiteScore);
@@ -580,7 +578,6 @@ class Board
                 {
                     $boardTest->addPiece($pieceMain);
                 }
-                //var_dump($boardTest);
                 //le mouvement n'est valide que si il ne met pas le roi en échec. On va donc effectuer le mouvement puis vérifier si le roi est en échec.
                 if(!$moveToAdd->isACapture())
                 {
@@ -640,7 +637,6 @@ class Board
                     {
                         
                         //Mouvement standard : on tente le mouvement sur le plateau de test
-                        //var_dump($boardTest->getPieces());
                         ($boardTest->pieceAt($moveToAdd->getPiece()->getCoordinates()))->moveTo($moveToAdd->getCoordinates());
                     }
                 }
