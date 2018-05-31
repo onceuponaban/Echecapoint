@@ -58,24 +58,66 @@ $(function() {
 
 			var id = $(this).attr('id');
 
-			SelectionCase(id);
-			
-			var coord = CoordinatesFromId(id);
-			$.ajax({
-					url: "{{ path("app_list_move") }}",
-					data: {id: {{ game.id }},file: coord[0],rank: coord[1]},	
-				}).done(function (data){
-					//alert(typeof data.moves +" : "+data.moves);
+			if(document.getElementById(id).style.background == 'lightgreen')
+			{
+				alert("Déplacement de la piece");
+				var coordToGo = CoordinatesFromId(id);
+				var coordPiece = GetYellowCase()
+				
+				$.ajax({
+						url: "{{ path("app_move") }}",
+						data: {id: {{ game.id }},filePiece: coordPiece[0],rankPiece: coordPiece[1],fileToGo: coordToGo[0],rankToGo: coordToGo[1]},	
+					}).done(function (data){
+						//alert(typeof data.moves +" : "+data.moves);
 
-					arrayMoves = ArrayFromString(data.moves);
-					
-					arrayMoves.forEach(function(coord){
-							element = document.getElementById(coord);
-							element.style.background = 'lightgreen';
-						});
-					})
+						//arrayMoves = ArrayFromString(data.moves);
+						
+						//arrayMoves.forEach(function(coord){
+						//		element = document.getElementById(coord);
+						//		element.style.background = 'lightgreen';
+						//	});
+						})	
+			}
+			else
+			{
+				SelectionCase(id);
+				
+				var coord = CoordinatesFromId(id);
+				$.ajax({
+						url: "{{ path("app_list_move") }}",
+						data: {id: {{ game.id }},file: coord[0],rank: coord[1]},	
+					}).done(function (data){
+						//alert(typeof data.moves +" : "+data.moves);
+
+						arrayMoves = ArrayFromString(data.moves);
+						
+						arrayMoves.forEach(function(coord){
+								element = document.getElementById(coord);
+								element.style.background = 'lightgreen';
+							});
+						})				
+			}
 		})
 })
+
+function GetYellowCase()
+{
+	var caseCoord = [0,0];
+	
+	for(var i = 0 ; i<8 ; i+=1)
+	{
+		for(var j = 0 ; j < 8 ; j+=1)
+		{
+			var element = document.getElementById(String(i)+String(j));
+			if(element.style.background == 'yellow')
+			{
+				caseCoord = [i,j];
+			}
+		}
+	}
+
+	return caseCoord;
+}
 
 function ArrayFromString(string)
 {
