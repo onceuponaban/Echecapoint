@@ -8,6 +8,8 @@ use AppBundle\Entity\Game;
 use AppBundle\Service\Board\Board;
 use AppBundle\Service\Board\BoardCoordinates;
 use AppBundle\Service\Pieces\Pawn;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/game")
@@ -49,6 +51,45 @@ class GameController extends Controller
             'game' => $game,
             'board' => $board
         ));
+    }
+    
+    /**
+     * @Route("/possiblemove", name="app_list_move")
+     */
+    public function listMoveAction(Request $request)
+    {
+        $id = $request->get('id');
+        
+        $file = $request->get('file');
+        
+        $rank = $request->get('rank');
+        
+        
+        $game = $this->getDoctrine()->getRepository(Game::class)->find($id);
+        
+        $board = new Board(false);
+        
+        $board->updateFromString($game->getBoard());
+        
+        $coordinates = new BoardCoordinates($file, $rank);
+        
+        $piece = $board->pieceAt($coordinates);
+        
+        $moveList = $board->getPossibleMovesOf($piece);
+        
+        $stringMove = array();
+        
+        if(count($moveList) != 0)
+        {
+            
+            foreach ($moveList as $move)
+            {
+                array_push($stringMove, $move->getCoordinates()->getFile().$move->getCoordinates()->getRank());
+            }
+            
+        }
+        
+        return new JsonResponse(array('moves' => json_encode($stringMove)));
     }
 
 }

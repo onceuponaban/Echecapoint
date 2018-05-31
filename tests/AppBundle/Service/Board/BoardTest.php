@@ -220,9 +220,9 @@ class BoardTest extends PHPUnit_Framework_TestCase
         $Board->addPiece($WhiteBishop);
         
         //Le pion noir met le roi blanc en echec
-        self::assertEquals(true, $Board->checkOf(WHITE));
+        self::assertEquals(true, $Board->checkOf(1));
         //Le fou blanc ne met pas le roi noir en echec
-        self::assertEquals(FALSE, $Board->checkOf(BLACK));
+        self::assertEquals(FALSE, $Board->checkOf(0));
         
         
         
