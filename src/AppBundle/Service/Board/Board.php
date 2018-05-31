@@ -200,7 +200,7 @@ class Board
             if(!$this->isFilled($move1))
             {
                 $moveList[] = $move1;
-                $move2 = new BoardCoordinates($pieceFile, $pieceRank + 1);
+                $move2 = new BoardCoordinates($pieceFile, $pieceRank - 2);
                 //si la case 2 lignes devant est vide également et que le pion n'a pas bougé
                 if(!$this->isFilled($move2) && !$pieceToGetMoves->hasMoved())
                     $moveList[] = $move2;
