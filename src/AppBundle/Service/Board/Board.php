@@ -867,7 +867,7 @@ class Board
     
     public function removePieceAt(BoardCoordinates $coordinates):bool
     {
-        foreach($this->getPieces() as $piece)
+        foreach($this->pieceList as $piece)
         {
             if(($piece->getCoordinates())->isEqualto($coordinates))
             {
