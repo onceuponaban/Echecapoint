@@ -465,17 +465,15 @@ class Board
     
     public function exploreDirection(Piece $pieceToGetMoves, array $direction): array
     {
+        //echo "Appel de la fonction sur la direction (".$direction['file'].",".$direction['rank'].")\n";
         $i = 1;
         $pieceFile = $pieceToGetMoves->getCoordinates()->getFile();
         $pieceRank = $pieceToGetMoves->getCoordinates()->getRank();
         $moveList = array();
         do
         {
-            var_dump($direction);
-            var_dump($pieceFile);
-            var_dump($pieceRank);
-            echo "test pour les coordonnées: ". ($pieceFile + $direction['file']) ." ". ($pieceRank + $direction['rank']) ."\n";
-            $move = new BoardCoordinates($pieceFile + $direction['file'], $pieceRank + $direction['rank']);
+            //echo "test pour les coordonnées: (". ($pieceFile + $i*$direction['file']) .";". ($pieceRank + $i*$direction['rank']) .")\n";
+            $move = new BoardCoordinates($pieceFile + $i*$direction['file'], $pieceRank + $i*$direction['rank']);
             if (!$move->isOnTheBoard()) //si la case n'est pas sur le tableau, on s'arrête
                 break;
             $moveList[] = $move;
