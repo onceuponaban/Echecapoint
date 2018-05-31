@@ -101,9 +101,9 @@ class Move
         
         $arrayMove = str_split($stringMove);
         
-        $startCoordinates = BoardCoordinates::fromString($arrayMove[1]." ".$arrayMove[2]);
+        $startCoordinates = BoardCoordinates::fromString($arrayMove[1].$arrayMove[2]);
         
-        $endCoordinates = BoardCoordinates::fromString($arrayMove[4]." ".$arrayMove[5]);
+        $endCoordinates = BoardCoordinates::fromString($arrayMove[4].$arrayMove[5]);
         
         if($arrayMove[3] == '-')
         {
