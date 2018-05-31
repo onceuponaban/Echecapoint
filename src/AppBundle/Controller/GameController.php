@@ -129,9 +129,13 @@ class GameController extends Controller
         {
             $id = (isset($_GET["id"])) ? $_GET["id"] : NULL;
             
-            $file = (isset($_GET["file"])) ? $_GET["file"] : NULL;
+            $filePiece = (isset($_GET["filePiece"])) ? $_GET["filePiece"] : NULL;
             
-            $rank = (isset($_GET["rank"])) ? $_GET["rank"] : NULL;
+            $rankPiece = (isset($_GET["rankPiece"])) ? $_GET["rankPiece"] : NULL;
+            
+            $fileToGo = (isset($_GET["fileToGo"])) ? $_GET["fileToGo"] : NULL;
+            
+            $rankToGo = (isset($_GET["rankToGo"])) ? $_GET["rankToGo"] : NULL;
         }
     }
 
