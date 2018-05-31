@@ -43,6 +43,8 @@ class GameController extends Controller
      */
     public function showAction(int $id)
     {
+        $user = $this->getUser();
+        
         $game = $this->getDoctrine()->getRepository(Game::class)->find($id);
         
         $board = new Board(false);
@@ -50,6 +52,7 @@ class GameController extends Controller
         $board->updateFromString($game->getBoard());
         
         return $this->render('AppBundle:Game:show.html.twig', array(
+            'user' => $user,
             'game' => $game,
             'board' => $board
         ));
