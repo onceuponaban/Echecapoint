@@ -484,4 +484,10 @@ class BoardTest extends PHPUnit_Framework_TestCase
         
         $this->board->pieceAt(/* parameters */);
     }
+    
+    public function testToString()
+    {
+        $board = new Board(false);
+        
+    }
 }
