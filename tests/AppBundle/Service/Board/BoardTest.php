@@ -201,7 +201,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         //Roi Noir
         $BlackKingsCoordinates = new BoardCoordinates(3, 6);
         //Fou Blanc
-        $WhiteBishopsCoordinates = new BoardCoordinates(0, 4);
+        $WhiteBishopsCoordinates = new BoardCoordinates(0, 5);
         
         //On crée les pièces
         //Roi blanc
@@ -221,6 +221,7 @@ class BoardTest extends PHPUnit_Framework_TestCase
         
         //Le pion noir met le roi blanc en echec
         self::assertEquals(true, $Board->checkOf(1));
+        
         //Le fou blanc ne met pas le roi noir en echec
         self::assertEquals(FALSE, $Board->checkOf(0));
         
