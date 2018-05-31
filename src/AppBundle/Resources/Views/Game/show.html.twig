@@ -1,5 +1,5 @@
 {% block javascripts %}
-  <script type="text/javascript" src="{{ asset('js/game.js') }}"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -19,11 +19,11 @@
 	
 	            {% if (file+rank)%2 != 0 %}
 		
-					<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;" onclick="request(readData,this)">
+					<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;" onclick="SelectionCase(this.getId())">
 	
 	            {% else %}
 	            	        
-	        		<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;background:silver;" onclick="request(readData,this)">
+	        		<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;background:silver;" onclick="SelectionCase(this.getId())">
 	
 	            {% endif %}
 				
@@ -47,7 +47,67 @@
 
 </table>
 
-<div id="error">
-</div>
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+
+$(function() {
+	$("td").click(function (){
+			//SelectionCase($(this));
+			var coord = CoordinatesFromId($(this));
+			$.ajax({
+					url: "{{ path("app_list_move") }}",
+					id: {{ game.id }},
+					file: coord[0],
+					rank: coord[1],
+				}).done(function (data){
+						alert(data);
+					})
+		})
+})
+
+
+//function SelectionCase(element)
+//{
+//	ResetColor();
+//	element.style.background = 'yellow';
+//	coordinates = CoordinatesFromId(element.id);
+//
+//	possibleCoordinates;
+//}
+
+
+//function ResetColor()
+//{
+//	for(var i = 0 ; i<8 ; i+=1)
+//	{
+//		for(var j = 0 ; j < 8 ; j+=1)
+//		{
+//			var element = document.getElementById(String(i)+String(j));
+//			if( ((i+j) % 2) == 0)
+//			{
+//				element.style.background = 'silver';
+//			}
+//			else
+//			{
+//				element.style.background = 'white';
+//			}
+//		}
+//	}
+//}
+
+function CoordinatesFromId(id)
+{
+	var arrayId = id.split("");
+
+	var coordinates = [parseInt(arrayId[0]),parseInt(arrayId[1])];
+	
+	return coordinates;
+	
+}
+
+</script>
 
 {% endblock %}
