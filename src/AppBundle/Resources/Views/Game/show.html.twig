@@ -1,5 +1,5 @@
 {% block javascripts %}
-  <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -31,7 +31,7 @@
 				
 					{% if piece.coordinates.file == file and piece.coordinates.rank == rank %}
 					
-						<span style="font-size:250%">&#{{ piece.htmlCode }};</span>
+						<span id="{{ piece.htmlCode }}" style="font-size:250%">&#{{ piece.htmlCode }};</span>
 				
 					{% endif %}
 					
@@ -60,7 +60,7 @@ $(function() {
 
 			if(document.getElementById(id).style.background == 'lightgreen')
 			{
-				alert("Déplacement de la piece");
+				//alert("Déplacement de la piece");
 				var coordToGo = CoordinatesFromId(id);
 				var coordPiece = GetYellowCase()
 				
@@ -68,192 +68,12 @@ $(function() {
 						url: "{{ path("app_move") }}",
 						data: {id: {{ game.id }},filePiece: coordPiece[0],rankPiece: coordPiece[1],fileToGo: coordToGo[0],rankToGo: coordToGo[1]},	
 					}).done(function (data){
-						//alert(typeof data.moves +" : "+data.moves);
-
-						//arrayMoves = ArrayFromString(data.moves);
 						
-						//arrayMoves.forEach(function(coord){
-						//		element = document.getElementById(coord);
-						//		element.style.background = 'lightgreen';
-						//	});
-						})	
-			}
-			else
-			{
-				SelectionCase(id);
-				
-				var coord = CoordinatesFromId(id);
-				$.ajax({
-						url: "{{ path("app_list_move") }}",
-						data: {id: {{ game.id }},file: coord[0],rank: coord[1]},	
-					}).done(function (data){
-						//alert(typeof data.moves +" : "+data.moves);
-
-						arrayMoves = ArrayFromString(data.moves);
+						if(data.moves.localeCompare("\"Erreur\"") == 0)
+						{
+							ResetColor();
+						}
 						
-						arrayMoves.forEach(function(coord){
-								element = document.getElementById(coord);
-								element.style.background = 'lightgreen';
-							});
-						})				
-			}
-		})
-})
-
-function GetYellowCase()
-{
-	var caseCoord = [0,0];
-	
-	for(var i = 0 ; i<8 ; i+=1)
-	{
-		for(var j = 0 ; j < 8 ; j+=1)
-		{
-			var element = document.getElementById(String(i)+String(j));
-			if(element.style.background == 'yellow')
-			{
-				caseCoord = [i,j];
-			}
-		}
-	}
-
-	return caseCoord;
-}
-
-function ArrayFromString(string)
-{
-	var arrayString = string.split("");
-
-	var arrayReturn = [];
-
-	if(arrayString.length >= 5)
-	{
-		for(var i = 2 ; i < arrayString.length ; i+=5)
-		{
-			arrayReturn.push(arrayString[i]+arrayString[i+1]);
-		} 
-	}
-
-	return arrayReturn;
-}
-
-function SelectionCase(id)
-{
-	element = document.getElementById(id);
-	ResetColor();
-	element.style.background = 'yellow';
-}
-
-
-function ResetColor()
-{
-	for(var i = 0 ; i<8 ; i+=1)
-	{
-		for(var j = 0 ; j < 8 ; j+=1)
-		{
-			var element = document.getElementById(String(i)+String(j));
-			if( ((i+j) % 2) == 0)
-			{
-				element.style.background = 'silver';
-			}
-			else
-			{
-				element.style.background = 'white';
-			}
-		}
-	}
-}
-
-function CoordinatesFromId(id)
-{
-	var arrayId = id.split("");
-
-	var coordinates = [parseInt(arrayId[0]),parseInt(arrayId[1])];
-	
-	return coordinates;
-	
-}
-
-</script>
-
-{% endblock %}
-{% block javascripts %}
-  <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
-{% endblock %}
-
-{% block body %}
-
-<h1 style="text-align:center;">{{ game.whitePlayer.username }} : {{board.whiteScore}} - {{board.blackScore}} : {{ game.blackPlayer.username }}</h1>
-
-<h4 id="partie" style="text-align:center;">{{ game.board }}</h4>
-
-<table style="text-align:center;margin:auto">
-
-
-	{% for file in 0..7 %}
-	
-		<tr>
-	
-	        {% for rank in 0..7 %}
-	
-	            {% if (file+rank)%2 != 0 %}
-		
-					<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;">
-	
-	            {% else %}
-	            	        
-	        		<td id="{{ file }}{{ rank }}" style="width:40pt; height:40pt;background:silver;">
-	
-	            {% endif %}
-				
-				{% for piece in board.piecelist %}
-				
-					{% if piece.coordinates.file == file and piece.coordinates.rank == rank %}
-					
-						<span style="font-size:250%">&#{{ piece.htmlCode }};</span>
-				
-					{% endif %}
-					
-				{% endfor %}
-					
-				</td>
-	
-            {% endfor %}
-	
-		</tr>
-	
-	{% endfor %}
-
-</table>
-
-{% endblock %}
-
-{% block javascript %}
-
-<script type="text/javascript">
-
-$(function() {
-	$("td").click(function (){
-
-			var id = $(this).attr('id');
-
-			if(document.getElementById(id).style.background == 'lightgreen')
-			{
-				alert("Déplacement de la piece");
-				var coordToGo = CoordinatesFromId(id);
-				var coordPiece = GetYellowCase()
-				
-				$.ajax({
-						url: "{{ path("app_move") }}",
-						data: {id: {{ game.id }},filePiece: coordPiece[0],rankPiece: coordPiece[1],fileToGo: coordToGo[0],rankToGo: coordToGo[1]},	
-					}).done(function (data){
-						//alert(typeof data.moves +" : "+data.moves);
-
-						//arrayMoves = ArrayFromString(data.moves);
-						
-						//arrayMoves.forEach(function(coord){
-						//		element = document.getElementById(coord);
-						//		element.style.background = 'lightgreen';
-						//	});
 						})	
 			}
 			else
