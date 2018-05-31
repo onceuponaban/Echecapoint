@@ -127,8 +127,9 @@ class Board
                 $moveList = $this->getPossibleMovesOfKing($pieceToGetMoves);
                 break;
                 
-            return $moveList;
+            
         }
+        return $moveList;
     }
     
     public function getPossibleMovesOfPawn(Piece $pieceToGetMoves):array
@@ -383,30 +384,34 @@ class Board
     public function checkOf(int $color):bool
     {
         
+
         //Recherche des coordonnées du roi de la couleur spécifiée
         foreach ($this->pieceList  as $piece){
             //Si la piece dans la list est un roi
-            if($piece==King::class){
+            if(get_class($piece) == King::class){
+                
                 //Si le roi et la couleur de recherche sont les mêmes
                 if(!($piece->isWhite xor $color)){
+                    
                  $KingCoordinates=$piece->getCoordinates();
                 }
             }
         }
         
-        //Pour toutes les pièce de l'autre couleur on vérifie si elles peuvent mettre le roi en echec
-        
+        //Pour toutes les pièce de l'autre couleur on vérifie si elles peuvent mettre le roi en echec        
         foreach ($this->pieceList as $piece){
             if($piece->isWhite xor $color){
                 //test coup possible vers $KingCoordinates
-                $savePiece = $piece;
-                if($piece->moveTo($KingCoordinates)){
-                    $piece=$savePiece;
-                    return TRUE;
+                $piecePossiblesMove = $this->getPossibleMovesOf($piece);
+                foreach ($piecePossiblesMove as $move){
+                    if($move == $KingCoordinates){
+                        return TRUE;
+                    }
+                    else {
+                        return FALSE;
+                    }
                 }
-                else {
-                    return FALSE;
-                }
+                
             }
         }
     }
@@ -421,7 +426,7 @@ class Board
             //On cherche les coordonnées du roi
             foreach ($this->pieceList  as $piece){
                 //Si la pièce dans la list est un roi
-                if($piece==King::class){
+                if(get_class($piece)==King::class){
                     //Si le roi est la couleur de recherche sont les mêmes
                     if(!($piece->isWhite xor $color)){
                         $KingCoordinates=$piece.getcoordinates();
