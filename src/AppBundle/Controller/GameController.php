@@ -107,36 +107,5 @@ class GameController extends Controller
         return new JsonResponse(array('moves' => json_encode($stringMove)));
 
     }
-    
-    /**
-     * @Route("/move", name="app_move")
-     */
-    public function moveAction(Request $request)
-    {
-        if($request->isXmlHttpRequest())
-        {
-            $id = $request->get('id');
-            
-            $filePiece = $request->get('filePiece');
-            
-            $rankPiece = $request->get('rankPiece');
-            
-            $fileToGo = $request->get('fileToGo');
-            
-            $rankToGo = $request->get('rankToGo');
-            
-        }else
-        {
-            $id = (isset($_GET["id"])) ? $_GET["id"] : NULL;
-            
-            $filePiece = (isset($_GET["filePiece"])) ? $_GET["filePiece"] : NULL;
-            
-            $rankPiece = (isset($_GET["rankPiece"])) ? $_GET["rankPiece"] : NULL;
-            
-            $fileToGo = (isset($_GET["fileToGo"])) ? $_GET["fileToGo"] : NULL;
-            
-            $rankToGo = (isset($_GET["rankToGo"])) ? $_GET["rankToGo"] : NULL;
-        }
-    }
 
 }
